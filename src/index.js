@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Router from './Router';
-import GlobalStyle from './style/GlobalStyle';
+import GlobalStyle from './styles/GlobalStyle';
 import { ThemeProvider } from 'styled-components';
 
 const theme = {};
