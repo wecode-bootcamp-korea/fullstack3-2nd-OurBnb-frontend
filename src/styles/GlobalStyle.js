@@ -10,8 +10,14 @@ const GlobalStyle = createGlobalStyle`
   }
   body{
     background: ${({ theme }) => theme.background};
-    font-family: 'Outfit', Roboto, sans-serif;
     color: ${({ theme }) => theme.foreground};
+    font-family: 'Outfit', Roboto, sans-serif;
+    font-size: 10px;
+  }
+  a,
+  a:visited{
+    text-decoration: none;
+    color:  ${({ theme }) => theme.foreground};
   }
   ol, ul, li {
     list-style: none;
