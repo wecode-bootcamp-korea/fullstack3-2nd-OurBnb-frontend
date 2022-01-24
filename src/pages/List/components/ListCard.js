@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import Carousel from '../../components/Carousel';
+import Carousel from './Carousel';
 
 import { IoHeartOutline } from 'react-icons/io5';
 import { TiHeartFullOutline, TiStar } from 'react-icons/ti';
@@ -38,12 +38,12 @@ const ListCard = ({ room }) => {
 					</RoomDesc>
 					<RoomTitle>{roomName}</RoomTitle>
 					<RoomDesc className="details">
-						{guestCapacity ? <span> 최대 인원 {guestCapacity}명 </span> : null}
-						{bedroomCount ? <span> 침실 {bedroomCount}개 </span> : null}
-						{bedCount ? <span> 침대 {bedCount}개 </span> : null}
-						{bathroomCount ? <span> 욕실 {bathroomCount}개 </span> : null}
+						{guestCapacity && <span> 최대 인원 {guestCapacity}명 </span>}
+						{bedroomCount && <span> 침실 {bedroomCount}개 </span>}
+						{bedCount && <span> 침대 {bedCount}개 </span>}
+						{bathroomCount && <span> 욕실 {bathroomCount}개 </span>}
 					</RoomDesc>
-					{reviewCount ? (
+					{reviewCount && (
 						<ReviewWrapper>
 							<TiStar className="star" />
 							<RatingReview bold="bolder" color="#222222">
@@ -51,7 +51,7 @@ const ListCard = ({ room }) => {
 							</RatingReview>
 							<RatingReview color="#a0a0a0"> (후기 {reviewCount}개)</RatingReview>
 						</ReviewWrapper>
-					) : null}
+					)}
 					<PriceWrapper>
 						<DailyPrice>
 							<span>₩{Intl.NumberFormat().format(price)}</span> / 박
@@ -195,6 +195,7 @@ const RoomDesc = styled.div`
 		}
 	}
 `;
+
 const ReviewWrapper = styled.div`
 	order: -1;
 

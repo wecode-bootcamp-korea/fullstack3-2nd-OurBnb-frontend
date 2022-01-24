@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import Header from '../Header/Header';
+import Footer from '../Footer/Footer';
 import RoomsList from './components/ListAllCards';
-import FilterNav from './ListFilterNav';
-import ListMap from './ListMap';
-
-import { MockHeader, MockFooter } from '../../components/Delete';
+import FilterNav from './components/ListFilterNav';
+import ListMap from './components/ListMap';
+import { invertTheme } from '../../styles/theme';
+import { GET_LIST_API } from '../../config';
 
 const List = () => {
 	const [rooms, setRooms] = useState({});
@@ -14,9 +16,9 @@ const List = () => {
 
 	useEffect(() => {
 		const getRoomData = async () => {
-			// const response = await fetch(`${process.env.REACT_APP_BASE_URL}`)
-			// const response = await fetch('./data/seoulListData.json');
-			const response = await fetch('./data/jejuListData.json');
+			const response = await fetch(`${GET_LIST_API}?location=제주`, {
+				headers: { 'Content-type': 'application/json', mode: 'cors' },
+			});
 			const data = await response.json();
 			setRooms(data);
 			setLat(data.lat);
@@ -28,24 +30,28 @@ const List = () => {
 
 	return (
 		<>
-			<MockHeader>
-				<h1>Mock Header</h1>
+			<HeaderWrapper>
+				<Header theme={invertTheme} />
 				<FilterNav />
-			</MockHeader>
+			</HeaderWrapper>
 
 			<ListContainer>
 				<RoomsList rooms={rooms} />
 				<ListMap center={center} />
 			</ListContainer>
 
-			<MockFooter>
-				<h1>Mock Footer</h1>
-			</MockFooter>
+			<Footer />
 		</>
 	);
 };
 
 export default List;
+
+const HeaderWrapper = styled.div`
+	position: sticky;
+	top: 0;
+	z-index: 9999;
+`;
 
 const ListContainer = styled.main`
 	display: grid;

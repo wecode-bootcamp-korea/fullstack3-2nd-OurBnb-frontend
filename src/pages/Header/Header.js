@@ -88,7 +88,7 @@ export default Header;
 const HeaderWrapper = styled.div`
 	width: 100%;
 	margin-top: 15px;
-	background-color: transparent;
+	background-color: ${({ theme }) => theme.background || 'transparent'};
 `;
 
 const Logo = styled.div`
@@ -105,7 +105,7 @@ const LogoImage = styled.img`
 
 const LogoName = styled.h2`
 	margin: 2.5% 0 0 5px;
-	color: #ffffff;
+	color: ${({ theme }) => theme.foreground || '#ffffff'};
 	cursor: pointer;
 `;
 
@@ -128,7 +128,7 @@ const HeaderLabel = styled.label`
 `;
 
 const HeaderInput = styled.div`
-	color: #ffffff;
+	color: ${({ theme }) => theme.foreground || '#ffffff'};
 `;
 
 const HeaderOption = styled.ul`
@@ -142,7 +142,7 @@ const HeaderChoice = styled.button`
 	border: none;
 	border-radius: 2rem;
 	background-color: transparent;
-	color: #ffffff;
+	color: ${({ theme }) => theme.foreground || '#ffffff'};
 	font-size: 15px;
 	cursor: pointer;
 `;

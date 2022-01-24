@@ -6,7 +6,7 @@ const FilterNav = () => {
 
 	useEffect(() => {
 		const getFilterData = async () => {
-			// const response = await fetch(`${process.env.REACT_APP_BASE_URL}`)
+			// const response = await fetch(`${GET_LIST_API}?location=제주&option=3&option=6&option`, {
 			const response = await fetch('./data/listFilterdata.json');
 			const data = await response.json();
 			setConveniences(data);
