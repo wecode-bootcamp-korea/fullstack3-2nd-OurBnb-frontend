@@ -1,17 +1,20 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
-export default function HostTitle({ userId }) {
+export default function HostTitle({ hostData }) {
+	// const hostName = hostData['hostName'];    효상님이 API부분에 추가구현 완료 후 커멘트해제해서 사용하기
 	return (
 		<Wrapper>
 			<HostTitleContainer>
 				<TitleWrapper>
-					<TitleTop>{userId}님이 호스팅하는 개쩌는 펜션전체</TitleTop>
-					<TitleBottom>최대 인원 4명 · 침실 2개 · 침대 2개 · 단독 사용 욕실 1개</TitleBottom>
+					<TitleTop>{}님이 호스팅하는 개쩌는 펜션전체</TitleTop>
+					<TitleBottom>
+						최대 인원 {}명 · 침실 {}개 · 침대 {}개 · 단독 사용 욕실 {}개
+					</TitleBottom>
 				</TitleWrapper>
 				<HostImg>
 					<UserImg>
-						<img src="../images/host.jpg" />
+						<img src="/images/host.jpg" />
 					</UserImg>
 				</HostImg>
 			</HostTitleContainer>
