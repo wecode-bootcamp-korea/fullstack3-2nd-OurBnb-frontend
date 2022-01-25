@@ -4,6 +4,7 @@ import Main from './pages/Main/Main';
 import Detail from './pages/Detail/Detail';
 import ReservationCard from './pages/Detail/components/ReservationCard';
 import List from './pages/List/List';
+import KakaoLogin from './components/Login/Login';
 
 const Router = () => {
 	return (
@@ -14,6 +15,7 @@ const Router = () => {
 					<Route path="/list" element={<List />} />
 					<Route path="/detail" element={<Detail />} />
 					<Route path="/card" element={<ReservationCard />} />
+					<Route path="/kakaologin" element={<KakaoLogin />} />
 				</Routes>
 			</BrowserRouter>
 		</div>

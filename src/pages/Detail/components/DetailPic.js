@@ -44,11 +44,11 @@ const MainImg = styled.div`
 
 const Mimg = styled.div`
 	width: 100%;
-	height: 420px;
+	height: 400px;
 	cursor: pointer;
 	img {
 		width: 100%;
-		height: 100%;
+		height: 410px;
 		object-fit: cover;
 		border-top-left-radius: 15px;
 		border-bottom-left-radius: 15px;
@@ -61,18 +61,19 @@ const Mimg = styled.div`
 
 const SubImg = styled.div`
 	width: 100%;
-	height: 300px;
+	height: 400px;
 	display: grid;
 	grid-template-columns: repeat(2, 1fr);
 `;
 
 const SubImgWrapper = styled.div`
 	width: auto;
+	height: 200px;
 	margin-left: 10px;
 	cursor: pointer;
 	img {
 		width: 100%;
-		height: 100%;
+		height: 200px;
 		object-fit: cover;
 	}
 	&:hover {
