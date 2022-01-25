@@ -12,21 +12,32 @@ const List = () => {
 	const [rooms, setRooms] = useState({});
 	const [lat, setLat] = useState(0);
 	const [lng, setLng] = useState(0);
+	const [totalRows, setTotalRows] = useState();
+	const [limit, setLimit] = useState(5);
+	const [offset, setOffset] = useState(0);
+	const [isLoading, setIsLoading] = useState(true);
 	const center = { lat: lat, lng: lng };
 
 	useEffect(() => {
 		const getRoomData = async () => {
-			const response = await fetch(`${GET_LIST_API}?location=제주`, {
-				headers: { 'Content-type': 'application/json', mode: 'cors' },
-			});
+			const response = await fetch(
+				`${GET_LIST_API}?location=제주&limit=${limit}&offset=${offset}`,
+				{
+					headers: { 'Content-type': 'application/json', mode: 'cors' },
+				},
+			);
 			const data = await response.json();
+			setIsLoading(true);
+			window.scrollTo(0, 0);
 			setRooms(data);
+			setIsLoading(false);
 			setLat(data.lat);
 			setLng(data.lng);
+			setTotalRows(data.totalRows);
 		};
 
 		getRoomData();
-	}, []);
+	}, [offset]);
 
 	return (
 		<>
@@ -36,7 +47,13 @@ const List = () => {
 			</HeaderWrapper>
 
 			<ListContainer>
-				<RoomsList rooms={rooms} />
+				<RoomsList
+					rooms={rooms}
+					totalRows={totalRows}
+					limit={limit}
+					setOffset={setOffset}
+					isLoading={isLoading}
+				/>
 				<ListMap center={center} />
 			</ListContainer>
 
