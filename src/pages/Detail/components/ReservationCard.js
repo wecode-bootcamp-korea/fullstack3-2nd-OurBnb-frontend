@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { AiFillFlag } from 'react-icons/ai';
-import 'react-day-picker';
+// import 'react-day-picker';
 
 export default function ReservationCard() {
 	const renderDay = day => {

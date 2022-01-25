@@ -1,15 +1,35 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { FiGlobe } from 'react-icons/fi';
 import { IoPersonCircle } from 'react-icons/io5';
 import { BiSearch } from 'react-icons/bi';
+// import Modal from '../Header/components/Modal';
 
 const Header = () => {
+	// const [modalVisible, setModalVisible] = useState(false);
+
+	// const openModal = () => {
+	// 	setModalVisible(true);
+	// };
+	// const closeModal = () => {
+	// 	setModalVisible(false);
+	// };
+
+	const [scrollPosition, setScrollPosition] = useState(0);
+
+	const updateScroll = () => {
+		setScrollPosition(window.scrollY || document.documentElement.scrollTop);
+	};
+
+	useEffect(() => {
+		window.addEventListener('scroll', updateScroll);
+	});
+
 	return (
 		<>
 			<HeaderWrapper>
 				<Logo>
-					<LogoImage src="../../images/logo.png" />
+					<LogoImage src="../../images/logo1.png" />
 					<LogoName>ourbnb</LogoName>
 				</Logo>
 				<HeaderButtons>
@@ -46,37 +66,45 @@ const Header = () => {
 					</User>
 				</Profile>
 				<Search>
-					<SearchButton>
-						<Location>
-							<SearchTitle>위치</SearchTitle>
-							<SearchOption>어디로 여행가세요?</SearchOption>
-						</Location>
-					</SearchButton>
+					<SearchingLocation>
+						<SearchButton>
+							<Location>
+								<SearchTitle>위치</SearchTitle>
+								<SearchOption>어디로 여행가세요?</SearchOption>
+							</Location>
+						</SearchButton>
+					</SearchingLocation>
 					<Contour></Contour>
-					<SearchButton>
-						<CheckIn>
-							<SearchTitle>체크인</SearchTitle>
-							<SearchOption>날짜 입력</SearchOption>
-						</CheckIn>
-					</SearchButton>
+					<SearchingDate>
+						<SearchButton>
+							<CheckIn>
+								<SearchTitle>체크인</SearchTitle>
+								<SearchOption>날짜 입력</SearchOption>
+							</CheckIn>
+						</SearchButton>
+					</SearchingDate>
 					<Contour></Contour>
-					<SearchButton>
-						<CheckOut>
-							<SearchTitle>체크아웃</SearchTitle>
-							<SearchOption>날짜 입력</SearchOption>
-						</CheckOut>
-					</SearchButton>
+					<SearchingDate>
+						<SearchButton>
+							<CheckOut>
+								<SearchTitle>체크아웃</SearchTitle>
+								<SearchOption>날짜 입력</SearchOption>
+							</CheckOut>
+						</SearchButton>
+					</SearchingDate>
 					<Contour></Contour>
-					<SearchButton>
-						<Guest>
-							<SearchTitle>인원</SearchTitle>
-							<SearchOption>게스트 추가</SearchOption>
-						</Guest>
-					</SearchButton>
-					<Finder>
-						<BiSearch />
-					</Finder>
+					<SearchingGuest>
+						<SearchButton>
+							<Guest>
+								<SearchTitle>인원</SearchTitle>
+								<SearchOption>게스트 추가</SearchOption>
+							</Guest>
+						</SearchButton>
+					</SearchingGuest>
 				</Search>
+				<Finder>
+					<BiSearch />
+				</Finder>
 			</HeaderWrapper>
 		</>
 	);
@@ -104,7 +132,7 @@ const LogoImage = styled.img`
 `;
 
 const LogoName = styled.h2`
-	margin: 2.5% 0 0 5px;
+	margin: 2.8% 0 0 5px;
 	color: ${({ theme }) => theme.foreground || '#ffffff'};
 	cursor: pointer;
 `;
@@ -179,21 +207,51 @@ const Search = styled.div`
 	width: 59%;
 	height: 68px;
 	margin: 1% 0 0 20%;
-	padding: 3px;
 	border-radius: 50px;
 	background-color: white;
 `;
 
+const SearchingLocation = styled.label`
+	width: 30%;
+	cursor: pointer;
+
+	&:hover {
+		background-color: #e3e3e3;
+		border-radius: 35px;
+	}
+`;
+
+const SearchingDate = styled.label`
+	width: 20%;
+	cursor: pointer;
+
+	&:hover {
+		background-color: #e3e3e3;
+		border-radius: 35px;
+	}
+`;
+
+const SearchingGuest = styled.label`
+	width: 30%;
+	cursor: pointer;
+	z-index: 50;
+
+	&:hover {
+		background-color: #e3e3e3;
+		border-radius: 35px;
+	}
+`;
+
 const SearchButton = styled.div`
-	padding: 0 50px;
-	margin-left: -5px;
+	padding: 0 10px;
+	margin-left: 50px;
 	border-radius: 50px;
 `;
 
 const Contour = styled.hr`
 	width: 1px;
-	height: 37px;
-	margin-top: 15px;
+	height: 30px;
+	margin-top: 18px;
 	border: 0px;
 	background-color: #e3e3e3;
 	rotate: calc();
@@ -204,15 +262,15 @@ const Location = styled.div`
 `;
 
 const CheckIn = styled.div`
-	margin: 15px 0 0 -50px;
+	margin: 15px 0 0 -40px;
 `;
 
 const CheckOut = styled.div`
-	margin: 15px 0 0 -50px;
+	margin: 15px 0 0 -40px;
 `;
 
 const Guest = styled.div`
-	margin: 15px 0 0 -50px;
+	margin: 15px 50px 0 -40px;
 `;
 
 const SearchOption = styled.div`
@@ -227,10 +285,11 @@ const SearchTitle = styled.div`
 	margin-bottom: 3px;
 `;
 
-const Finder = styled.button`
+const Finder = styled.div`
+	width: 50px;
 	height: 50px;
 	padding: 15px;
-	margin: 6px -10px 3px 0;
+	margin: -60px 0 0 75%;
 	border: none;
 	border-radius: 50px;
 	color: #ffffff;
