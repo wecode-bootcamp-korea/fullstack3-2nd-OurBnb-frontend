@@ -14,7 +14,7 @@ const Header = () => {
 		setModalVisible(false);
 	};
 
-	const kakaoAuthUrl = `https://kauth.kakao.com/oauth/authorize?client_id=c0684536100a3ce71c6922b994709501&redirect_uri=http://localhost:3000/kakaologin&response_type=code&prompt=login`;
+	const kakaoAuthurl = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_KAKAO_REST_API_KEY}&redirect_uri=${process.env.REACT_APP_KAKAO_REDIRECT_URL}&response_type=code&prompt=login`;
 
 	const [scrollPosition, setScrollPosition] = useState(0);
 
@@ -27,109 +27,107 @@ const Header = () => {
 	});
 
 	return (
-		<>
-			<HeaderWrapper className={scrollPosition < 60 ? 'header' : 'header_change'}>
-				<Logo>
-					<LogoImage src="../../images/logo1.png" />
-					<LogoName>ourbnb</LogoName>
-				</Logo>
-				<HeaderButtons>
-					<HeaderButton>
-						<HeaderLabel>
-							<HeaderInput>숙소</HeaderInput>
-						</HeaderLabel>
-					</HeaderButton>
-					<HeaderButton>
-						<HeaderLabel>
-							<HeaderInput>체험</HeaderInput>
-						</HeaderLabel>
-					</HeaderButton>
-					<HeaderButton>
-						<HeaderLabel>
-							<HeaderInput>온라인 체험</HeaderInput>
-						</HeaderLabel>
-					</HeaderButton>
-				</HeaderButtons>
-				<HeaderOption>
-					<HeaderChoice>호스트 되기</HeaderChoice>
-					<HeaderChoice>
-						<FiGlobe />
-					</HeaderChoice>
-				</HeaderOption>
-				<Profile onClick={openModal}>
-					<Lines>
-						<Line></Line>
-						<Line></Line>
-						<Line></Line>
-					</Lines>
-					<User>
-						<IoPersonCircle />
-					</User>
-				</Profile>
-				{modalVisible && (
-					<Modal visible={modalVisible} closable={true} maskClosable={true} onClose={closeModal}>
-						<ModalListTop>
-							<Signup>회원가입</Signup>
-						</ModalListTop>
-						<ModalList>
-							<Login>
-								<a href={kakaoAuthUrl}>로그인</a>
-							</Login>
-						</ModalList>
-						<ModalLine />
-						<ModalList>
-							<Login>숙소 호스트 되기</Login>
-						</ModalList>
-						<ModalList>
-							<Login>체험 호스팅하기</Login>
-						</ModalList>
-						<ModalListBottom>
-							<Login>도움말</Login>
-						</ModalListBottom>
-					</Modal>
-				)}
-				<Search>
-					<SearchingLocation>
-						<SearchButton>
-							<Location>
-								<SearchTitle>위치</SearchTitle>
-								<SearchLocationOption placeholder="어디로 여행가세요?"></SearchLocationOption>
-							</Location>
-						</SearchButton>
-					</SearchingLocation>
-					<Contour></Contour>
-					<SearchingDate>
-						<SearchButton>
-							<CheckIn>
-								<SearchTitle>체크인</SearchTitle>
-								<SearchDateOption>날짜 입력</SearchDateOption>
-							</CheckIn>
-						</SearchButton>
-					</SearchingDate>
-					<Contour></Contour>
-					<SearchingDate>
-						<SearchButton>
-							<CheckOut>
-								<SearchTitle>체크아웃</SearchTitle>
-								<SearchDateOption>날짜 입력</SearchDateOption>
-							</CheckOut>
-						</SearchButton>
-					</SearchingDate>
-					<Contour></Contour>
-					<SearchingGuest>
-						<SearchButton>
-							<Guest>
-								<SearchTitle>인원</SearchTitle>
-								<SearchGuestOption>게스트 추가</SearchGuestOption>
-							</Guest>
-						</SearchButton>
-					</SearchingGuest>
-					<Finder>
-						<BiSearch />
-					</Finder>
-				</Search>
-			</HeaderWrapper>
-		</>
+		<HeaderWrapper className={scrollPosition < 60 ? 'header' : 'header_change'}>
+			<Logo>
+				<LogoImage src="../../images/logo1.png" />
+				<LogoName>ourbnb</LogoName>
+			</Logo>
+			<HeaderButtons>
+				<HeaderButton>
+					<HeaderLabel>
+						<HeaderInput>숙소</HeaderInput>
+					</HeaderLabel>
+				</HeaderButton>
+				<HeaderButton>
+					<HeaderLabel>
+						<HeaderInput>체험</HeaderInput>
+					</HeaderLabel>
+				</HeaderButton>
+				<HeaderButton>
+					<HeaderLabel>
+						<HeaderInput>온라인 체험</HeaderInput>
+					</HeaderLabel>
+				</HeaderButton>
+			</HeaderButtons>
+			<HeaderOption>
+				<HeaderChoice>호스트 되기</HeaderChoice>
+				<HeaderChoice>
+					<FiGlobe />
+				</HeaderChoice>
+			</HeaderOption>
+			<Profile onClick={openModal}>
+				<Lines>
+					<Line />
+					<Line />
+					<Line />
+				</Lines>
+				<User>
+					<IoPersonCircle />
+				</User>
+			</Profile>
+			{modalVisible && (
+				<Modal visible={modalVisible} closable={true} maskClosable={true} onClose={closeModal}>
+					<ModalListTop>
+						<Signup>회원가입</Signup>
+					</ModalListTop>
+					<ModalList>
+						<Login>
+							<a href={kakaoAuthurl}>로그인</a>
+						</Login>
+					</ModalList>
+					<ModalLine />
+					<ModalList>
+						<Login>숙소 호스트 되기</Login>
+					</ModalList>
+					<ModalList>
+						<Login>체험 호스팅하기</Login>
+					</ModalList>
+					<ModalListBottom>
+						<Login>도움말</Login>
+					</ModalListBottom>
+				</Modal>
+			)}
+			<Search>
+				<SearchingLocation>
+					<SearchButton>
+						<Location>
+							<SearchTitle>위치</SearchTitle>
+							<SearchLocationOption placeholder="어디로 여행가세요?"></SearchLocationOption>
+						</Location>
+					</SearchButton>
+				</SearchingLocation>
+				<Contour />
+				<SearchingDate>
+					<SearchButton>
+						<CheckIn>
+							<SearchTitle>체크인</SearchTitle>
+							<SearchDateOption>날짜 입력</SearchDateOption>
+						</CheckIn>
+					</SearchButton>
+				</SearchingDate>
+				<Contour />
+				<SearchingDate>
+					<SearchButton>
+						<CheckOut>
+							<SearchTitle>체크아웃</SearchTitle>
+							<SearchDateOption>날짜 입력</SearchDateOption>
+						</CheckOut>
+					</SearchButton>
+				</SearchingDate>
+				<Contour />
+				<SearchingGuest>
+					<SearchButton>
+						<Guest>
+							<SearchTitle>인원</SearchTitle>
+							<SearchGuestOption>게스트 추가</SearchGuestOption>
+						</Guest>
+					</SearchButton>
+				</SearchingGuest>
+				<Finder>
+					<BiSearch />
+				</Finder>
+			</Search>
+		</HeaderWrapper>
 	);
 };
 
