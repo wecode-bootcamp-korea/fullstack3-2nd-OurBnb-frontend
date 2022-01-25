@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import Header from '../Header/Header';
-import Footer from '../Footer/Footer';
+import Header from '../../components/Header/Header';
+import Footer from '../../components/Footer';
 import RoomsList from './components/ListAllCards';
 import FilterNav from './components/ListFilterNav';
 import ListMap from './components/ListMap';

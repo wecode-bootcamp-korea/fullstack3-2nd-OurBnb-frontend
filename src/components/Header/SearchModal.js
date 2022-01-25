@@ -1,50 +1,30 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import Portal from './Portal';
 
-function Modal({ className, onClose, maskClosable, closable, visible, children }) {
+function Modal({ className, onClose, maskClosable, visible, children }) {
 	const onMaskClick = e => {
 		if (e.target === e.currentTarget) {
 			onClose(e);
 		}
 	};
 
-	const close = e => {
-		if (onClose) {
-			onClose(e);
-		}
-	};
-
 	return (
-		<Portal elementId="modal-root">
+		<>
 			<ModalOverlay visible={visible} />
 			<ModalWrapper
 				className={className}
 				onClick={maskClosable ? onMaskClick : null}
-				tabIndex={-1}
+				tabIndex="-1"
 				visible={visible}
 			>
-				<ModalInner tabIndex={0} className="modal-inner">
-					{closable && (
-						<CloseButton
-							src="../../images/closebutton.png"
-							className="modal-close"
-							onClick={close}
-						/>
-					)}
+				<ModalInner tabIndex="0" className="modal-inner">
 					{children}
 				</ModalInner>
 			</ModalWrapper>
-		</Portal>
+		</>
 	);
 }
-
-Modal.defaultProps = {
-	visible: false,
-	closable: true,
-	maskClosable: true,
-};
 
 Modal.propTypes = {
 	visible: PropTypes.bool,
@@ -88,7 +68,5 @@ const ModalInner = styled.div`
 	margin: 0 auto;
 	padding: 40px 20px;
 `;
-
-const CloseButton = styled.img``;
 
 export default Modal;

@@ -3,17 +3,18 @@ import styled from 'styled-components';
 import { FiGlobe } from 'react-icons/fi';
 import { IoPersonCircle } from 'react-icons/io5';
 import { BiSearch } from 'react-icons/bi';
-// import Modal from '../Header/components/Modal';
+import Modal from './Modal';
 
 const Header = () => {
-	// const [modalVisible, setModalVisible] = useState(false);
+	const [modalVisible, setModalVisible] = useState(false);
+	const openModal = () => {
+		setModalVisible(true);
+	};
+	const closeModal = () => {
+		setModalVisible(false);
+	};
 
-	// const openModal = () => {
-	// 	setModalVisible(true);
-	// };
-	// const closeModal = () => {
-	// 	setModalVisible(false);
-	// };
+	const kakaoAuthUrl = `https://kauth.kakao.com/oauth/authorize?client_id=c0684536100a3ce71c6922b994709501&redirect_uri=http://localhost:3000/kakaologin&response_type=code&prompt=login`;
 
 	const [scrollPosition, setScrollPosition] = useState(0);
 
@@ -27,7 +28,7 @@ const Header = () => {
 
 	return (
 		<>
-			<HeaderWrapper>
+			<HeaderWrapper className={scrollPosition < 60 ? 'header' : 'header_change'}>
 				<Logo>
 					<LogoImage src="../../images/logo1.png" />
 					<LogoName>ourbnb</LogoName>
@@ -55,7 +56,7 @@ const Header = () => {
 						<FiGlobe />
 					</HeaderChoice>
 				</HeaderOption>
-				<Profile>
+				<Profile onClick={openModal}>
 					<Lines>
 						<Line></Line>
 						<Line></Line>
@@ -65,12 +66,34 @@ const Header = () => {
 						<IoPersonCircle />
 					</User>
 				</Profile>
+				{modalVisible && (
+					<Modal visible={modalVisible} closable={true} maskClosable={true} onClose={closeModal}>
+						<ModalListTop>
+							<Signup>회원가입</Signup>
+						</ModalListTop>
+						<ModalList>
+							<Login>
+								<a href={kakaoAuthUrl}>로그인</a>
+							</Login>
+						</ModalList>
+						<ModalLine />
+						<ModalList>
+							<Login>숙소 호스트 되기</Login>
+						</ModalList>
+						<ModalList>
+							<Login>체험 호스팅하기</Login>
+						</ModalList>
+						<ModalListBottom>
+							<Login>도움말</Login>
+						</ModalListBottom>
+					</Modal>
+				)}
 				<Search>
 					<SearchingLocation>
 						<SearchButton>
 							<Location>
 								<SearchTitle>위치</SearchTitle>
-								<SearchOption>어디로 여행가세요?</SearchOption>
+								<SearchLocationOption placeholder="어디로 여행가세요?"></SearchLocationOption>
 							</Location>
 						</SearchButton>
 					</SearchingLocation>
@@ -79,7 +102,7 @@ const Header = () => {
 						<SearchButton>
 							<CheckIn>
 								<SearchTitle>체크인</SearchTitle>
-								<SearchOption>날짜 입력</SearchOption>
+								<SearchDateOption>날짜 입력</SearchDateOption>
 							</CheckIn>
 						</SearchButton>
 					</SearchingDate>
@@ -88,7 +111,7 @@ const Header = () => {
 						<SearchButton>
 							<CheckOut>
 								<SearchTitle>체크아웃</SearchTitle>
-								<SearchOption>날짜 입력</SearchOption>
+								<SearchDateOption>날짜 입력</SearchDateOption>
 							</CheckOut>
 						</SearchButton>
 					</SearchingDate>
@@ -97,14 +120,14 @@ const Header = () => {
 						<SearchButton>
 							<Guest>
 								<SearchTitle>인원</SearchTitle>
-								<SearchOption>게스트 추가</SearchOption>
+								<SearchGuestOption>게스트 추가</SearchGuestOption>
 							</Guest>
 						</SearchButton>
 					</SearchingGuest>
+					<Finder>
+						<BiSearch />
+					</Finder>
 				</Search>
-				<Finder>
-					<BiSearch />
-				</Finder>
 			</HeaderWrapper>
 		</>
 	);
@@ -116,7 +139,7 @@ export default Header;
 const HeaderWrapper = styled.div`
 	width: 100%;
 	margin-top: 15px;
-	background-color: ${({ theme }) => theme.background || 'transparent'};
+	background-color: 'transparent';
 `;
 
 const Logo = styled.div`
@@ -133,7 +156,7 @@ const LogoImage = styled.img`
 
 const LogoName = styled.h2`
 	margin: 2.8% 0 0 5px;
-	color: ${({ theme }) => theme.foreground || '#ffffff'};
+	color: ${props => props.color || '#ffffff'};
 	cursor: pointer;
 `;
 
@@ -144,19 +167,35 @@ const HeaderButtons = styled.div`
 	margin: -30px 0 0 41.5%;
 `;
 
-const HeaderButton = styled.button`
+const HeaderButton = styled.div`
 	background-color: transparent;
 	border: none;
 	font-size: 15px;
 	cursor: pointer;
+
+	::before {
+		background-color: ${props => props.backgroundcolor || '#ffffff'};
+		border-radius: 1px;
+		bottom: 0px;
+		content: '';
+		height: 2px;
+		top: 110px;
+		left: 43.8%;
+		margin-left: -9px;
+		position: absolute;
+		transition: 0.2s -ms-transform cubic-bezier(0, 0, 0.1, 1),
+			0.2s -webkit-transform cubic-bezier(0, 0, 0.1, 1), 0.2s transform cubic-bezier(0, 0, 0.1, 1);
+		width: 18px;
+		transform: scaleX(1);
+	}
 `;
 
-const HeaderLabel = styled.label`
+const HeaderLabel = styled.div`
 	border-bottom: #ffffff;
 `;
 
-const HeaderInput = styled.div`
-	color: ${({ theme }) => theme.foreground || '#ffffff'};
+const HeaderInput = styled.span`
+	color: ${props => props.color || '#ffffff'};
 `;
 
 const HeaderOption = styled.ul`
@@ -170,7 +209,7 @@ const HeaderChoice = styled.button`
 	border: none;
 	border-radius: 2rem;
 	background-color: transparent;
-	color: ${({ theme }) => theme.foreground || '#ffffff'};
+	color: ${props => props.color || '#ffffff'};
 	font-size: 15px;
 	cursor: pointer;
 `;
@@ -201,6 +240,56 @@ const User = styled.span`
 	color: gray;
 `;
 
+const ModalListTop = styled.div`
+	width: 100%;
+
+	&:hover {
+		width: 100%;
+		background-color: #e3e3e3;
+		border-top-left-radius: 10px;
+		border-top-right-radius: 10px;
+	}
+`;
+
+const ModalList = styled.div`
+	width: 100%;
+
+	&:hover {
+		width: 100%;
+		background-color: #e3e3e3;
+	}
+`;
+
+const ModalListBottom = styled.div`
+	width: 100%;
+
+	&:hover {
+		width: 100%;
+		background-color: #e3e3e3;
+		border-bottom-left-radius: 10px;
+		border-bottom-right-radius: 10px;
+	}
+`;
+
+const Signup = styled.label`
+	font-size: 14px;
+	font-weight: 600;
+	line-height: 3;
+	margin: 5px 15px;
+`;
+
+const Login = styled.label`
+	font-size: 14px;
+	line-height: 3;
+	margin: 5px 15px;
+`;
+
+const ModalLine = styled.hr`
+	height: 1px;
+	border: 0px;
+	background-color: #e0e0e0;
+`;
+
 const Search = styled.div`
 	display: flex;
 	justify-content: space-around;
@@ -211,8 +300,12 @@ const Search = styled.div`
 	background-color: white;
 `;
 
-const SearchingLocation = styled.label`
+const SearchingLocation = styled.button`
 	width: 30%;
+	background-color: inherit;
+	border: none;
+	border-top-left-radius: 35px;
+	border-bottom-left-radius: 35px;
 	cursor: pointer;
 
 	&:hover {
@@ -221,8 +314,10 @@ const SearchingLocation = styled.label`
 	}
 `;
 
-const SearchingDate = styled.label`
+const SearchingDate = styled.button`
 	width: 20%;
+	background-color: inherit;
+	border: none;
 	cursor: pointer;
 
 	&:hover {
@@ -231,10 +326,11 @@ const SearchingDate = styled.label`
 	}
 `;
 
-const SearchingGuest = styled.label`
+const SearchingGuest = styled.button`
 	width: 30%;
+	background-color: inherit;
+	border: none;
 	cursor: pointer;
-	z-index: 50;
 
 	&:hover {
 		background-color: #e3e3e3;
@@ -244,7 +340,7 @@ const SearchingGuest = styled.label`
 
 const SearchButton = styled.div`
 	padding: 0 10px;
-	margin-left: 50px;
+	margin: 15px 0 0 50px;
 	border-radius: 50px;
 `;
 
@@ -258,41 +354,67 @@ const Contour = styled.hr`
 `;
 
 const Location = styled.div`
-	margin: 15px 30px 0 -30px;
+	width: 200px;
+	margin: -15px 30px 0 -30px;
 `;
 
 const CheckIn = styled.div`
-	margin: 15px 0 0 -40px;
+	width: 130px;
+	margin: -15px 0 0 -40px;
 `;
 
 const CheckOut = styled.div`
-	margin: 15px 0 0 -40px;
+	width: 130px;
+	margin: -15px 0 0 -40px;
 `;
 
 const Guest = styled.div`
-	margin: 15px 50px 0 -40px;
-`;
-
-const SearchOption = styled.div`
-	font-size: 14px;
-	color: #959595;
+	width: 130px;
+	margin: -15px 50px 0 -40px;
 `;
 
 const SearchTitle = styled.div`
+	text-align: left;
 	font-size: 12px;
 	font-weight: bold;
 	color: #000000;
 	margin-bottom: 3px;
 `;
 
-const Finder = styled.div`
+const SearchLocationOption = styled.input`
+	font-size: 14px;
+	margin-left: -55px;
+	color: #959595;
+	border: none;
+	outline: none;
+
+	::placeholder {
+		color: #959595;
+		background-color: inherit;
+	}
+`;
+
+const SearchDateOption = styled.div`
+	margin-left: -80px;
+	font-size: 14px;
+	color: #959595;
+`;
+
+const SearchGuestOption = styled.div`
+	margin-left: -65px;
+	font-size: 14px;
+	color: #959595;
+`;
+
+const Finder = styled.button`
 	width: 50px;
 	height: 50px;
 	padding: 15px;
-	margin: -60px 0 0 75%;
+	margin: 8px 10px 0 0;
 	border: none;
 	border-radius: 50px;
 	color: #ffffff;
 	font-size: 20px;
 	background-color: #ff385c;
+	cursor: pointer;
 `;
