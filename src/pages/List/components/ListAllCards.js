@@ -1,8 +1,9 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import ListCard from './ListCard';
+import PagenationBtn from './PagenationBtn';
 
-const RoomsList = ({ rooms }) => {
+const RoomsList = ({ rooms, totalRows, limit, setOffset }) => {
 	return (
 		<>
 			<StyledListSummary>
@@ -27,6 +28,7 @@ const RoomsList = ({ rooms }) => {
 					<ListCard key={room.roomId} room={room} />
 				))}
 			</StyledList>
+			<PagenationBtn totalRows={totalRows} limit={limit} setOffset={setOffset} />
 		</>
 	);
 };
