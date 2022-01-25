@@ -1,7 +1,8 @@
 import React, { useEffect, useState, useRef } from 'react';
+import { Wrapper } from '@googlemaps/react-wrapper';
 import styled from 'styled-components';
 
-const Map = ({ center }) => {
+const MyMapComponent = ({ center, zoom }) => {
 	const mapRef = useRef(null);
 	const [map, setMap] = useState();
 
@@ -10,16 +11,24 @@ const Map = ({ center }) => {
 			setMap(
 				new window.google.maps.Map(mapRef.current, {
 					center: center,
-					zoom: 11,
+					zoom: zoom,
 				}),
 			);
 		}
-	}, [mapRef, map, center]);
+	}, [mapRef, map, center, zoom]);
 
 	return <MapDiv className="map" ref={mapRef} />;
 };
 
-export default Map;
+const Google = ({ center, zoom }) => {
+	return (
+		<Wrapper apiKey={process.env.REACT_APP_GOOGLE_API_KEY}>
+			<MyMapComponent center={center} zoom={zoom} />
+		</Wrapper>
+	);
+};
+
+export default Google;
 
 const MapDiv = styled.div`
 	width: 100%;
@@ -30,28 +39,3 @@ const MapDiv = styled.div`
 		max-width: none;
 	}
 `;
-
-const Marker = options => {
-	const [marker, setMarker] = useState();
-
-	useEffect(() => {
-		if (!marker) {
-			setMarker(new window.google.maps.Marker());
-		}
-
-		// remove marker from map on unmount
-		return () => {
-			if (marker) {
-				marker.setMap(null);
-			}
-		};
-	}, [marker]);
-
-	useEffect(() => {
-		if (marker) {
-			marker.setOptions(options);
-		}
-	}, [marker, options]);
-
-	return null;
-};

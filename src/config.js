@@ -1,6 +1,6 @@
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
-const GET_LIST_API = `${BASE_URL}/rooms/`;
+const GET_LIST_API = `${BASE_URL}/rooms`;
 const GET_OPTION_API = `${BASE_URL}/rooms/options`;
 const GET_DETAIL_API = `${BASE_URL}/rooms/detail`;
 const GET_LOGIN_API = `${BASE_URL}/users/kakaologin`;

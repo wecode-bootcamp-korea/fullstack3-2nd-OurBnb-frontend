@@ -1,13 +1,10 @@
 import styled from 'styled-components';
-import Map from '../../components/Map';
-import { Wrapper } from '@googlemaps/react-wrapper';
+import Google from '../../../components/Map';
 
 const ListMap = ({ center }) => {
 	return (
 		<MapWrapper>
-			<Wrapper apiKey={process.env.REACT_APP_GOOGLE_API_KEY}>
-				<Map center={center} />
-			</Wrapper>
+			<Google center={center} zoom={10} />
 		</MapWrapper>
 	);
 };
