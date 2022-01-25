@@ -8,9 +8,6 @@ const Login = () => {
 	let params = new URLSearchParams(document.location.search);
 	const code = params.get('code');
 
-	const restApiKey = 'c0684536100a3ce71c6922b994709501';
-	const redirectUrl = 'http://localhost:3000/kakaologin';
-
 	useEffect(() => {
 		fetch('https://kauth.kakao.com/oauth/token', {
 			method: 'POST',
@@ -19,8 +16,8 @@ const Login = () => {
 			},
 			body: qs.stringify({
 				grant_type: 'authorization_code',
-				client_id: restApiKey,
-				redirect_uri: redirectUrl,
+				client_id: `${process.env.REACT_APP_KAKAO_REST_API_KEY}`,
+				redirect_uri: `${process.env.REACT_APP_KAKAO_REDIRECT_URL}`,
 				code: code,
 			}),
 		})
