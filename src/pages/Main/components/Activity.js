@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 const Activity = () => {
 	return (
-		<>
+		<Container>
 			<ActivityWrapper>
 				<ActivityTitle>에어비앤비 체험 둘러보기</ActivityTitle>
 				<ActivityContents>
@@ -42,13 +42,19 @@ const Activity = () => {
 					</Host>
 				</Hosting>
 			</ActivityWrapper>
-		</>
+		</Container>
 	);
 };
 
 export default Activity;
 
 // styled-components
+const Container = styled.div`
+	width: 100%;
+	max-width: 1800px;
+	margin: 0 auto;
+`;
+
 const ActivityWrapper = styled.div`
 	width: 100%;
 	margin-left: 6%;

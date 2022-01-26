@@ -2,17 +2,15 @@ import React from 'react';
 import styled from 'styled-components';
 
 const LoginButton = () => {
-	const kakaoAuthUrl = `https://kauth.kakao.com/oauth/authorize?client_id=c0684536100a3ce71c6922b994709501&redirect_uri=http://localhost:3000/kakaologin&response_type=code&prompt=login`;
+	const kakaoAuthUrl = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_KAKAO_REST_API_KEY}&redirect_uri=${process.env.REACT_APP_KAKAO_REDIRECT_URL}&response_type=code&prompt=login`;
 
 	return (
-		<>
-			<a href={kakaoAuthUrl}>
-				<LoginButtonKakao>
-					<KakaoImage src="./images/kakao.png" />
-					<Kakao>카카오로 로그인하기</Kakao>
-				</LoginButtonKakao>
-			</a>
-		</>
+		<a href={kakaoAuthUrl}>
+			<LoginButtonKakao>
+				<KakaoImage src="./images/kakao.png" />
+				<Kakao>카카오로 로그인하기</Kakao>
+			</LoginButtonKakao>
+		</a>
 	);
 };
 

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 const MainBanner = () => {
 	return (
-		<>
+		<BannerWrapper>
 			<MainImage>
 				<BannerImage src="../../images/banner.png" alt="banner" />
 				<MainMent>
@@ -16,11 +16,17 @@ const MainBanner = () => {
 					</MainButton>
 				</MainMent>
 			</MainImage>
-		</>
+		</BannerWrapper>
 	);
 };
 
 export default MainBanner;
+
+const BannerWrapper = styled.div`
+	width: 100%;
+	max-width: 1600px;
+	margin: 0 auto;
+`;
 
 // styled-components
 const MainImage = styled.div`
