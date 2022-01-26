@@ -1,16 +1,17 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 
-const PagenationBtn = props => {
-	const { totalRows, limit, setOffset } = props;
+const Pagination = props => {
+	const { limit, totalRows, setOffset, isDivisibleByTen } = props;
 	const [selected, SetSelected] = useState(0);
 	const lastPage = Math.ceil(totalRows / limit);
-	const btn = () => {
-		const btnArr = [];
+
+	const pages = () => {
+		const pagesArray = [];
 		for (let i = 1; i <= lastPage; i++) {
-			btnArr.push(i);
+			pagesArray.push(i);
 		}
-		return btnArr;
+		return pagesArray;
 	};
 
 	const changeOffset = e => {
@@ -35,25 +36,44 @@ const PagenationBtn = props => {
 	};
 
 	return (
-		<BtnWrapper>
-			<Prev selected={selected}>
-				<div clasName="prev" onClick={prevPage} selected={selected}></div>
-			</Prev>
-			{btn().map((el, index) => (
-				<BtnList onClick={changeOffset} value={index} selected={selected}>
-					{el}
-				</BtnList>
-			))}
-			<Next selected={selected} lastPage={lastPage}>
-				<div clasName="next" onClick={nextPage} selected={selected} lastPage={lastPage}></div>
-			</Next>
-		</BtnWrapper>
+		<PaginationWrapper>
+			<PageButtons>
+				<Prev selected={selected}>
+					<div className="prev" onClick={prevPage} selected={selected} />
+				</Prev>
+				{pages().map((el, index) => (
+					<BtnList key={index} onClick={changeOffset} value={index} selected={selected}>
+						{el}
+					</BtnList>
+				))}
+				<Next selected={selected} lastPage={lastPage}>
+					<div className="next" onClick={nextPage} selected={selected} lastPage={lastPage} />
+				</Next>
+			</PageButtons>
+			{isDivisibleByTen && (
+				<PageInfo>
+					총 {totalRows}개의 숙소 중 {limit}개
+				</PageInfo>
+			)}
+			{!isDivisibleByTen && (
+				<PageInfo>
+					총 {Math.floor(totalRows / 10) * 10}개 이상의 숙소 중 {limit}개
+				</PageInfo>
+			)}
+		</PaginationWrapper>
 	);
 };
 
-export default PagenationBtn;
+export default Pagination;
 
-const BtnWrapper = styled.ul`
+const PaginationWrapper = styled.section`
+	padding: 20px 0 30px;
+	max-width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+`;
+const PageButtons = styled.ul`
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -83,6 +103,7 @@ const BtnWrapper = styled.ul`
 		transform: translateX(1px) translateY(1px);
 	}
 `;
+
 const Prev = styled.section`
 	cursor: pointer;
 	transform: rotate(-45deg);
@@ -117,4 +138,8 @@ const BtnList = styled.li`
 		border-radius: 15px;
 		background-color: #f0f0f0;
 	}
+`;
+
+const PageInfo = styled.div`
+	font-size: 1.1rem;
 `;
