@@ -5,6 +5,7 @@ const GET_OPTION_API = `${BASE_URL}/rooms/options`;
 const GET_DETAIL_API = `${BASE_URL}/rooms/detail`;
 const GET_LOGIN_API = `${BASE_URL}/users/kakaologin`;
 const GET_RESERVATION_API = `${BASE_URL}/users/trip`;
+const GET_REVIEW_API = `${BASE_URL}/rooms/reviews`;
 
 const POST_RESERVATION_API = `${BASE_URL}/rooms/detail/reservation`;
 const POST_LIKE_API = `${BASE_URL}/rooms/detail/like`;
@@ -16,6 +17,7 @@ export {
 	GET_DETAIL_API,
 	GET_LOGIN_API,
 	GET_RESERVATION_API,
+	GET_REVIEW_API,
 	POST_RESERVATION_API,
 	POST_LIKE_API,
 };

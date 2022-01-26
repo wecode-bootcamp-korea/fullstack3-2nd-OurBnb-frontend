@@ -1,31 +1,35 @@
 import React from 'react';
 import styled from 'styled-components';
 
-export default function DetailPic({ img_url }) {
+export default function DetailPic({ mainInfoData }) {
+	//여기서 rooms에 담긴 사진을 split(',')으로 쪼개서 하나하나 담는다.
+	const imagesString = '' + mainInfoData.imgUrl;
+	console.log(imagesString);
+	const allImgs = imagesString.split(',');
+	console.log(allImgs);
+
 	return (
 		<PicWrapper>
-			{/* <PicInnerWrapper> */}
 			<MainImg>
 				<Mimg>
-					<img src="./images/1.jpg" alt="img" />
+					<img src={allImgs[0]} alt="img" />
 				</Mimg>
 			</MainImg>
 			<SubImg>
 				<SubImgWrapper>
-					<img src="./images/2.jpg" alt="img" />
+					<img src={allImgs[1]} alt="img" />
 				</SubImgWrapper>
 				<SubImgWrapper>
-					<img src="./images/3.jpg" alt="img" />
+					<img src={allImgs[2]} alt="img" />
 				</SubImgWrapper>
 				<SubImgWrapper>
-					<img src="./images/4.jpg" alt="img" />
+					<img src={allImgs[3]} alt="img" />
 				</SubImgWrapper>
 				<SubImgWrapper>
-					<img src="./images/5.jpg" alt="img" />
+					<img src={allImgs[4]} alt="img" />
 				</SubImgWrapper>
-				<ImgModal>::: 사진 모두보기</ImgModal>
 			</SubImg>
-			{/* </PicInnerWrapper> */}
+			<ImgModal>::: 사진 모두보기</ImgModal>
 		</PicWrapper>
 	);
 }
@@ -101,7 +105,7 @@ const SubImgWrapper = styled.div`
 `;
 
 const ImgModal = styled.button`
-	top: 60%;
+	top: 80%;
 	left: 80%;
 	width: 150px;
 	height: 40px;
