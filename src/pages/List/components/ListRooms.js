@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import ListCard from './RoomCard';
-import Pagination from './Pagination';
+import Pagination from './ListPagination';
 
 const RoomsList = ({ rooms, limit, totalRows, setOffset }) => {
 	const area = rooms.location;

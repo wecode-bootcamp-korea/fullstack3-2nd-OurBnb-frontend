@@ -6,39 +6,23 @@ const Carousel = ({ room }) => {
 	const roomImages = imgUrl.split(',');
 
 	return (
-		<CarouselFrame>
+		<StyledCarouselFrame>
 			{is_super_host ? <SuperHostTag /> : null}
 			<SliderArrowButtons />
-			<ImageList>
+			<ul>
 				{roomImages.map((url, index) => (
 					<li key={index}>
 						<StyledImage src={url} />
 					</li>
 				))}
-			</ImageList>
-		</CarouselFrame>
+			</ul>
+		</StyledCarouselFrame>
 	);
 };
 
 export default Carousel;
 
-export const SuperHostTag = () => {
-	return <StyledTag>슈퍼호스트</StyledTag>;
-};
-
-export const SliderArrowButtons = () => {
-	return (
-		<>
-			<LeftButton>
-				<RiArrowLeftSLine className="arrowIcons" />
-			</LeftButton>
-			<RightButton>
-				<RiArrowRightSLine className="arrowIcons" />
-			</RightButton>
-		</>
-	);
-};
-const CarouselFrame = styled.div`
+export const StyledCarouselFrame = styled.div`
 	position: relative;
 	flex: 1;
 	width: 100%;
@@ -46,7 +30,12 @@ const CarouselFrame = styled.div`
 	padding-bottom: 65%;
 	border: 1px solid ${({ theme }) => theme.lightGray};
 	border-radius: 10px;
-	z-index: 999;
+	overflow: hidden;
+
+	> ul {
+		display: flex;
+		flex-direction: row;
+	}
 
 	@media (min-width: 744px) {
 		flex: 1;
@@ -60,22 +49,18 @@ const CarouselFrame = styled.div`
 	}
 `;
 
-const ImageList = styled.ul`
-	display: flex;
-	flex-direction: row;
+export const StyledImage = styled.img`
 	position: absolute;
 	top: 0;
 	left: 0;
-	width: inherit;
-	height: inherit;
-	z-index: 999;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
 `;
 
-const StyledImage = styled.img`
-	width: inherit;
-	height: inherit;
-	object-fit: fit;
-`;
+export const SuperHostTag = () => {
+	return <StyledTag>슈퍼호스트</StyledTag>;
+};
 
 const StyledTag = styled.span`
 	position: absolute;
@@ -97,7 +82,20 @@ const StyledTag = styled.span`
 	}
 `;
 
-const Arrow = styled.div`
+export const SliderArrowButtons = () => {
+	return (
+		<>
+			<StyledArrows className="arrows left">
+				<RiArrowLeftSLine className="arrowIcons" />
+			</StyledArrows>
+			<StyledArrows className="arrows right">
+				<RiArrowRightSLine className="arrowIcons" />
+			</StyledArrows>
+		</>
+	);
+};
+
+const StyledArrows = styled.div`
 	display: none;
 	position: relative;
 	position: absolute;
@@ -110,6 +108,13 @@ const Arrow = styled.div`
 	border-radius: 50%;
 	z-index: 999;
 	opacity: 0.8;
+
+	&.left {
+		left: 16px;
+	}
+	&.right {
+		right: -8px;
+	}
 
 	&:hover {
 		opacity: 1;
@@ -125,12 +130,4 @@ const Arrow = styled.div`
 	@media (min-width: 744px) {
 		display: block;
 	}
-`;
-
-const LeftButton = styled(Arrow)`
-	left: 16px;
-`;
-
-const RightButton = styled(Arrow)`
-	right: -8px;
 `;

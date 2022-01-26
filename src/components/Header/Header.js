@@ -35,10 +35,6 @@ const Header = () => {
 		setEndDate(end);
 	};
 
-	console.log(startDate.getFullYear());
-	console.log(startDate.getMonth() + 1);
-	console.log(startDate.getDate());
-
 	const [isOpen, setIsOpen] = useState(false);
 
 	const handleClick = e => {

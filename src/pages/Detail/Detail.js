@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 // import { useLocation, useParams } from 'react-router-dom';
-// import queryString from 'query-string';
+import queryString from 'query-string';
 import styled from 'styled-components';
 import DetailPic from './components/DetailPic';
 import DetailTitle from './components/DetailTitle';
@@ -9,8 +9,8 @@ import ReservationCard from './components/ReservationCard';
 import RoomDesc from './components/RoomDesc';
 import RoomOption from './components/RoomOption';
 import RoomPoint from './components/RoomPoint';
-import Header from '../Header/Header';
-import Footer from '../Footer/Footer';
+import Header from '../../components/Header/Header';
+import Footer from '../../components//Footer';
 import { GET_DETAIL_API } from '../../config';
 import { GET_REVIEW_API } from '../../config';
 import CheckPoint from './components/CheckPoint';
@@ -23,12 +23,8 @@ export default function Detail() {
 	const [ruleData, setRuleData] = useState([]);
 	const [safetyData, setSafetyData] = useState([]);
 
-	//리스트페이지에서 id값을받아서 디테일로 넘어오는거
-	// const parsedQuery = queryString.parse(window.location.search);
-	// const getId = parsedQuery.roomId;
-	// const [idValue, idSet] = useState(getId);
-
-	const roomId = 5;
+	const parsedQuery = queryString.parse(window.location.search);
+	const roomId = parsedQuery.roomId;
 
 	useEffect(() => {
 		const getRoomData = async () => {
@@ -41,14 +37,13 @@ export default function Detail() {
 			setSafetyData(data.detail.safety);
 		};
 		getRoomData();
-	}, []);
+	}, [roomId]);
 
 	useEffect(() => {
 		const getReviewData = async () => {
 			const response = await fetch(`${GET_REVIEW_API}?roomId=${roomId}`);
 			const data = await response.json();
 			setReviewData(data.reviewInfo);
-			console.log('data.detail.reviews', data.reviewInfo);
 		};
 		getReviewData();
 	}, []);
@@ -90,6 +85,7 @@ const Wrapper = styled.div`
 
 const InnerWrapper = styled.div`
 	width: 85%;
+	max-width: 1600px;
 	margin: 0 auto;
 	display: flex;
 	flex-direction: column;
