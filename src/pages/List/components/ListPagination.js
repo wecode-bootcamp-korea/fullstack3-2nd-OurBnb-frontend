@@ -73,6 +73,7 @@ const PaginationWrapper = styled.section`
 	flex-direction: column;
 	align-items: center;
 `;
+
 const PageButtons = styled.ul`
 	display: flex;
 	justify-content: center;

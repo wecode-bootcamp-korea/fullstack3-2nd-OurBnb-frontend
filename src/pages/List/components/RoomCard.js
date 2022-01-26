@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import Carousel from '../../../components/List/Carousel';
+import Carousel from './Carousel';
 
 import { IoHeartOutline } from 'react-icons/io5';
 import { TiHeartFullOutline, TiStar } from 'react-icons/ti';

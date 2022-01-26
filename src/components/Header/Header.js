@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { FiGlobe } from 'react-icons/fi';
 import { IoPersonCircle } from 'react-icons/io5';
@@ -44,10 +45,12 @@ const Header = () => {
 
 	return (
 		<HeaderWrapper className={scrollPosition < 60 ? 'header' : 'header_change'}>
-			<Logo>
-				<LogoImage src="../../images/logo1.png" />
-				<LogoName>ourbnb</LogoName>
-			</Logo>
+			<Link to="/">
+				<Logo>
+					<LogoImage src="../../images/logo1.png" />
+					<LogoName>ourbnb</LogoName>
+				</Logo>
+			</Link>
 			<HeaderButtons>
 				<HeaderButton>
 					<HeaderLabel>
