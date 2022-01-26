@@ -2,7 +2,19 @@ import React, { useEffect, useState, useRef } from 'react';
 import { Wrapper } from '@googlemaps/react-wrapper';
 import styled from 'styled-components';
 
-const MyMapComponent = ({ center, zoom }) => {
+const Google = ({ center, zoom, children }) => {
+	return (
+		<Wrapper apiKey={process.env.REACT_APP_GOOGLE_API_KEY}>
+			<MyMapComponent center={center} zoom={zoom}>
+				{children}
+			</MyMapComponent>
+		</Wrapper>
+	);
+};
+
+export default Google;
+
+const MyMapComponent = ({ center, zoom, children }) => {
 	const mapRef = useRef(null);
 	const [map, setMap] = useState();
 
@@ -17,18 +29,41 @@ const MyMapComponent = ({ center, zoom }) => {
 		}
 	}, [mapRef, map, center, zoom]);
 
-	return <MapDiv className="map" ref={mapRef} />;
-};
-
-const Google = ({ center, zoom }) => {
 	return (
-		<Wrapper apiKey={process.env.REACT_APP_GOOGLE_API_KEY}>
-			<MyMapComponent center={center} zoom={zoom} />
-		</Wrapper>
+		<>
+			<MapDiv ref={mapRef} />
+			{React.Children.map(children, child => {
+				if (React.isValidElement(child)) {
+					return React.cloneElement(child, { map });
+				}
+			})}
+		</>
 	);
 };
 
-export default Google;
+export const Marker = options => {
+	const [marker, setMarker] = React.useState();
+
+	React.useEffect(() => {
+		if (!marker) {
+			setMarker(new window.google.maps.Marker());
+		}
+
+		return () => {
+			if (marker) {
+				marker.setMap(null);
+			}
+		};
+	}, [marker]);
+
+	React.useEffect(() => {
+		if (marker) {
+			marker.setOptions(options);
+		}
+	}, [marker, options]);
+
+	return null;
+};
 
 const MapDiv = styled.div`
 	width: 100%;
