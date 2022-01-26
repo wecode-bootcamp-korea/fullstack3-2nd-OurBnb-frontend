@@ -8,7 +8,7 @@ const GET_RESERVATION_API = `${BASE_URL}/users/trip`;
 const GET_WISHLIST_API = `${BASE_URL}/users/wishlist`;
 const GET_REVIEW_API = `${BASE_URL}/rooms/reviews`;
 
-const POST_RESERVATION_API = `${BASE_URL}/rooms/detail/reservation`;
+const POST_RESERVATION_API = `${BASE_URL}/rooms/reservation`;
 const PUT_WISHLIST_API = `${BASE_URL}/rooms/`;
 const DELETE_WISHLIST_API = `${BASE_URL}/rooms/`;
 

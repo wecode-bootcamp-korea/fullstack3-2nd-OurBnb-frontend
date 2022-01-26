@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import RoomPointC from './RoomPointC';
 
 export default function RoomPoint({ benefitData }) {
-	console.log('benefitData', benefitData);
+	// console.log('benefitData', benefitData);
 
 	return (
 		<Wrapper>

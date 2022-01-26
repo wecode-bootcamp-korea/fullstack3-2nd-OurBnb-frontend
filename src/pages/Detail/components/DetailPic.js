@@ -36,6 +36,7 @@ const PicWrapper = styled.div`
 	width: 100%;
 	height: 400px;
 	display: flex;
+	position: relative;
 	margin-bottom: 20px;
 `;
 

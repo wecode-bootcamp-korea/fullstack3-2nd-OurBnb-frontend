@@ -21,8 +21,8 @@ export default function RoomOption({ optionData }) {
 							<RoomOptionC key={i} optionName={e.optionName} optionLogoUrl={e.optionLogoUrl} />
 						);
 					})}
-				<AllOption>편의시설 모두 보기</AllOption>
 			</OptionContainer>
+			<AllOption>편의시설 모두 보기</AllOption>
 		</Wrapper>
 	);
 }
@@ -35,10 +35,11 @@ const Wrapper = styled.div`
 const OptionContainer = styled.div`
 	display: grid;
 	grid-template-columns: repeat(2, 1fr);
+	grid-column-gap: 40px;
 `;
 
 const OptionTitle = styled.span`
-	font-size: 1.2rem;
+	font-size: 1.1rem;
 	font-weight: 600;
 `;
 

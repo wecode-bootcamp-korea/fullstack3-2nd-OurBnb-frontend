@@ -1,14 +1,11 @@
 import styled from 'styled-components';
 import { FiShare } from 'react-icons/fi';
-import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
 import { TiStar } from 'react-icons/ti';
-import { GiConsoleController } from 'react-icons/gi';
-// import { GET_DETAIL_API } from '../../../config';
+import { AiOutlineHeart } from 'react-icons/ai';
 
 export default function DetailTitle({ mainInfoData, reviewAvgData, reviewCountData }) {
-	//roomdata가 객체라서 배열접근이 아니라 객체접근으로,...
 	const { roomName, address } = mainInfoData;
-
+	const rate = Number(reviewAvgData).toFixed(1);
 	return (
 		<TitleWrapper>
 			<TitleTop>
@@ -17,7 +14,7 @@ export default function DetailTitle({ mainInfoData, reviewAvgData, reviewCountDa
 			<TitleBottom>
 				<ContentsUl>
 					<TiStar />
-					<ContentsLi>{reviewAvgData}</ContentsLi>
+					<ContentsLi>{rate}</ContentsLi>
 					<ContentsLi> ∙ </ContentsLi>
 					<ContentsLi>후기{reviewCountData}개</ContentsLi>
 					<ContentsLi> ∙ </ContentsLi>
@@ -37,7 +34,9 @@ export default function DetailTitle({ mainInfoData, reviewAvgData, reviewCountDa
 					<Save>
 						<SaveButton>
 							<SaveButtonInner>
-								<SaveIcon>{/* <AiOutlineHeart onClick={heartClick} /> */}</SaveIcon>
+								<SaveIcon>
+									<AiOutlineHeart />
+								</SaveIcon>
 								<SaveSpan>저장</SaveSpan>
 							</SaveButtonInner>
 						</SaveButton>
