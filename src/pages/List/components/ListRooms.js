@@ -1,17 +1,28 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import ListCard from './ListCard';
-import PagenationBtn from './PagenationBtn';
+import ListCard from './RoomCard';
+import Pagination from './Pagination';
 
-const RoomsList = ({ rooms, totalRows, limit, setOffset }) => {
+const RoomsList = ({ rooms, limit, totalRows, setOffset }) => {
+	const area = rooms.location;
+	const isDivisibleByTen = totalRows % 10 === 0;
+
 	return (
 		<>
 			<StyledListSummary>
 				{rooms?.roomList ? (
 					<>
-						<div>
-							{rooms.location}에 위치한 {rooms?.roomList?.length}개 이상의 숙소
-						</div>
+						{isDivisibleByTen && (
+							<div>
+								{area}에 위치한 {totalRows}개의 숙소
+							</div>
+						)}
+						{!isDivisibleByTen && (
+							<div>
+								{area}에 위치한 {Math.floor(totalRows / 10) * 10}개 이상의 숙소
+							</div>
+						)}
+
 						<div>
 							예약하기 전에 코로나19 관련 여행 제한 사항을 확인하세요.
 							<Link to="#">
@@ -20,7 +31,7 @@ const RoomsList = ({ rooms, totalRows, limit, setOffset }) => {
 						</div>
 					</>
 				) : (
-					<div>{rooms.location}에 위치한 숙소가 없습니다.</div>
+					<div>{area}에 위치한 숙소가 없습니다.</div>
 				)}
 			</StyledListSummary>
 			<StyledList>
@@ -28,7 +39,12 @@ const RoomsList = ({ rooms, totalRows, limit, setOffset }) => {
 					<ListCard key={room.roomId} room={room} />
 				))}
 			</StyledList>
-			<PagenationBtn totalRows={totalRows} limit={limit} setOffset={setOffset} />
+			<Pagination
+				totalRows={totalRows}
+				limit={limit}
+				setOffset={setOffset}
+				isDivisibleByTen={isDivisibleByTen}
+			/>
 		</>
 	);
 };
@@ -70,4 +86,9 @@ const StyledListSummary = styled.div`
 	> div span {
 		text-decoration: underline;
 	}
+`;
+
+const PageWrapper = styled.div`
+	padding: 20px 0;
+	width: 100%;
 `;
