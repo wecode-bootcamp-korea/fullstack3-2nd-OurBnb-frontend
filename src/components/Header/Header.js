@@ -4,6 +4,7 @@ import { FiGlobe } from 'react-icons/fi';
 import { IoPersonCircle } from 'react-icons/io5';
 import { BiSearch } from 'react-icons/bi';
 import Modal from './Modal';
+import Calendar from '../Calendar';
 
 const Header = () => {
 	const [modalVisible, setModalVisible] = useState(false);
@@ -25,6 +26,25 @@ const Header = () => {
 	useEffect(() => {
 		window.addEventListener('scroll', updateScroll);
 	});
+
+	const [startDate, setStartDate] = useState(new Date());
+	const [endDate, setEndDate] = useState(null);
+	const onChange = dates => {
+		const [start, end] = dates;
+		setStartDate(start);
+		setEndDate(end);
+	};
+
+	console.log(startDate.getFullYear());
+	console.log(startDate.getMonth() + 1);
+	console.log(startDate.getDate());
+
+	const [isOpen, setIsOpen] = useState(false);
+
+	const handleClick = e => {
+		e.preventDefault();
+		setIsOpen(!isOpen);
+	};
 
 	return (
 		<HeaderWrapper className={scrollPosition < 60 ? 'header' : 'header_change'}>
@@ -99,18 +119,25 @@ const Header = () => {
 				<Contour />
 				<SearchingDate>
 					<SearchButton>
-						<CheckIn>
+						<Calendar startDate={startDate} endDate={endDate} onChange={onChange} isOpen={isOpen} />
+						<CheckIn onClick={handleClick}>
 							<SearchTitle>체크인</SearchTitle>
-							<SearchDateOption>날짜 입력</SearchDateOption>
+							<SearchDateOption>
+								{startDate
+									? `${startDate.getMonth() + 1}월 ${startDate.getDate()}일 `
+									: '날짜 입력'}
+							</SearchDateOption>
 						</CheckIn>
 					</SearchButton>
 				</SearchingDate>
 				<Contour />
 				<SearchingDate>
 					<SearchButton>
-						<CheckOut>
+						<CheckOut onClick={handleClick}>
 							<SearchTitle>체크아웃</SearchTitle>
-							<SearchDateOption>날짜 입력</SearchDateOption>
+							<SearchDateOption>
+								{endDate ? `${endDate.getMonth() + 1}월 ${endDate.getDate()}일 ` : '날짜 입력'}
+							</SearchDateOption>
 						</CheckOut>
 					</SearchButton>
 				</SearchingDate>
@@ -289,6 +316,7 @@ const ModalLine = styled.hr`
 `;
 
 const Search = styled.div`
+	position: relative;
 	display: flex;
 	justify-content: space-around;
 	width: 59%;
