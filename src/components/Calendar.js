@@ -88,37 +88,44 @@ const CalendarWrapper = styled.section`
 	.react-datepicker__day {
 		margin: 5px;
 		color: #222222;
+		border-radius: 30px;
 	}
 
 	.react-datepicker__day--selected {
 		background-color: #222222;
 		color: #f1f1f1;
+		border-radius: 30px;
 	}
 
 	.react-datepicker__day--in-selecting-range:not(.react-datepicker__day--selected) {
 		background-color: white;
 		color: #222222;
+		border-radius: 30px;
 	}
 
 	.react-datepicker__day--in-range {
 		background-color: #f1f1f1;
 		color: #222222;
+		border-radius: 30px;
 	}
 
 	.react-datepicker__day--selected:hover {
 		background-color: #222222;
 		color: #f1f1f1;
+		border-radius: 30px;
 	}
 
 	.react-datepicker__day--in-selecting-range:hover,
 	.react-datepicker__day--in-range:hover {
 		background-color: #222222;
 		color: #f1f1f1;
+		border-radius: 30px;
 	}
 
 	.react-datepicker__day--range-start,
 	.react-datepicker__day--range-end {
 		background-color: #222222;
 		color: #f1f1f1;
+		border-radius: 30px;
 	}
 `;
