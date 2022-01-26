@@ -23,7 +23,7 @@ const ListCard = ({ room }) => {
 
 	return (
 		<StyledListCard key={roomId}>
-			<Link to="#">
+			<Link to={`/detail?roomId=${roomId}`}>
 				<Carousel room={room} />
 				<RoomInfo>
 					<WishHeart>

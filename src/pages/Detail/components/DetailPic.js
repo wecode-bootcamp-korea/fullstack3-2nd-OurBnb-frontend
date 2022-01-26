@@ -2,12 +2,10 @@ import React from 'react';
 import styled from 'styled-components';
 
 export default function DetailPic({ mainInfoData }) {
-	//여기서 rooms에 담긴 사진을 split(',')으로 쪼개서 하나하나 담는다.
 	const imagesString = '' + mainInfoData.imgUrl;
-	console.log(imagesString);
 	const allImgs = imagesString.split(',');
-	console.log(allImgs);
 
+	//isMain 데이터가 누락됫을경우 --- 에러처리 ()
 	return (
 		<PicWrapper>
 			<MainImg>

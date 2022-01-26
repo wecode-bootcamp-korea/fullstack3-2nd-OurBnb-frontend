@@ -1,12 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { AiFillFlag } from 'react-icons/ai';
-// import 'react-day-picker';
 import { AiFillFlag, AiOutlineDown } from 'react-icons/ai';
 import { TiStar } from 'react-icons/ti';
-import 'react-date-range/dist/styles.css';
-import 'react-date-range/dist/theme/default.css';
-import { DateRangePicker } from 'react-date-range';
 
 export default function ReservationCard() {
 	const [startDate, setStartDate] = useState(new Date());
