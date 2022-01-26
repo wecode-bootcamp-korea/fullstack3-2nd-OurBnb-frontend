@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 const TripIdea = () => {
 	return (
-		<>
+		<IdeaWrapper>
 			<TripIdeaWrapper>
 				<TripTitle>
 					<IdeaTitle>설레는 다음 여행을 위한 아이디어</IdeaTitle>
@@ -39,14 +39,21 @@ const TripIdea = () => {
 					</IdeaPlace>
 				</Place>
 			</TripIdeaWrapper>
-		</>
+		</IdeaWrapper>
 	);
 };
 
 export default TripIdea;
 
 // styled-components
+const IdeaWrapper = styled.div`
+	width: 100%;
+	max-width: 1800px;
+	margin: 0 auto;
+`;
+
 const TripIdeaWrapper = styled.div`
+	/* margin: 120px 0 0 6%; */
 	margin: 120px 0 0 6%;
 	display: flex;
 	flex-direction: column;

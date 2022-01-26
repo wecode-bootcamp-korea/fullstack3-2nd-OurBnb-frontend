@@ -11,9 +11,11 @@ const Router = () => {
 			<BrowserRouter>
 				<Routes>
 					<Route path="/" element={<Main />} />
-					<Route path="/list" element={<List />} />
-					<Route path="/detail" element={<Detail />} />
+					<Route path="/:location/room" element={<List />} />
+					<Route path="/room/:id" element={<Detail />} />
 					<Route path="/kakaologin" element={<KakaoLogin />} />
+					{/* <Route path="/wishlists" element={<Wishlists />} /> */}
+					{/* <Route path="/trips" element={<Trips />} /> */}
 					<Route path="*" element={<Help />} />
 				</Routes>
 			</BrowserRouter>

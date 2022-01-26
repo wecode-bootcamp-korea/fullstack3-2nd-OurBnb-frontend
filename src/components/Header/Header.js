@@ -35,8 +35,6 @@ const Header = () => {
 		setSearchModalVisible(false);
 	};
 
-	const kakaoAuthurl = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_KAKAO_REST_API_KEY}&redirect_uri=${process.env.REACT_APP_KAKAO_REDIRECT_URL}&response_type=code&prompt=login`;
-
 	const [startDate, setStartDate] = useState(new Date());
 	const [endDate, setEndDate] = useState(null);
 	const onChange = dates => {
@@ -44,6 +42,15 @@ const Header = () => {
 		setStartDate(start);
 		setEndDate(end);
 	};
+
+	const checkInDate = `${startDate.getFullYear()}-${
+		startDate.getMonth() + 1
+	}-${startDate.getDate()}`;
+	const checkOutDate = endDate
+		? `${endDate.getFullYear()}-${endDate.getMonth() + 1}-${endDate.getDate()}`
+		: null;
+
+	console.log(checkInDate, checkOutDate);
 
 	const [isOpen, setIsOpen] = useState(false);
 
@@ -53,21 +60,13 @@ const Header = () => {
 	};
 
 	return (
-<<<<<<< HEAD
-		<HeaderWrapper className={scrollPosition < 60 ? 'header' : 'header_change'}>
+		<HeaderWrapper>
 			<Link to="/">
 				<Logo>
 					<LogoImage src="../../images/logo1.png" />
 					<LogoName>ourbnb</LogoName>
 				</Logo>
 			</Link>
-=======
-		<HeaderWrapper>
-			<Logo>
-				<LogoImage src="../../images/logo1.png" />
-				<LogoName>ourbnb</LogoName>
-			</Logo>
->>>>>>> 9cd4ae3 (중간저장)
 			<HeaderButtons>
 				<HeaderButton>
 					<HeaderLabel>
@@ -147,7 +146,7 @@ const Header = () => {
 					<SearchButton>
 						<Location>
 							<SearchTitle>위치</SearchTitle>
-							<SearchLocationOption placeholder="어디로 여행가세요?"></SearchLocationOption>
+							<SearchLocationOption placeholder="어디로 여행가세요?" />
 						</Location>
 					</SearchButton>
 				</SearchingLocation>
@@ -159,7 +158,7 @@ const Header = () => {
 						onClose={closeSearchModal}
 					>
 						<LocationMent>언제 어디로든 떠나는 여행</LocationMent>
-						<Link to="/list">
+						<Link to="/제주/room">
 							<LocationFlexible>
 								<LocationSearch>유연한 검색</LocationSearch>
 								<Right>&rang;</Right>
@@ -202,7 +201,9 @@ const Header = () => {
 					</SearchButton>
 				</SearchingGuest>
 				<Finder>
-					<BiSearch />
+					<Link to={`/제주/room?checkin=${checkInDate}&checkout=${checkOutDate}`}>
+						<BiSearch />
+					</Link>
 				</Finder>
 			</Search>
 		</HeaderWrapper>
@@ -214,7 +215,8 @@ export default Header;
 // styled-components
 const HeaderWrapper = styled.div`
 	width: 100%;
-	margin-top: 15px;
+	max-width: 1600px;
+	margin: 15px auto;
 	background-color: 'transparent';
 `;
 

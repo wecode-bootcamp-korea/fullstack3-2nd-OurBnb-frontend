@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import queryString from 'query-string';
 import styled from 'styled-components';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer';
@@ -16,10 +18,18 @@ const List = () => {
 	const [isLoading, setIsLoading] = useState(true);
 	const center = { lat, lng };
 	const limit = 5;
+	const { location } = useParams();
+
+	const parsedQuery = queryString.parse(window.location.search);
+	// const checkIn = parsedQuery.checkin;
+
+	//http://localhost:8000/rooms?location=제주&checkin=날짜&checkout=날짜&person=사람수&roomTypeId=1&option=1&option=2&minPrice=최소가격&maxPrice=최대가격
 
 	useEffect(() => {
 		const getRoomData = async () => {
-			const response = await fetch(`${GET_LIST_API}?location=제주&limit=${limit}&offset=${offset}`);
+			const response = await fetch(
+				`${GET_LIST_API}?location=${location}&limit=${limit}&offset=${offset}`,
+			);
 			const data = await response.json();
 			setIsLoading(true);
 			window.scrollTo(0, 0);
