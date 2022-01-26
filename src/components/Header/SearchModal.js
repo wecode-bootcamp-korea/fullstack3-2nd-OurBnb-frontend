@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-function Modal({ className, onClose, maskClosable, visible, children }) {
+function SearchModal({ className, onClose, maskClosable, visible, children }) {
 	const onMaskClick = e => {
 		if (e.target === e.currentTarget) {
 			onClose(e);
@@ -26,14 +26,14 @@ function Modal({ className, onClose, maskClosable, visible, children }) {
 	);
 }
 
-Modal.propTypes = {
+SearchModal.propTypes = {
 	visible: PropTypes.bool,
 };
 
 const ModalWrapper = styled.div`
 	box-sizing: border-box;
 	display: ${props => (props.visible ? 'block' : 'none')};
-	position: fixed;
+	position: absolute;
 	top: 0;
 	right: 0;
 	bottom: 0;
@@ -51,22 +51,20 @@ const ModalOverlay = styled.div`
 	left: 0;
 	bottom: 0;
 	right: 0;
-	background-color: rgba(0, 0, 0, 0.6);
 	z-index: 999;
 `;
 
 const ModalInner = styled.div`
 	box-sizing: border-box;
-	position: relative;
+	position: fixed;
+	margin-top: 150px;
 	box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.5);
 	background-color: #fff;
-	border-radius: 10px;
+	border-radius: 30px;
 	width: 360px;
 	max-width: 480px;
-	top: 50%;
 	transform: translateY(-50%);
-	margin: 0 auto;
 	padding: 40px 20px;
 `;
 
-export default Modal;
+export default SearchModal;

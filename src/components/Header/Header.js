@@ -4,29 +4,38 @@ import styled from 'styled-components';
 import { FiGlobe } from 'react-icons/fi';
 import { IoPersonCircle } from 'react-icons/io5';
 import { BiSearch } from 'react-icons/bi';
-import Modal from './Modal';
 import Calendar from '../Calendar';
+import ProfileModal from './ProfileModal';
+import LoginModal from './LoginModal';
+import SearchModal from './SearchModal';
+import LoginButton from '../Login/Button';
 
 const Header = () => {
-	const [modalVisible, setModalVisible] = useState(false);
-	const openModal = () => {
-		setModalVisible(true);
+	const [profileModalVisible, setProfileModalVisible] = useState(false);
+	const openProfileModal = () => {
+		setProfileModalVisible(true);
 	};
-	const closeModal = () => {
-		setModalVisible(false);
+	const closeProfileModal = () => {
+		setProfileModalVisible(false);
+	};
+
+	const [loginModalVisible, setLoginModalVisible] = useState(false);
+	const openLoginModal = () => {
+		setLoginModalVisible(true);
+	};
+	const closeLoginModal = () => {
+		setLoginModalVisible(false);
+	};
+
+	const [searchModalVisible, setSearchModalVisible] = useState(false);
+	const openSearchModal = () => {
+		setSearchModalVisible(true);
+	};
+	const closeSearchModal = () => {
+		setSearchModalVisible(false);
 	};
 
 	const kakaoAuthurl = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_KAKAO_REST_API_KEY}&redirect_uri=${process.env.REACT_APP_KAKAO_REDIRECT_URL}&response_type=code&prompt=login`;
-
-	const [scrollPosition, setScrollPosition] = useState(0);
-
-	const updateScroll = () => {
-		setScrollPosition(window.scrollY || document.documentElement.scrollTop);
-	};
-
-	useEffect(() => {
-		window.addEventListener('scroll', updateScroll);
-	});
 
 	const [startDate, setStartDate] = useState(new Date());
 	const [endDate, setEndDate] = useState(null);
@@ -44,6 +53,7 @@ const Header = () => {
 	};
 
 	return (
+<<<<<<< HEAD
 		<HeaderWrapper className={scrollPosition < 60 ? 'header' : 'header_change'}>
 			<Link to="/">
 				<Logo>
@@ -51,6 +61,13 @@ const Header = () => {
 					<LogoName>ourbnb</LogoName>
 				</Logo>
 			</Link>
+=======
+		<HeaderWrapper>
+			<Logo>
+				<LogoImage src="../../images/logo1.png" />
+				<LogoName>ourbnb</LogoName>
+			</Logo>
+>>>>>>> 9cd4ae3 (중간저장)
 			<HeaderButtons>
 				<HeaderButton>
 					<HeaderLabel>
@@ -74,7 +91,7 @@ const Header = () => {
 					<FiGlobe />
 				</HeaderChoice>
 			</HeaderOption>
-			<Profile onClick={openModal}>
+			<Profile onClick={openProfileModal}>
 				<Lines>
 					<Line />
 					<Line />
@@ -84,16 +101,35 @@ const Header = () => {
 					<IoPersonCircle />
 				</User>
 			</Profile>
-			{modalVisible && (
-				<Modal visible={modalVisible} closable={true} maskClosable={true} onClose={closeModal}>
-					<ModalListTop>
+			{profileModalVisible && (
+				<ProfileModal
+					visible={profileModalVisible}
+					closable={true}
+					maskClosable={true}
+					onClose={closeProfileModal}
+				>
+					<ModalListTop onClick={openLoginModal}>
 						<Signup>회원가입</Signup>
 					</ModalListTop>
-					<ModalList>
-						<Login>
-							<a href={kakaoAuthurl}>로그인</a>
-						</Login>
+					<ModalList onClick={openLoginModal}>
+						<Login>로그인</Login>
 					</ModalList>
+					{loginModalVisible && (
+						<LoginModal
+							visible={loginModalVisible}
+							closable={true}
+							maskClosable={true}
+							onClose={closeLoginModal}
+						>
+							<LoginLogoImage src="../../images/logo2.png" />
+							<LoginLogo>아워비앤비 회원가입 및 로그인</LoginLogo>
+							<ModalLine />
+							<LoginComment>아워비앤비에 오신 것을 환영합니다.</LoginComment>
+							<KakaoLoginButton>
+								<LoginButton />
+							</KakaoLoginButton>
+						</LoginModal>
+					)}
 					<ModalLine />
 					<ModalList>
 						<Login>숙소 호스트 되기</Login>
@@ -104,10 +140,10 @@ const Header = () => {
 					<ModalListBottom>
 						<Login>도움말</Login>
 					</ModalListBottom>
-				</Modal>
+				</ProfileModal>
 			)}
 			<Search>
-				<SearchingLocation>
+				<SearchingLocation onClick={openSearchModal}>
 					<SearchButton>
 						<Location>
 							<SearchTitle>위치</SearchTitle>
@@ -115,6 +151,22 @@ const Header = () => {
 						</Location>
 					</SearchButton>
 				</SearchingLocation>
+				{searchModalVisible && (
+					<SearchModal
+						visible={searchModalVisible}
+						closable={true}
+						maskClosable={true}
+						onClose={closeSearchModal}
+					>
+						<LocationMent>언제 어디로든 떠나는 여행</LocationMent>
+						<Link to="/list">
+							<LocationFlexible>
+								<LocationSearch>유연한 검색</LocationSearch>
+								<Right>&rang;</Right>
+							</LocationFlexible>
+						</Link>
+					</SearchModal>
+				)}
 				<Contour />
 				<SearchingDate>
 					<SearchButton>
@@ -325,6 +377,30 @@ const Search = styled.div`
 	background-color: white;
 `;
 
+const LoginLogoImage = styled.img`
+	width: 25px;
+	margin: -20px 0 5px 60px;
+`;
+
+const LoginLogo = styled.div`
+	margin: -28px 0 20px 90px;
+	font-size: 14px;
+	font-weight: 500;
+`;
+
+const LoginComment = styled.div`
+	margin: 20px 0 0 0;
+	font-size: 20px;
+	text-align: center;
+`;
+
+const KakaoLoginButton = styled.button`
+	margin: 30px 0 0 2px;
+	border: 2px solid #c9c9c9;
+	border-radius: 10px;
+	background-color: #ffffff;
+`;
+
 const SearchingLocation = styled.button`
 	width: 30%;
 	background-color: inherit;
@@ -337,6 +413,41 @@ const SearchingLocation = styled.button`
 		background-color: #e3e3e3;
 		border-radius: 35px;
 	}
+`;
+
+const LocationMent = styled.div`
+	margin: -20px 0 0 5px;
+	font-size: 12px;
+	font-weight: 700;
+`;
+
+const LocationFlexible = styled.button`
+	margin: 30px 0 0 5px;
+	padding: 10px 10px;
+	border: 1px solid #b6b6b6;
+	border-radius: 30px;
+	background-color: #ffffff;
+
+	&:hover {
+		box-shadow: 0 0 12px 3px #e6e6e6;
+	}
+`;
+
+const LocationSearch = styled.div`
+	margin: 3px 0 0 -180px;
+	font-size: 16px;
+	font-weight: 600;
+	background: linear-gradient(90deg, #6f019c 0%, #c6017e 135.12%);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+`;
+
+const Right = styled.div`
+	margin: -20px 0 0 270px;
+	font-size: 18px;
+	background: linear-gradient(90deg, #6f019c 0%, #c6017e 135.12%);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
 `;
 
 const SearchingDate = styled.button`

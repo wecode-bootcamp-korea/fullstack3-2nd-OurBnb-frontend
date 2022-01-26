@@ -38,7 +38,7 @@ const ModalWrapper = styled.div`
 	right: 0;
 	bottom: 0;
 	left: 0;
-	z-index: 1000;
+	z-index: 5000;
 	overflow: auto;
 	outline: 0;
 `;
@@ -51,17 +51,18 @@ const ModalOverlay = styled.div`
 	left: 0;
 	bottom: 0;
 	right: 0;
-	z-index: 999;
+	background-color: rgba(0, 0, 0, 0.6);
+	z-index: 2500;
 `;
 
 const ModalInner = styled.div`
 	box-sizing: border-box;
 	position: relative;
-	margin: 15% 0 0 77%;
+	margin: 230px 0 0 1100px;
 	box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.5);
 	background-color: #fff;
 	border-radius: 10px;
-	width: 250px;
+	width: 255px;
 	max-width: 480px;
 	transform: translateY(-50%);
 `;

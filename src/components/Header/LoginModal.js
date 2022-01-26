@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import Portal from './Portal';
 
 function LoginModal({ className, onClose, maskClosable, visible, children }) {
 	const onMaskClick = e => {
@@ -9,41 +10,56 @@ function LoginModal({ className, onClose, maskClosable, visible, children }) {
 		}
 	};
 
+	useEffect(() => {
+		document.body.style.cssText = `position: fixed; top: -${window.scrollY}px`;
+		return () => {
+			const scrollY = document.body.style.top;
+			document.body.style.cssText = `position: ""; top: "";`;
+			window.scrollTo(0, parseInt(scrollY || '0') * -1);
+		};
+	}, []);
+
 	return (
 		<>
-			<ModalOverlay visible={visible} />
-			<ModalWrapper
+			<LoginModalOverlay visible={visible} />
+			<LoginModalWrapper
 				className={className}
 				onClick={maskClosable ? onMaskClick : null}
 				tabIndex="-1"
 				visible={visible}
 			>
-				<ModalInner tabIndex="0" className="modal-inner">
+				<LoginModalInner tabIndex="0" className="modal-inner">
 					{children}
-				</ModalInner>
-			</ModalWrapper>
+				</LoginModalInner>
+			</LoginModalWrapper>
 		</>
 	);
 }
+
+LoginModal.defaultProps = {
+	visible: false,
+	closable: true,
+	maskClosable: true,
+};
 
 LoginModal.propTypes = {
 	visible: PropTypes.bool,
 };
 
-const ModalWrapper = styled.div`
+const LoginModalWrapper = styled.div`
 	box-sizing: border-box;
 	display: ${props => (props.visible ? 'block' : 'none')};
-	position: fixed;
+	position: absolute;
 	top: 0;
 	right: 0;
 	bottom: 0;
 	left: 0;
-	z-index: 1000;
+	z-index: 5000;
 	overflow: auto;
 	outline: 0;
 `;
 
-const ModalOverlay = styled.div`
+const LoginModalOverlay = styled.div`
 	box-sizing: border-box;
 	display: ${props => (props.visible ? 'block' : 'none')};
 	position: fixed;
@@ -52,20 +68,19 @@ const ModalOverlay = styled.div`
 	bottom: 0;
 	right: 0;
 	background-color: rgba(0, 0, 0, 0.6);
-	z-index: 999;
+	z-index: 3999;
 `;
 
-const ModalInner = styled.div`
+const LoginModalInner = styled.div`
 	box-sizing: border-box;
-	position: relative;
+	position: fixed;
+	margin: 250px 0 0 -550px;
 	box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.5);
 	background-color: #fff;
 	border-radius: 10px;
 	width: 360px;
 	max-width: 480px;
-	top: 50%;
 	transform: translateY(-50%);
-	margin: 0 auto;
 	padding: 40px 20px;
 `;
 
