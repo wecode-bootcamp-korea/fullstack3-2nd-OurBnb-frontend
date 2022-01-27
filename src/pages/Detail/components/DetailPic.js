@@ -13,6 +13,7 @@ export default function DetailPic({ mainInfoData }) {
 					<img src={allImgs[0]} alt="img" />
 				</Mimg>
 			</MainImg>
+
 			<SubImg>
 				<SubImgWrapper>
 					<img src={allImgs[1]} alt="img" />
@@ -27,6 +28,7 @@ export default function DetailPic({ mainInfoData }) {
 					<img src={allImgs[4]} alt="img" />
 				</SubImgWrapper>
 			</SubImg>
+
 			<ImgModal>::: 사진 모두보기</ImgModal>
 		</PicWrapper>
 	);
@@ -104,8 +106,8 @@ const SubImgWrapper = styled.div`
 `;
 
 const ImgModal = styled.button`
-	top: 80%;
-	left: 80%;
+	bottom: 10px;
+	right: 10px;
 	width: 150px;
 	height: 40px;
 	font-size: 20px;

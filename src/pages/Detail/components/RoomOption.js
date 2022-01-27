@@ -1,17 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
-// import { GiKnifeFork } from 'react-icons/gi';
-// import { AiOutlineWifi } from 'react-icons/ai';
-// import { MdMonitor, MdOutlineMicrowave } from 'react-icons/md';
-// import { CgSmartHomeWashMachine, CgSmartHomeRefrigerator } from 'react-icons/cg';
-// import { IoIosSnow } from 'react-icons/io';
-// import { RiLuggageDepositLine } from 'react-icons/ri';
-// import { SiGooglephotos } from 'react-icons/si';
-// import { BsPencil } from 'react-icons/bs';
 import RoomOptionC from './RoomOptionC';
 
 export default function RoomOption({ optionData }) {
+<<<<<<< HEAD
 	const filteredOptions = optionData.filter(e => e.isMainOption);
+=======
+	const OptionFilter = optionData.filter(e => e.isMainOption);
+	console.log(OptionFilter);
+>>>>>>> d47ddc0 (edit: 중간저장5)
 
 	return (
 		<Wrapper>
