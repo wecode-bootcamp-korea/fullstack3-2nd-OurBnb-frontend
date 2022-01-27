@@ -401,6 +401,7 @@ const Search = styled.div`
 	display: flex;
 	justify-content: space-around;
 	width: 59%;
+	width: min-content;
 	height: 68px;
 	margin: 1% 0 0 20%;
 	border-radius: 50px;
@@ -470,6 +471,7 @@ const LocationSearch = styled.div`
 	font-size: 16px;
 	font-weight: 600;
 	background: linear-gradient(90deg, #6f019c 0%, #c6017e 135.12%);
+	background-clip: text;
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
 `;
@@ -478,6 +480,7 @@ const Right = styled.div`
 	margin: -20px 0 0 270px;
 	font-size: 18px;
 	background: linear-gradient(90deg, #6f019c 0%, #c6017e 135.12%);
+	background-clip: text;
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
 `;
