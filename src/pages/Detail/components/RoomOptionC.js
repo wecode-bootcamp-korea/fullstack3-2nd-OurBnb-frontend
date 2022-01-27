@@ -21,12 +21,13 @@ const OptionWrapper = styled.div`
 
 const Content = styled.div`
 	display: flex;
+	align-items: center;
 `;
 
 const OptionIcon = styled.div`
 	width: 30px;
 	height: 30px;
-	font-size: 20px;
+	font-size: 15px;
 	margin-right: 30px;
 	img {
 		width: 100%;
@@ -36,5 +37,5 @@ const OptionIcon = styled.div`
 `;
 
 const OptionName = styled.span`
-	font-size: 20px;
+	font-size: 15px;
 `;

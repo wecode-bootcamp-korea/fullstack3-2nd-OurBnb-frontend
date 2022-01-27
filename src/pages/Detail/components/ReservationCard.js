@@ -1,38 +1,159 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { AiFillFlag, AiOutlineDown } from 'react-icons/ai';
 import { TiStar } from 'react-icons/ti';
+import Calendar from '../../../components/Calendar';
+import { POST_RESERVATION_API } from '../../../config';
 
-export default function ReservationCard() {
-	const [startDate, setStartDate] = useState(new Date());
+export default function ReservationCard({
+	mainInfoData,
+	priceData,
+	reviewAvgData,
+	reviewCountData,
+	capacityData,
+}) {
+	const { roomId, guestCapacity } = mainInfoData;
+	const price = Number(priceData).toLocaleString();
+	const rate = Number(reviewAvgData).toFixed(1);
+
+	//모달
+	// const [modalVisible, setModalVisible] = useState(false);
+	// const openModal = () => {
+	// 	setModalVisible(true);
+	// };
+	// const closeModal = () => {
+	// 	setModalVisible(false);
+	// };
+
+	//데이트선택
+	const [startDate, setStartDate] = useState();
+	const [endDate, setEndDate] = useState(null);
+	const [checkInDate, setCheckInDate] = useState();
+	const [checkOutDate, setCheckOutDate] = useState();
+	const [dateInterval, setDateInterval] = useState(0);
+	const [serviceFee, setServiceFee] = useState(0);
+	const [taxFee, setTaxFee] = useState(0);
+	const [totalFee, setTotalFee] = useState(0);
+	const [dayPrice, setDayPrice] = useState();
+	const [isBtnClicked, setIsBtnClicked] = useState(false);
+
+	const idValue = sessionStorage.getItem('access_token');
+
+	const onChange = dates => {
+		const [start, end] = dates;
+		setStartDate(start);
+		setEndDate(end);
+		setDateInterval(getDateInterval(start, end));
+		setCheckInDate(`${start.getFullYear()}-${start.getMonth() + 1}-${start.getDate()}`);
+		setCheckOutDate(`${end.getFullYear()}-${end.getMonth() + 1}-${end.getDate()}`);
+	};
+
+	//일 수 계산
+	const getDateInterval = (startDate, timeEnd) => {
+		const newStartDate = new Date(startDate);
+		const newEndDate = new Date(timeEnd);
+		const one_day = 1000 * 60 * 60 * 24;
+		let result = Math.ceil((newEndDate.getTime() - newStartDate.getTime()) / one_day);
+		return result;
+	};
+
+	const [isOpen, setIsOpen] = useState(false);
+
+	const handleClick = e => {
+		e.preventDefault();
+		setIsOpen(!isOpen);
+	};
+
+	const reservationClick = e => {
+		e.preventDefault();
+		if (!isBtnClicked) {
+			setIsBtnClicked(!isBtnClicked);
+		}
+		alert('예약하시겠습니까?');
+	};
+
+	useEffect(() => {
+		setDayPrice(Number(priceData * dateInterval).toLocaleString());
+		setServiceFee(Number(priceData * dateInterval * 0.15).toLocaleString());
+		setTaxFee(Number(priceData * dateInterval * 0.015).toLocaleString());
+		setTotalFee(
+			Number(
+				priceData * dateInterval +
+					priceData * dateInterval * 0.15 +
+					priceData * dateInterval * 0.015,
+			).toLocaleString(),
+		);
+	}, [priceData, dateInterval]);
+
+	useEffect(() => {
+		const postReservation = async () => {
+			console.log('reservation Info', roomId, guestCapacity, checkInDate, checkOutDate);
+			const response = await fetch(
+				`${POST_RESERVATION_API}?roomId=${roomId}&guestCount=${guestCapacity}&checkIn=${checkInDate}&checkOut=${checkOutDate}`,
+				{
+					method: 'POST',
+					headers: { 'Content-Type': 'application/json', Authorization: idValue },
+				},
+			);
+			const data = await response.json();
+			console.log('data', data);
+		};
+		postReservation();
+	}, [isBtnClicked]);
+
+	// const { roomId, guestCount, checkIn, checkOut } = req.query;
+
+	//   useEffect(() => {
+	// 		const getReviewData = async () => {
+	// 			const response = await fetch(`${GET_REVIEW_API}?roomId=${roomId}`);
+	// 			const data = await response.json();
+	// 			setReviewData(data.reviewInfo);
+	// 		};
+	// 		getReviewData();
+	// 	}, []);
 	return (
 		<Wrapper>
 			<Frame>
 				<CardContainer>
 					<Price>
-						<PriceTitle>₩ {} / 박</PriceTitle>
+						<PriceWrapper>
+							<PriceTitle>₩ {price} </PriceTitle>
+							<OneDay>/ 박</OneDay>
+						</PriceWrapper>
 						<SubPrice>
 							<TiStar className="star" />
-							<Sub>별점</Sub>
+							<Sub>{rate}</Sub>
 							<Sub> ∙ </Sub>
-							<Sub>후기{}개</Sub>
+							<Sub>후기{reviewCountData}개</Sub>
 						</SubPrice>
 					</Price>
 					<ChoiceDate>
 						<DateTop>
-							<CheckIn>
+							<Calendar
+								startDate={startDate}
+								endDate={endDate}
+								onChange={onChange}
+								isOpen={isOpen}
+							/>
+							<CheckIn onClick={handleClick}>
 								<CheckInLabel>체크인</CheckInLabel>
-								<TextField>텍스트</TextField>
+								<TextField>
+									{startDate
+										? `${startDate.getMonth() + 1}월 ${startDate.getDate()}일 `
+										: '날짜 입력'}
+								</TextField>
 							</CheckIn>
-							<CheckOut>
+							<CheckOut onClick={handleClick}>
 								<CheckInLabel>체크아웃</CheckInLabel>
-								<TextField>텍스트</TextField>
+								<TextField>
+									{endDate ? `${endDate.getMonth() + 1}월 ${endDate.getDate()}일 ` : '날짜 입력'}
+								</TextField>
 							</CheckOut>
 						</DateTop>
 						<People>
 							<PeopleLeft>
 								<PeopleLabel>인원</PeopleLabel>
-								<TextField>텍스트</TextField>
+								<TextField>{capacityData} 명</TextField>
 							</PeopleLeft>
 							<PeopleRigth>
 								<PeopleIcon>
@@ -42,26 +163,26 @@ export default function ReservationCard() {
 						</People>
 					</ChoiceDate>
 					<ReservationButton>
-						<ButtonText>예약하기</ButtonText>
+						<ButtonText onClick={reservationClick}>예약하기</ButtonText>
 					</ReservationButton>
 					<NoticeText>예약 확정 전에는 요금이 청구되지 않습니다.</NoticeText>
 					<Fee>
 						<FeeWrapper>
 							<FeeLeft>숙소</FeeLeft>
-							<FeeRight>₩</FeeRight>
+							<FeeRight>₩ {dayPrice}</FeeRight>
 						</FeeWrapper>
 						<FeeWrapper>
 							<FeeLeft>서비스 수수료</FeeLeft>
-							<FeeRight>₩</FeeRight>
+							<FeeRight>₩ {serviceFee}</FeeRight>
 						</FeeWrapper>
 						<FeeWrapper>
-							<FeeLeft>숙박세와 수수요</FeeLeft>
-							<FeeRight>₩</FeeRight>
+							<FeeLeft>숙박세와 수수료</FeeLeft>
+							<FeeRight>₩ {taxFee}</FeeRight>
 						</FeeWrapper>
 					</Fee>
 					<TotalFee>
 						<TotalLeft>총 합계</TotalLeft>
-						<TotalRight>₩</TotalRight>
+						<TotalRight>₩ {totalFee}</TotalRight>
 					</TotalFee>
 				</CardContainer>
 			</Frame>
@@ -104,11 +225,11 @@ const CardContainer = styled.div`
 // const DayPickerInput = styled.div``;
 
 const Declare = styled.div`
-	width: 40%;
+	width: 170px;
 	display: flex;
 	margin: 0 auto;
-	background-color: blue;
-	border: 1px solid black;
+	cursor: pointer;
+	margin-top: 20px;
 `;
 
 const DeclareIcon = styled.div`
@@ -116,7 +237,7 @@ const DeclareIcon = styled.div`
 	height: 20px;
 	font-size: 20px;
 	margin-right: 20px;
-	.falg {
+	.flag {
 		color: gray;
 	}
 `;
@@ -129,13 +250,23 @@ const DeclareName = styled.span`
 
 const Price = styled.div`
 	display: flex;
-	flex-direction: column;
+	justify-content: space-between;
 	margin-top: 20px;
-	border: 1px solid green;
+`;
+
+const PriceWrapper = styled.div`
+	display: flex;
+	align-items: center;
+`;
+
+const OneDay = styled.span`
+	font-size: 0.7rem;
+	margin-left: 5px;
+	color: gray;
 `;
 
 const PriceTitle = styled.h3`
-	font-size: 1.3rem;
+	font-size: 1rem;
 `;
 
 const SubPrice = styled.ul`
@@ -230,9 +361,10 @@ const PeopleLabel = styled.div`
 const PeopleIcon = styled.div`
 	width: 100%;
 	height: 100%;
+	position: relative;
 	padding-top: 10px;
 	.downArrow {
-		font-size: 25px;
+		font-size: 20px;
 	}
 `;
 
@@ -243,6 +375,7 @@ const ReservationButton = styled.button`
 	border: 0;
 	border-radius: 10px 10px 10px 10px;
 	outline: 0;
+	cursor: pointer;
 	background-color: #ff385c;
 `;
 
@@ -290,11 +423,12 @@ const TotalFee = styled.div`
 `;
 
 const TotalLeft = styled.div`
-	font-size: 1.5rem;
+	font-size: 1.2rem;
 	font-weight: bold;
 `;
 
 const TotalRight = styled.div`
-	font-size: 1.5rem;
+	font-size: 1.2rem;
 	font-weight: bold;
+	margin-bottom: 20px;
 `;

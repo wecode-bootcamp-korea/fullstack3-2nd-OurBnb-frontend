@@ -62,6 +62,7 @@ const Container = styled.div`
 
 const ContentWrapper = styled.div`
 	display: flex;
+	justify-content: space-between;
 `;
 
 const ContentName = styled.div`
@@ -74,7 +75,6 @@ const StyleDiv = styled.div`
 	width: 300px;
 	display: flex;
 	flex-direction: column;
-	margin-right: 50px;
 `;
 
 const ContentContainer = styled.div`

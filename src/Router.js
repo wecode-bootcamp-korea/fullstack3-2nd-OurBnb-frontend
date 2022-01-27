@@ -4,6 +4,7 @@ import List from './pages/List/List';
 import Detail from './pages/Detail/Detail';
 import KakaoLogin from './components/Login/Login';
 import Help from './pages/Oops/Oops';
+import Review from './pages/Detail/components/Review';
 
 const Router = () => {
 	return (
