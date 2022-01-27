@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { useState } from 'react';
 import styled from 'styled-components';
 import Carousel from './Carousel';
 
@@ -21,16 +22,61 @@ const ListCard = ({ room }) => {
 		isWish,
 	} = room;
 
+	const [isWishClick, setIsWishClick] = useState(isWish);
+	const handleWishBtn = () => {
+		if (isWishClick) {
+			fetch('http://localhost:8000/wishlist/', {
+				method: 'DELETE',
+				headers: new Headers({
+					Authorization: sessionStorage.getItem('access_token'),
+					'Content-Type': 'application/json',
+					mode: 'cors',
+				}),
+				body: JSON.stringify({
+					roomId: roomId,
+				}),
+			}).then(res => {
+				console.log(res);
+				if (res.status === 204) {
+					setIsWishClick(false);
+				} else if (res.status === 401) {
+					alert('로그인 후 이용바랍니다.');
+				}
+			});
+		} else {
+			fetch('http://localhost:8000/wishlist/', {
+				method: 'PUT',
+				headers: new Headers({
+					Authorization: sessionStorage.getItem('access_token'),
+					'Content-Type': 'application/json',
+					mode: 'cors',
+				}),
+				body: JSON.stringify({
+					roomId: roomId,
+				}),
+			}).then(res => {
+				console.log(res);
+				if (res.status === 201) {
+					setIsWishClick(true);
+				} else if (res.status === 401) {
+					alert('로그인 후 이용바랍니다.');
+				} else if (res.status === 400) {
+					alert('이미 추가한 숙소 입니다.');
+				}
+			});
+		}
+	};
+
 	return (
 		<StyledListCard key={roomId}>
 			<Link to={`/room/${roomId}`}>
 				<Carousel room={room} />
 				<RoomInfo>
-					<WishHeart>
-						{isWish ? (
-							<TiHeartFullOutline className="heart" />
+					<WishHeart onClick={handleWishBtn}>
+						{isWishClick ? (
+							<TiHeartFullOutline className="heartOn heart" />
 						) : (
-							<IoHeartOutline className="heart" />
+							<IoHeartOutline className="heartOff heart" />
 						)}
 					</WishHeart>
 					<RoomDesc>
@@ -96,7 +142,9 @@ const StyledListCard = styled.li`
 `;
 
 const WishHeart = styled.div`
-	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	position: absolute;
 	top: 20px;
 	right: 0;
@@ -106,13 +154,19 @@ const WishHeart = styled.div`
 	background: transparent;
 
 	.heart {
-		position: absolute;
-		top: 50%;
-		left: 50%;
 		font-size: 25px;
 		z-index: 999;
 		cursor: pointer;
-		transform: translate(-50%, -50%);
+
+		&:active {
+			transform: scale(90%);
+			transform-origin: center;
+			transition: 0.1s;
+		}
+	}
+
+	.heartOn {
+		color: ${({ theme }) => theme.brandRed};
 	}
 
 	@media (min-width: 744px) {
