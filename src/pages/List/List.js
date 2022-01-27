@@ -22,9 +22,10 @@ const List = () => {
 
 	// const parsedQuery = queryString.parse(window.location.search);
 	// const checkIn = parsedQuery.checkin;
+	//http://localhost:8000/rooms?location=제주&checkin=날짜&checkout=날짜&person=사람수&roomTypeId=1&option=1&option=2&minPrice=최소가격&maxPrice=최대가격
 
 	useEffect(() => {
-		fetch(`${GET_LIST_API}?location=제주&limit=${limit}&offset=${offset}`, {
+		fetch(`${GET_LIST_API}?location=${location}&limit=${limit}&offset=${offset}`, {
 			method: 'GET',
 			headers: {
 				Authorization: sessionStorage.getItem('access_token'),
@@ -41,8 +42,8 @@ const List = () => {
 				setLng(data.lng);
 				setTotalRows(data.totalRows);
 			});
-	}, [offset]);
-
+		// console.log(`${GET_LIST_API}?location=${location}&limit=${limit}&offset=${offset}`);
+	}, [offset, location]);
 	return (
 		<>
 			<HeaderWrapper>
@@ -96,8 +97,4 @@ const ListContainer = styled.main`
 		display: flex;
 		flex-direction: column;
 	}
-`;
-
-const AlertWrapper = styled.section`
-	position: absolute;
 `;

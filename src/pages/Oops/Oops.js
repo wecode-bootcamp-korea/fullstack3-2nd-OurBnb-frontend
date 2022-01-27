@@ -14,8 +14,9 @@ const Help = () => {
 				</Link>
 				<ErrorMsg>Oops!</ErrorMsg>
 				<ErrorMsg>없는 페이지에 접근 하셨네요!</ErrorMsg>
+				<ErrorMsg>계획에 없던 곳을 찾는것도 여행의 매력</ErrorMsg>
 				<ErrorMsg>
-					계획에 없던 곳을 찾는것도 여행의 매력
+					풍선을 누르고 여행을 떠나보세요
 					<Link to="/">
 						<IoBalloon
 							style={{

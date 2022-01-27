@@ -87,8 +87,3 @@ const StyledListSummary = styled.div`
 		text-decoration: underline;
 	}
 `;
-
-const PageWrapper = styled.div`
-	padding: 20px 0;
-	width: 100%;
-`;
