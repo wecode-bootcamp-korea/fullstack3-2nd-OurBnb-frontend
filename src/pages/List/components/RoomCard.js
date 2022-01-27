@@ -36,7 +36,6 @@ const ListCard = ({ room }) => {
 					roomId: roomId,
 				}),
 			}).then(res => {
-				console.log(res);
 				if (res.status === 204) {
 					setIsWishClick(false);
 				} else if (res.status === 401) {
@@ -55,7 +54,6 @@ const ListCard = ({ room }) => {
 					roomId: roomId,
 				}),
 			}).then(res => {
-				console.log(res);
 				if (res.status === 201) {
 					setIsWishClick(true);
 				} else if (res.status === 401) {
@@ -69,43 +67,45 @@ const ListCard = ({ room }) => {
 
 	return (
 		<StyledListCard key={roomId}>
-			<Link to={`/room/${roomId}`}>
-				<Carousel room={room} />
-				<RoomInfo>
-					<WishHeart onClick={handleWishBtn}>
-						{isWishClick ? (
-							<TiHeartFullOutline className="heartOn heart" />
-						) : (
-							<IoHeartOutline className="heartOff heart" />
-						)}
-					</WishHeart>
-					<RoomDesc>
-						{address}의 {roomType}
-					</RoomDesc>
-					<RoomTitle>{roomName}</RoomTitle>
-					<RoomDesc className="details">
-						{guestCapacity && <span> 최대 인원 {guestCapacity}명 </span>}
-						{bedroomCount && <span> 침실 {bedroomCount}개 </span>}
-						{bedCount && <span> 침대 {bedCount}개 </span>}
-						{bathroomCount && <span> 욕실 {bathroomCount}개 </span>}
-					</RoomDesc>
-					{reviewCount && (
-						<ReviewWrapper>
-							<TiStar className="star" />
-							<RatingReview bold="bolder" color="#222222">
-								{rate.toFixed(2)}
-							</RatingReview>
-							<RatingReview color="#a0a0a0"> (후기 {reviewCount}개)</RatingReview>
-						</ReviewWrapper>
+			<CardWrapper>
+				<Carousel imageString={room.imgUrl} isSuperHost={room.is_super_host} />
+				<WishHeart onClick={handleWishBtn}>
+					{isWishClick ? (
+						<TiHeartFullOutline className="heartOn heart" />
+					) : (
+						<IoHeartOutline className="heartOff heart" />
 					)}
-					<PriceWrapper>
-						<DailyPrice>
-							<span>₩{Intl.NumberFormat().format(price)}</span> / 박
-						</DailyPrice>
-						<TotalPrice>총액 ₩{Intl.NumberFormat().format(price)}</TotalPrice>
-					</PriceWrapper>
-				</RoomInfo>
-			</Link>
+				</WishHeart>
+				<Link to={`/room/${roomId}`}>
+					<RoomInfo>
+						<RoomDesc>
+							{address}의 {roomType}
+						</RoomDesc>
+						<RoomTitle>{roomName}</RoomTitle>
+						<RoomDesc className="details">
+							{guestCapacity && <span> 최대 인원 {guestCapacity}명 </span>}
+							{bedroomCount && <span> 침실 {bedroomCount}개 </span>}
+							{bedCount && <span> 침대 {bedCount}개 </span>}
+							{bathroomCount && <span> 욕실 {bathroomCount}개 </span>}
+						</RoomDesc>
+						{reviewCount && (
+							<ReviewWrapper>
+								<TiStar className="star" />
+								<RatingReview bold="bolder" color="#222222">
+									{rate.toFixed(2)}
+								</RatingReview>
+								<RatingReview color="#a0a0a0"> (후기 {reviewCount}개)</RatingReview>
+							</ReviewWrapper>
+						)}
+						<PriceWrapper>
+							<DailyPrice>
+								<span>₩{Intl.NumberFormat().format(price)}</span> / 박
+							</DailyPrice>
+							<TotalPrice>총액 ₩{Intl.NumberFormat().format(price)}</TotalPrice>
+						</PriceWrapper>
+					</RoomInfo>
+				</Link>
+			</CardWrapper>
 		</StyledListCard>
 	);
 };
@@ -117,11 +117,6 @@ const StyledListCard = styled.li`
 	width: 100%;
 	padding: 24px 0;
 
-	& > a {
-		display: flex;
-		flex-direction: column;
-	}
-
 	~ & {
 		border-top: 1px solid ${({ theme }) => theme.foreground};
 	}
@@ -131,16 +126,30 @@ const StyledListCard = styled.li`
 	}
 
 	@media (min-width: 744px) {
-		> a {
-			display: flex;
-			flex-direction: row;
-		}
 		&:hover .arrows {
 			display: block;
 		}
 	}
 `;
+const CardWrapper = styled.div`
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	& > a {
+		flex-grow: 2;
+		display: flex;
+		flex-direction: column;
+	}
 
+	@media (min-width: 744px) {
+		display: flex;
+		flex-direction: row;
+		> a {
+			display: flex;
+			flex-direction: row;
+		}
+	}
+`;
 const WishHeart = styled.div`
 	display: flex;
 	justify-content: center;
@@ -152,6 +161,7 @@ const WishHeart = styled.div`
 	height: 45px;
 	border-radius: 50%;
 	background: transparent;
+	z-index: 999999;
 
 	.heart {
 		font-size: 25px;
@@ -170,9 +180,9 @@ const WishHeart = styled.div`
 	}
 
 	@media (min-width: 744px) {
-		top: -10px;
+		top: 0;
 		right: 0;
-		transform: translate(30%, 0);
+		transform: translate(0, 50%);
 
 		&:hover {
 			background: #f7f7f7;
@@ -184,12 +194,12 @@ const RoomInfo = styled.div`
 	display: flex;
 	flex-direction: column;
 	width: 100%;
+	min-width: 380px;
 	margin: 10px 0 0 0;
 	padding: 0;
 	background-color: ${({ theme }) => theme.background};
 	text-overflow: ellipsis;
 	font-size: 0.8rem;
-
 	.star {
 		color: ${({ theme }) => theme.brandRed};
 		font-size: 18px;
