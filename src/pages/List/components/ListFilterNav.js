@@ -43,7 +43,7 @@ export default FilterNav;
 const StyledNav = styled.nav`
 	width: 100%;
 	height: auto;
-	margin: 0 24px;
+	margin: -10px 24px 0;
 	display: flex;
 	flex-wrap: wrap;
 	overflow-x: hidden;

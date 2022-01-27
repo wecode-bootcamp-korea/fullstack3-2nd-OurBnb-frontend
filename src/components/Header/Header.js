@@ -10,7 +10,7 @@ import LoginModal from './LoginModal';
 import SearchModal from './SearchModal';
 import LoginButton from '../Login/Button';
 
-const Header = () => {
+const Header = ({ isMain }) => {
 	const [loginButton, setLoginButton] = useState('로그인');
 	const navigate = useNavigate();
 	const tokenValue = sessionStorage.getItem('access_token');
@@ -51,6 +51,11 @@ const Header = () => {
 		setSearchModalVisible(false);
 	};
 
+	const [searchLocation, setSearchLocation] = useState('');
+	const handleInput = e => {
+		setSearchLocation(e.target.value);
+	};
+
 	const [startDate, setStartDate] = useState(new Date());
 	const [endDate, setEndDate] = useState(null);
 	const onChange = dates => {
@@ -66,6 +71,11 @@ const Header = () => {
 		? `${endDate.getFullYear()}-${endDate.getMonth() + 1}-${endDate.getDate()}`
 		: null;
 
+	const searchLinkAddress =
+		checkInDate && checkOutDate
+			? `/${searchLocation}/room?checkin=${checkInDate}&checkout=${checkOutDate}`
+			: `/${searchLocation}/room`;
+
 	const [isOpen, setIsOpen] = useState(false);
 
 	const handleClick = e => {
@@ -77,8 +87,13 @@ const Header = () => {
 		<HeaderWrapper>
 			<Link to="/">
 				<Logo>
-					<LogoImage src="../../images/logo1.png" />
-					<LogoName color="#ffffff">ourbnb</LogoName>
+					{isMain ? (
+						<LogoImage src="../../images/logo1.png" />
+					) : (
+						<LogoImage src="../../images/logo2.png" />
+					)}
+
+					<LogoName>ourbnb</LogoName>
 				</Logo>
 			</Link>
 			<HeaderButtons>
@@ -160,7 +175,7 @@ const Header = () => {
 					<SearchButton>
 						<Location>
 							<SearchTitle>위치</SearchTitle>
-							<SearchLocationOption placeholder="어디로 여행가세요?" />
+							<SearchLocationOption placeholder="어디로 여행가세요?" onChange={handleInput} />
 						</Location>
 					</SearchButton>
 				</SearchingLocation>
@@ -215,7 +230,7 @@ const Header = () => {
 					</SearchButton>
 				</SearchingGuest>
 				<Finder>
-					<Link to={`/제주/room?checkin=${checkInDate}&checkout=${checkOutDate}`}>
+					<Link to={searchLinkAddress}>
 						<BiSearch />
 					</Link>
 				</Finder>
@@ -231,7 +246,7 @@ const HeaderWrapper = styled.div`
 	width: 100%;
 	max-width: 1600px;
 	margin: 15px auto;
-	background-color: 'transparent';
+	background-color: ${props => props.theme.background};
 `;
 
 const Logo = styled.div`
@@ -248,7 +263,7 @@ const LogoImage = styled.img`
 
 const LogoName = styled.h2`
 	margin: 2.8% 0 0 5px;
-	color: ${props => props.color || '#ff385c'};
+	color: ${props => props.theme.brandRed || props.theme.foreground};
 	cursor: pointer;
 `;
 
@@ -266,14 +281,13 @@ const HeaderButton = styled.div`
 	cursor: pointer;
 
 	::before {
-		background-color: ${props => props.backgroundcolor || '#ffffff'};
+		background-color: ${props => props.theme.foreground};
 		border-radius: 1px;
 		bottom: 0px;
 		content: '';
 		height: 2px;
 		top: 110px;
 		left: 632px;
-		/* margin-top: 30px; */
 		position: absolute;
 		transition: 0.2s -ms-transform cubic-bezier(0, 0, 0.1, 1),
 			0.2s -webkit-transform cubic-bezier(0, 0, 0.1, 1), 0.2s transform cubic-bezier(0, 0, 0.1, 1);
@@ -287,7 +301,7 @@ const HeaderLabel = styled.div`
 `;
 
 const HeaderInput = styled.span`
-	color: ${props => props.color || '#ffffff'};
+	color: ${props => props.theme.foreground};
 `;
 
 const HeaderOption = styled.ul`
@@ -301,7 +315,7 @@ const HeaderChoice = styled.button`
 	border: none;
 	border-radius: 2rem;
 	background-color: transparent;
-	color: ${props => props.color || '#ffffff'};
+	color: ${props => props.theme.foreground};
 	font-size: 15px;
 	cursor: pointer;
 `;
@@ -390,6 +404,8 @@ const Search = styled.div`
 	height: 68px;
 	margin: 1% 0 0 20%;
 	border-radius: 50px;
+	border: 1px solid ${props => props.theme.border};
+	box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 3px 0px;
 	background-color: white;
 `;
 
@@ -539,6 +555,7 @@ const SearchLocationOption = styled.input`
 	color: #959595;
 	border: none;
 	outline: none;
+	background-color: transparent;
 
 	::placeholder {
 		color: #959595;
