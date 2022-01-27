@@ -71,11 +71,11 @@ export default List;
 
 const HeaderWrapper = styled.div`
 	position: sticky;
-	margin: -15px 0 0 0;
+	margin: -25px 0 0 0;
 	top: -10px;
 	z-index: 9999;
-	box-shadow: 1px 1px 10px gray;
-	padding-bottom: 15px;
+	border-bottom: 1px solid ${props => props.theme.border};
+	padding-bottom: 10px;
 	background-color: white;
 `;
 
