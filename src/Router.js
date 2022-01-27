@@ -12,7 +12,7 @@ const Router = () => {
 				<Routes>
 					<Route path="/" element={<Main />} />
 					<Route path="/:location/room" element={<List />} />
-					<Route path="/room/:id" element={<Detail />} />
+					<Route path="/room/:roomid" element={<Detail />} />
 					<Route path="/kakaologin" element={<KakaoLogin />} />
 					{/* <Route path="/wishlists" element={<Wishlists />} /> */}
 					{/* <Route path="/trips" element={<Trips />} /> */}

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 // import { useLocation, useParams } from 'react-router-dom';
-import queryString from 'query-string';
+// import queryString from 'query-string';
 import styled from 'styled-components';
 import DetailPic from './components/DetailPic';
 import DetailTitle from './components/DetailTitle';
@@ -16,6 +17,7 @@ import { GET_REVIEW_API } from '../../config';
 import CheckPoint from './components/CheckPoint';
 
 export default function Detail() {
+	const { roomid } = useParams();
 	const [mainInfoData, setMainInfoData] = useState({});
 	const [reviewData, setReviewData] = useState({});
 	const [optionData, setOptionData] = useState([]);
@@ -23,12 +25,14 @@ export default function Detail() {
 	const [ruleData, setRuleData] = useState([]);
 	const [safetyData, setSafetyData] = useState([]);
 
-	const parsedQuery = queryString.parse(window.location.search);
-	const roomId = parsedQuery.roomId;
+	// const parsedQuery = queryString.parse(window.location.search);
+	// const roomId = parsedQuery.roomId;
 
 	useEffect(() => {
 		const getRoomData = async () => {
-			const response = await fetch(`${GET_DETAIL_API}?roomId=${roomId}`);
+			//  아래 주석은 api 요청 하실때 참고하시면 될거같습니당
+			// /detail?roomId=${roomId}&checkIn=${checkIn}&checkOut=${checkOut}
+			const response = await fetch(`${GET_DETAIL_API}?roomId=${roomid}`);
 			const data = await response.json();
 			setMainInfoData(data.detail.mainInfo);
 			setOptionData(data.detail.option);
@@ -37,11 +41,11 @@ export default function Detail() {
 			setSafetyData(data.detail.safety);
 		};
 		getRoomData();
-	}, [roomId]);
+	}, [roomid]);
 
 	useEffect(() => {
 		const getReviewData = async () => {
-			const response = await fetch(`${GET_REVIEW_API}?roomId=${roomId}`);
+			const response = await fetch(`${GET_REVIEW_API}?roomId=${roomid}`);
 			const data = await response.json();
 			setReviewData(data.reviewInfo);
 		};
