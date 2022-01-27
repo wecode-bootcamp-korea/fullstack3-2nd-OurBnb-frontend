@@ -32,7 +32,7 @@ export default function Detail() {
 
 	useEffect(() => {
 		const getRoomData = async () => {
-			const response = await fetch(`${GET_DETAIL_API}?roomId=${id}`);
+			const response = await fetch(`${GET_DETAIL_API}?roomId=${roomid}`);
 			const data = await response.json();
 			setMainInfoData(data.detail.mainInfo);
 			setOptionData(data.detail.option);
@@ -41,11 +41,11 @@ export default function Detail() {
 			setSafetyData(data.detail.safety);
 		};
 		getRoomData();
-	}, [id]);
+	}, [roomid]);
 
 	useEffect(() => {
 		const getReviewData = async () => {
-			const response = await fetch(`${GET_REVIEW_API}?roomId=${id}`);
+			const response = await fetch(`${GET_REVIEW_API}?roomId=${roomid}`);
 			const data = await response.json();
 			setReviewData(data.reviewInfo);
 		};
