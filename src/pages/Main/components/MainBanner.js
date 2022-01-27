@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const MainBanner = () => {
@@ -11,7 +12,9 @@ const MainBanner = () => {
 					<Recommend>여행지를 찾아드릴게요!</Recommend>
 					<MainButton>
 						<FlexOption>
-							<FlexSearch>유연한 검색</FlexSearch>
+							<Link to="/제주/room">
+								<FlexSearch>유연한 검색</FlexSearch>
+							</Link>
 						</FlexOption>
 					</MainButton>
 				</MainMent>
