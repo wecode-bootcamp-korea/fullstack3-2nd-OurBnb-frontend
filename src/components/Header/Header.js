@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { FiGlobe } from 'react-icons/fi';
 import { IoPersonCircle } from 'react-icons/io5';
@@ -11,6 +11,16 @@ import SearchModal from './SearchModal';
 import LoginButton from '../Login/Button';
 
 const Header = () => {
+	const [loginButton, setLoginButton] = useState('로그인');
+	const navigate = useNavigate();
+	const tokenValue = sessionStorage.getItem('access_token');
+
+	useEffect(() => {
+		if (tokenValue) {
+			setLoginButton('로그아웃');
+		}
+	}, [tokenValue]);
+
 	const [profileModalVisible, setProfileModalVisible] = useState(false);
 	const openProfileModal = () => {
 		setProfileModalVisible(true);
@@ -21,7 +31,13 @@ const Header = () => {
 
 	const [loginModalVisible, setLoginModalVisible] = useState(false);
 	const openLoginModal = () => {
-		setLoginModalVisible(true);
+		if (loginButton === '로그인') {
+			setLoginModalVisible(true);
+		} else {
+			sessionStorage.removeItem('access_token');
+			navigate('/');
+			setLoginButton('로그인');
+		}
 	};
 	const closeLoginModal = () => {
 		setLoginModalVisible(false);
@@ -50,8 +66,6 @@ const Header = () => {
 		? `${endDate.getFullYear()}-${endDate.getMonth() + 1}-${endDate.getDate()}`
 		: null;
 
-	console.log(checkInDate, checkOutDate);
-
 	const [isOpen, setIsOpen] = useState(false);
 
 	const handleClick = e => {
@@ -64,7 +78,7 @@ const Header = () => {
 			<Link to="/">
 				<Logo>
 					<LogoImage src="../../images/logo1.png" />
-					<LogoName>ourbnb</LogoName>
+					<LogoName color="#ffffff">ourbnb</LogoName>
 				</Logo>
 			</Link>
 			<HeaderButtons>
@@ -107,11 +121,11 @@ const Header = () => {
 					maskClosable={true}
 					onClose={closeProfileModal}
 				>
-					<ModalListTop onClick={openLoginModal}>
+					<ModalListTop>
 						<Signup>회원가입</Signup>
 					</ModalListTop>
 					<ModalList onClick={openLoginModal}>
-						<Login>로그인</Login>
+						<Login>{loginButton}</Login>
 					</ModalList>
 					{loginModalVisible && (
 						<LoginModal
@@ -234,7 +248,7 @@ const LogoImage = styled.img`
 
 const LogoName = styled.h2`
 	margin: 2.8% 0 0 5px;
-	color: ${props => props.color || '#ffffff'};
+	color: ${props => props.color || '#ff385c'};
 	cursor: pointer;
 `;
 
@@ -258,8 +272,8 @@ const HeaderButton = styled.div`
 		content: '';
 		height: 2px;
 		top: 110px;
-		left: 43.8%;
-		margin-left: -9px;
+		left: 632px;
+		/* margin-top: 30px; */
 		position: absolute;
 		transition: 0.2s -ms-transform cubic-bezier(0, 0, 0.1, 1),
 			0.2s -webkit-transform cubic-bezier(0, 0, 0.1, 1), 0.2s transform cubic-bezier(0, 0, 0.1, 1);
