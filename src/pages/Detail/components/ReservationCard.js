@@ -16,15 +16,6 @@ export default function ReservationCard({
 	const price = Number(priceData).toLocaleString();
 	const rate = Number(reviewAvgData).toFixed(1);
 
-	//모달
-	// const [modalVisible, setModalVisible] = useState(false);
-	// const openModal = () => {
-	// 	setModalVisible(true);
-	// };
-	// const closeModal = () => {
-	// 	setModalVisible(false);
-	// };
-
 	//데이트선택
 	const [startDate, setStartDate] = useState();
 	const [endDate, setEndDate] = useState(null);
@@ -85,21 +76,21 @@ export default function ReservationCard({
 		);
 	}, [priceData, dateInterval]);
 
-	useEffect(() => {
-		const postReservation = async () => {
-			console.log('reservation Info', roomId, guestCapacity, checkInDate, checkOutDate);
-			const response = await fetch(
-				`${POST_RESERVATION_API}?roomId=${roomId}&guestCount=${guestCapacity}&checkIn=${checkInDate}&checkOut=${checkOutDate}`,
-				{
-					method: 'POST',
-					headers: { 'Content-Type': 'application/json', Authorization: idValue },
-				},
-			);
-			const data = await response.json();
-			console.log('data', data);
-		};
-		postReservation();
-	}, [isBtnClicked]);
+	// useEffect(() => {
+	// 	const postReservation = async () => {
+	// 		console.log('reservation Info', roomId, guestCapacity, checkInDate, checkOutDate);
+	// 		const response = await fetch(
+	// 			`${POST_RESERVATION_API}?roomId=${roomId}&guestCount=${guestCapacity}&checkIn=${checkInDate}&checkOut=${checkOutDate}`,
+	// 			{
+	// 				method: 'POST',
+	// 				headers: { 'Content-Type': 'application/json', Authorization: idValue },
+	// 			},
+	// 		);
+	// 		const data = await response.json();
+	// 		console.log('data', data);
+	// 	};
+	// 	postReservation();
+	// }, [isBtnClicked]);
 
 	// const { roomId, guestCount, checkIn, checkOut } = req.query;
 

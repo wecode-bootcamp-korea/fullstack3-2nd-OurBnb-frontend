@@ -19,15 +19,29 @@ const MyMapComponent = ({ center, zoom, children }) => {
 	const [map, setMap] = useState();
 
 	useEffect(() => {
-		if (mapRef.current && !map) {
-			setMap(
-				new window.google.maps.Map(mapRef.current, {
-					center: center,
-					zoom: zoom,
-				}),
-			);
-		}
+		const getMap = async () => {
+			if (mapRef.current && !map) {
+				setMap(
+					new window.google.maps.Map(mapRef.current, {
+						center: center,
+						zoom: zoom,
+					}),
+				);
+			}
+		};
+		getMap();
 	}, [mapRef, map, center, zoom]);
+
+	// useEffect(() => {
+	// 	if (mapRef.current && !map) {
+	// 		setMap(
+	// 			new window.google.maps.Map(mapRef.current, {
+	// 				center: center,
+	// 				zoom: zoom,
+	// 			}),
+	// 		);
+	// 	}
+	// }, [mapRef, map, center['lat'], center['lng'], zoom]);
 
 	return (
 		<>

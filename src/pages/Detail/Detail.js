@@ -15,6 +15,7 @@ import { GET_DETAIL_API } from '../../config';
 import { GET_REVIEW_API } from '../../config';
 import CheckPoint from './components/CheckPoint';
 import Review from './components/Review';
+import RoomMap from './components/RoomMap';
 
 export default function Detail() {
 	const { roomid } = useParams();
@@ -27,7 +28,6 @@ export default function Detail() {
 
 	// const parsedQuery = queryString.parse(window.location.search);
 	// const roomId = parsedQuery.roomId;
-
 	useEffect(() => {
 		const getRoomData = async () => {
 			const response = await fetch(`${GET_DETAIL_API}?roomId=${roomid}`);
@@ -78,6 +78,7 @@ export default function Detail() {
 					</Reservation>
 				</DetailInfo>
 				<Review reviewData={reviewData} />
+				<RoomMap mainInfoData={mainInfoData} />
 				<CheckPoint ruleData={ruleData} safetyData={safetyData} />
 			</InnerWrapper>
 			<FooterWrapper>
