@@ -2,34 +2,34 @@ import { useState } from 'react';
 import styled from 'styled-components';
 
 const Pagination = props => {
-	const { limit, totalRows, setOffset, isDivisibleByTen } = props;
+	const { giveOffset, limit, totalRows, isDivisibleByTen } = props;
 	const [selected, SetSelected] = useState(0);
-	const lastPage = Math.ceil(totalRows / limit);
+	const lastpage = Math.ceil(totalRows / limit);
 
 	const pages = () => {
 		const pagesArray = [];
-		for (let i = 1; i <= lastPage; i++) {
+		for (let i = 1; i <= lastpage; i++) {
 			pagesArray.push(i);
 		}
 		return pagesArray;
 	};
 
 	const changeOffset = e => {
-		setOffset(e.target.value * limit);
+		giveOffset(e.target.value * limit);
 		setTimeout(() => {
 			SetSelected(e.target.value);
 		}, 500);
 	};
 
 	const prevPage = () => {
-		setOffset((selected - 1) * limit);
+		giveOffset((selected - 1) * limit);
 		setTimeout(() => {
 			SetSelected(selected - 1);
 		}, 500);
 	};
 
 	const nextPage = () => {
-		setOffset((selected + 1) * limit);
+		giveOffset((selected + 1) * limit);
 		setTimeout(() => {
 			SetSelected(selected + 1);
 		}, 500);
@@ -46,8 +46,8 @@ const Pagination = props => {
 						{el}
 					</BtnList>
 				))}
-				<Next selected={selected} lastPage={lastPage}>
-					<div className="next" onClick={nextPage} selected={selected} lastPage={lastPage} />
+				<Next selected={selected} lastpage={lastpage}>
+					<div className="next" onClick={nextPage} selected={selected} lastpage={lastpage} />
 				</Next>
 			</PageButtons>
 			{isDivisibleByTen && (
@@ -67,6 +67,7 @@ const Pagination = props => {
 export default Pagination;
 
 const PaginationWrapper = styled.section`
+	grid-area: pagination;
 	padding: 20px 0 30px;
 	max-width: 100%;
 	display: flex;
@@ -115,8 +116,8 @@ const Prev = styled.section`
 const Next = styled.section`
 	cursor: pointer;
 	transform: rotate(135deg);
-	pointer-events: ${props => (props.selected === props.lastPage - 1 ? 'none' : 'all')};
-	opacity: ${props => (props.selected === props.lastPage - 1 ? '0.3' : '1')};
+	pointer-events: ${props => (props.selected === props.lastpage - 1 ? 'none' : 'all')};
+	opacity: ${props => (props.selected === props.lastpage - 1 ? '0.3' : '1')};
 `;
 
 const BtnList = styled.li`

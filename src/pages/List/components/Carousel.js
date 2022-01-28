@@ -48,12 +48,45 @@ const Carousel = ({ imageString, isSuperHost }) => {
 						<RiArrowRightSLine id="right" className="arrowIcons" onClick={slideImage} />
 					</RightButton>
 				)}
+				<DotFrame>
+					<DotWrapper>
+						{Array.from({ length: 5 }).map(i => (
+							<Dot key={Math.random()} />
+						))}
+					</DotWrapper>
+				</DotFrame>
 			</Frame>
 		</CarouselWrapper>
 	);
 };
 
 export default Carousel;
+const DotFrame = styled.div`
+	position: relative;
+	position: absolute;
+	width: 100%;
+	bottom: 8px;
+	left: 50%;
+	transform: translateX(-50%);
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+`;
+const DotWrapper = styled.div`
+	width: 25%;
+	height: 100%;
+	display: flex;
+	overflow: hidden;
+	z-index: 999;
+	justify-content: space-evenly;
+`;
+const Dot = styled.div`
+	background-color: white;
+	opacity: 0.7;
+	width: 5px;
+	height: 5px;
+	border-radius: 50%;
+`;
 
 const CarouselWrapper = styled.div`
 	width: 100%;
@@ -94,7 +127,7 @@ const ImageList = styled.ul`
 	@media (min-width: 744px) {
 		display: flex;
 		flex-direction: row;
-		transition: transform 500ms ease-out;
+		transition: transform 400ms ease-out;
 		transform: translate3D(calc(var(--currentImage) * -100%), 0, 0);
 		transform: translate3D(${({ currentImage }) => currentImage * -100}%, 0, 0);
 	}

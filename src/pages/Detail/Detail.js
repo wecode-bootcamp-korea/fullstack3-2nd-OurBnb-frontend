@@ -24,9 +24,7 @@ export default function Detail() {
 	const [benefitData, setBenefitData] = useState([]);
 	const [ruleData, setRuleData] = useState([]);
 	const [safetyData, setSafetyData] = useState([]);
-	console.log(reviewData);
 
-	const { id } = useParams();
 	// const parsedQuery = queryString.parse(window.location.search);
 	// const roomId = parsedQuery.roomId;
 
@@ -82,7 +80,9 @@ export default function Detail() {
 				<Review reviewData={reviewData} />
 				<CheckPoint ruleData={ruleData} safetyData={safetyData} />
 			</InnerWrapper>
-			<Footer />
+			<FooterWrapper>
+				<Footer />
+			</FooterWrapper>
 		</Wrapper>
 	);
 }
@@ -113,4 +113,9 @@ const RoomInfo = styled.div`
 const Reservation = styled.div`
 	position: relative;
 	width: 40%;
+`;
+
+const FooterWrapper = styled.div`
+	margin-top: 50px;
+	border-top: 1px solid ${props => props.theme.border};
 `;

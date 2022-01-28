@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 
-export default function RoomOptionC({ key, optionName, optionLogoUrl }) {
+export default function RoomOptionC({ optionName, optionLogoUrl }) {
 	return (
-		<OptionWrapper key={key}>
+		<OptionWrapper key={Math.random()}>
 			<Content>
 				<OptionIcon>
 					<img src={optionLogoUrl} alt="logoUrl" />

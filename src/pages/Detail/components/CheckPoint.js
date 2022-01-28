@@ -12,7 +12,9 @@ export default function CheckPoint({ ruleData, safetyData }) {
 						<ContentName>숙소 이용규칙</ContentName>
 						{ruleData &&
 							ruleData.map((e, i) => {
-								return <CheckPointC key={i} LogoUrl={e.rulesLogoUrl} Desc={e.rulesDesc} />;
+								return (
+									<CheckPointC key={Math.random()} LogoUrl={e.rulesLogoUrl} Desc={e.rulesDesc} />
+								);
 							})}
 					</StyleDiv>
 
@@ -21,7 +23,13 @@ export default function CheckPoint({ ruleData, safetyData }) {
 						<ContentContainer>
 							{safetyData &&
 								safetyData.map((e, i) => {
-									return <CheckPointC key={i} LogoUrl={e.safetyLogoUrl} Desc={e.safetyDesc} />;
+									return (
+										<CheckPointC
+											key={Math.random()}
+											LogoUrl={e.safetyLogoUrl}
+											Desc={e.safetyDesc}
+										/>
+									);
 								})}
 						</ContentContainer>
 					</StyleDiv>

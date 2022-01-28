@@ -11,14 +11,20 @@ import styled from 'styled-components';
 import RoomOptionC from './RoomOptionC';
 
 export default function RoomOption({ optionData }) {
+	const filteredOptions = optionData.filter(e => e.isMainOption);
+
 	return (
 		<Wrapper>
 			<OptionTitle>숙소 편의시설</OptionTitle>
 			<OptionContainer>
 				{optionData &&
-					optionData.map((e, i) => {
+					filteredOptions.map(e => {
 						return (
-							<RoomOptionC key={i} optionName={e.optionName} optionLogoUrl={e.optionLogoUrl} />
+							<RoomOptionC
+								key={Math.random()}
+								optionName={e.optionName}
+								optionLogoUrl={e.optionLogoUrl}
+							/>
 						);
 					})}
 			</OptionContainer>

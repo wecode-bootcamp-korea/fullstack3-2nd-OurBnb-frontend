@@ -22,7 +22,7 @@ export default function Review({ reviewData }) {
 				<ReviewBox>
 					{roomReviews &&
 						roomReviews.map((roomReview, i) => {
-							return <ReviewComp roomReview={roomReview} />;
+							return <ReviewComp key={Math.random()} roomReview={roomReview} />;
 						})}
 				</ReviewBox>
 			</ReviewWrapper>

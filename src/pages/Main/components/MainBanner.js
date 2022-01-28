@@ -72,6 +72,7 @@ const FlexOption = styled.button`
 
 const FlexSearch = styled.span`
 	background: linear-gradient(90deg, #6f019c 0%, #c6017e 135.12%);
+	background-clip: text;
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
 `;

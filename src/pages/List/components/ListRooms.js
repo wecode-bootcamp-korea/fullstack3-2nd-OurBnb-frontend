@@ -3,26 +3,27 @@ import styled from 'styled-components';
 import ListCard from './RoomCard';
 import Pagination from './ListPagination';
 
-const RoomsList = ({ rooms, limit, totalRows, setOffset }) => {
+const RoomsList = ({ giveOffset, rooms, limit, totalRows }) => {
 	const area = rooms.location;
 	const isDivisibleByTen = totalRows % 10 === 0;
+	const lessThanTen = totalRows < 10;
+	const needPage = totalRows > limit;
 
 	return (
-		<>
+		<RoomsListWrapper>
 			<StyledListSummary>
-				{rooms?.roomList ? (
+				{totalRows ? (
 					<>
-						{isDivisibleByTen && (
+						{(isDivisibleByTen || lessThanTen) && (
 							<div>
 								{area}에 위치한 {totalRows}개의 숙소
 							</div>
 						)}
-						{!isDivisibleByTen && (
+						{!isDivisibleByTen && !lessThanTen && (
 							<div>
 								{area}에 위치한 {Math.floor(totalRows / 10) * 10}개 이상의 숙소
 							</div>
 						)}
-
 						<div>
 							예약하기 전에 코로나19 관련 여행 제한 사항을 확인하세요.
 							<Link to="#">
@@ -31,7 +32,10 @@ const RoomsList = ({ rooms, limit, totalRows, setOffset }) => {
 						</div>
 					</>
 				) : (
-					<div>{area}에 위치한 숙소가 없습니다.</div>
+					<div>
+						{area}에 위치한 숙소가 없습니다. 더 많은 지역을 제공해드리도록 노력하는 ourbnb가
+						되겠습니다!
+					</div>
 				)}
 			</StyledListSummary>
 			<StyledList>
@@ -39,19 +43,26 @@ const RoomsList = ({ rooms, limit, totalRows, setOffset }) => {
 					<ListCard key={room.roomId} room={room} />
 				))}
 			</StyledList>
-			<Pagination
-				totalRows={totalRows}
-				limit={limit}
-				setOffset={setOffset}
-				isDivisibleByTen={isDivisibleByTen}
-			/>
-		</>
+			{needPage && (
+				<Pagination
+					totalRows={totalRows}
+					limit={limit}
+					giveOffset={giveOffset}
+					isDivisibleByTen={isDivisibleByTen}
+				/>
+			)}
+		</RoomsListWrapper>
 	);
 };
 export default RoomsList;
 
-const StyledList = styled.ul`
+const RoomsListWrapper = styled.section`
 	grid-area: list;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+`;
+const StyledList = styled.ul`
 	display: flex;
 	flex-direction: column;
 	padding: 0 24px;
@@ -72,6 +83,7 @@ const StyledListSummary = styled.div`
 	flex-direction: column;
 	align-items: flex-start;
 	width: 100%;
+	height: min-content;
 	margin: 24px 0;
 	padding: 24px 24px;
 	font-size: 0.8rem;

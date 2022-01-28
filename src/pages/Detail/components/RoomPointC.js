@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-export default function RoomPointC({ key, benefitTitle, benefitLogoUrl, benefitDesc }) {
+export default function RoomPointC({ benefitTitle, benefitLogoUrl, benefitDesc }) {
 	return (
-		<ContentWrapper key={key}>
+		<ContentWrapper>
 			<ContentIcon>
 				<img src={benefitLogoUrl} alt="logourl" />
 			</ContentIcon>
