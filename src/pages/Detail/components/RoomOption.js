@@ -3,12 +3,7 @@ import styled from 'styled-components';
 import RoomOptionC from './RoomOptionC';
 
 export default function RoomOption({ optionData }) {
-<<<<<<< HEAD
 	const filteredOptions = optionData.filter(e => e.isMainOption);
-=======
-	const OptionFilter = optionData.filter(e => e.isMainOption);
-	console.log(OptionFilter);
->>>>>>> d47ddc0 (edit: 중간저장5)
 
 	return (
 		<Wrapper>
