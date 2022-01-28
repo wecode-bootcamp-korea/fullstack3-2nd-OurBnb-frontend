@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 
-export default function CheckPointC({ key, LogoUrl, Desc }) {
+export default function CheckPointC({ LogoUrl, Desc }) {
 	return (
-		<ContentContainer key={key}>
+		<ContentContainer>
 			<ContentIcon>
 				<img src={LogoUrl} alt="logoUrl" />
 			</ContentIcon>

@@ -97,11 +97,11 @@ const Header = ({ isMain }) => {
 				</Logo>
 			</Link>
 			<HeaderButtons>
-				<HeaderButton>
+				<SelectedHeaderButton>
 					<HeaderLabel>
 						<HeaderInput>숙소</HeaderInput>
 					</HeaderLabel>
-				</HeaderButton>
+				</SelectedHeaderButton>
 				<HeaderButton>
 					<HeaderLabel>
 						<HeaderInput>체험</HeaderInput>
@@ -275,6 +275,7 @@ const HeaderButtons = styled.div`
 `;
 
 const HeaderButton = styled.div`
+	position: relative;
 	background-color: transparent;
 	border: none;
 	font-size: 15px;
@@ -286,13 +287,25 @@ const HeaderButton = styled.div`
 		bottom: 0px;
 		content: '';
 		height: 2px;
-		top: 110px;
-		left: 632px;
+		bottom: -10px;
+		left: 20%;
 		position: absolute;
 		transition: 0.2s -ms-transform cubic-bezier(0, 0, 0.1, 1),
 			0.2s -webkit-transform cubic-bezier(0, 0, 0.1, 1), 0.2s transform cubic-bezier(0, 0, 0.1, 1);
 		width: 18px;
 		transform: scaleX(1);
+		display: none;
+	}
+	&:hover {
+		::before {
+			display: block;
+		}
+	}
+`;
+
+const SelectedHeaderButton = styled(HeaderButton)`
+	::before {
+		display: block;
 	}
 `;
 

@@ -1,18 +1,16 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
-const FilterNav = () => {
+const FilterNav = ({ handleFilter }) => {
 	const [conveniences, setConveniences] = useState([]);
 
 	useEffect(() => {
-		const getFilterData = async () => {
-			// const response = await fetch(`${GET_LIST_API}?location=제주&option=3&option=6&option`, {
-			const response = await fetch('./data/listFilterdata.json');
+		const getButtonData = async () => {
+			const response = await fetch('/data/listFilterdata.json');
 			const data = await response.json();
 			setConveniences(data);
 		};
-
-		getFilterData();
+		getButtonData();
 	}, []);
 
 	return (
@@ -30,7 +28,9 @@ const FilterNav = () => {
 					.filter(convenience => convenience.isMain === 1)
 					.map(isMain => (
 						<li key={isMain.id}>
-							<StyledFilterButton>{isMain.name}</StyledFilterButton>
+							<StyledFilterButton onClick={handleFilter} value={isMain.id}>
+								{isMain.name}
+							</StyledFilterButton>
 						</li>
 					))}
 			</ul>
@@ -51,14 +51,9 @@ const StyledNav = styled.nav`
 	> ul {
 		display: flex;
 		justify-content: flex-start;
-		/* margin: 0 12px; */
-
-		li + li {
-			/* margin-right: 0 12px; */
-		}
 	}
+
 	ul + ul {
-		/* border-left: 1px solid #717171; */
 		padding-left: 12px;
 	}
 `;
@@ -66,7 +61,7 @@ const StyledNav = styled.nav`
 const StyledFilterButton = styled.button`
 	width: max-content;
 	padding: 10px 16px;
-	border: 1px solid #e0e0e0;
+	border: ${props => (props.selected ? '1px solid black' : '1px solid #e0e0e0')};
 	border-radius: 30px;
 	background-color: ${({ theme }) => theme.background};
 	opacity: 1;

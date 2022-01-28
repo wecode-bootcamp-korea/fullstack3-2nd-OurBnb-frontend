@@ -2,13 +2,13 @@ import React from 'react';
 import styled from 'styled-components';
 
 export default function ReviewComp({ roomReview }) {
-	const { key, username, imgUrl, review, rate, reviewCreatedAt } = roomReview;
+	const { username, imgUrl, review, rate, reviewCreatedAt } = roomReview;
 	const modifiedYear = reviewCreatedAt.slice(0, 4);
 	const modifiedMonth = reviewCreatedAt.slice(3, 4);
 
 	return (
 		<UserContainer>
-			<ContentBox key={key}>
+			<ContentBox>
 				<UserPic src={imgUrl} alt="img" />
 				<NameDate>
 					<Name>

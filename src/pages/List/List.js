@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-// import queryString from 'query-string';
 import styled from 'styled-components';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer';
@@ -20,12 +19,18 @@ const List = () => {
 	const center = { lat, lng };
 	const limit = 5;
 
-	// const parsedQuery = queryString.parse(window.location.search);
-	// const checkIn = parsedQuery.checkin;
-	//http://localhost:8000/rooms?location=제주&checkin=날짜&checkout=날짜&person=사람수&roomTypeId=1&option=1&option=2&minPrice=최소가격&maxPrice=최대가격
+	const [isActive, setIsActive] = useState(false);
+	const [options, setOptions] = useState([]);
+	const optionsURL = options.map(optionID => `&option=${optionID}`).join('');
+
+	const requestAPI =
+		isActive && optionsURL
+			? `${GET_LIST_API}?location=${location}${optionsURL}&limit=${limit}&offset=${offset}`
+			: `${GET_LIST_API}?location=${location}&limit=${limit}&offset=${offset}`;
+	console.log(requestAPI);
 
 	useEffect(() => {
-		fetch(`${GET_LIST_API}?location=${location}&limit=${limit}&offset=${offset}`, {
+		fetch(requestAPI, {
 			method: 'GET',
 			headers: {
 				Authorization: sessionStorage.getItem('access_token'),
@@ -41,14 +46,28 @@ const List = () => {
 				setLat(data.lat);
 				setLng(data.lng);
 				setTotalRows(data.totalRows);
+				console.log(data);
 			});
-		// console.log(`${GET_LIST_API}?location=${location}&limit=${limit}&offset=${offset}`);
-	}, [offset, location]);
+	}, [offset, location, requestAPI]);
+
+	const handleFilter = e => {
+		setIsActive(true);
+		if (options.includes(e.target.value)) {
+			setOptions(options.filter(option => option !== e.target.value));
+		} else {
+			setOptions([...options, e.target.value]);
+		}
+	};
+
+	const giveOffset = pageNumber => {
+		setOffset(pageNumber);
+	};
+
 	return (
 		<>
 			<HeaderWrapper>
 				<Header />
-				<FilterNav />
+				<FilterNav handleFilter={handleFilter} />
 			</HeaderWrapper>
 
 			<ListContainer>
@@ -56,7 +75,7 @@ const List = () => {
 					rooms={rooms}
 					totalRows={totalRows}
 					limit={limit}
-					setOffset={setOffset}
+					giveOffset={giveOffset}
 					isLoading={isLoading}
 				/>
 				<ListMap center={center} rooms={rooms} />
@@ -82,11 +101,11 @@ const HeaderWrapper = styled.div`
 const ListContainer = styled.main`
 	display: grid;
 	grid-template-columns: 1fr 2fr;
-	grid-template-areas:
-		'result map'
-		'list map';
+	grid-template-rows: auto;
+	grid-template-areas: 'list map';
 	position: relative;
 	width: 100%;
+	height: 100%;
 
 	@media (min-width: 1128px) and (max-width: 1439px) {
 		grid-template-columns: minmax(1fr, 840px) 2fr;

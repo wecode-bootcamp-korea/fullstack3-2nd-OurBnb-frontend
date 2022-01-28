@@ -9,10 +9,10 @@ export default function RoomPoint({ benefitData }) {
 		<Wrapper>
 			<PonintContainer>
 				{benefitData &&
-					benefitData.map((e, i) => {
+					benefitData.map(e => {
 						return (
 							<RoomPointC
-								key={i}
+								key={Math.random()}
 								benefitLogoUrl={e.benefitLogoUrl}
 								benefitTitle={e.benefitTitle}
 								benefitDesc={e.benefitDesc}

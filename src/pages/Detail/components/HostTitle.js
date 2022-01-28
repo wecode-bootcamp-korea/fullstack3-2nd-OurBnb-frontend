@@ -3,7 +3,8 @@ import styled from 'styled-components';
 
 export default function HostTitle({ mainInfoData }) {
 	// const hostName = hostData['hostName'];    효상님이 API부분에 추가구현 완료 후 커멘트해제해서 사용하기
-	const { hostName, guestCapacity, bedroomCount, bedCount, bathroomCount } = mainInfoData;
+	const { hostName, hostImgUrl, guestCapacity, bedroomCount, bedCount, bathroomCount } =
+		mainInfoData;
 
 	return (
 		<Wrapper>
@@ -17,7 +18,7 @@ export default function HostTitle({ mainInfoData }) {
 				</TitleWrapper>
 				<HostImg>
 					<UserImg>
-						<img src="/images/host.jpg" />
+						<img src={`${hostImgUrl}`} alt={hostName} />
 					</UserImg>
 				</HostImg>
 			</HostTitleContainer>

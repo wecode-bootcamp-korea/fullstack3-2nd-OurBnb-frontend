@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const TripIdea = () => {
@@ -9,34 +10,42 @@ const TripIdea = () => {
 					<IdeaTitle>설레는 다음 여행을 위한 아이디어</IdeaTitle>
 				</TripTitle>
 				<Place>
-					<IdeaPlace>
-						<PlaceImage src="../../images/seoul.png" alt="seoul" />
-						<PlaceName>
-							<City>서울</City>
-							<Distance>365km 거리</Distance>
-						</PlaceName>
-					</IdeaPlace>
-					<IdeaPlace>
-						<PlaceImage src="../../images/jeju.png" alt="jeju" />
-						<PlaceName background="#bd196d">
-							<City>제주</City>
-							<Distance>2km 거리</Distance>
-						</PlaceName>
-					</IdeaPlace>
-					<IdeaPlace>
-						<PlaceImage src="../../images/daegu.png" alt="daegu" />
-						<PlaceName background="#cd2c4a">
-							<City>대구</City>
-							<Distance>237km 거리</Distance>
-						</PlaceName>
-					</IdeaPlace>
-					<IdeaPlace>
-						<PlaceImage src="../../images/busan.png" alt="busan" />
-						<PlaceName background="#d93b30">
-							<City>부산</City>
-							<Distance>125km 거리</Distance>
-						</PlaceName>
-					</IdeaPlace>
+					<Link to="/서울/room">
+						<IdeaPlace>
+							<PlaceImage src="../../images/seoul.png" alt="seoul" />
+							<PlaceName>
+								<City>서울</City>
+								<Distance>365km 거리</Distance>
+							</PlaceName>
+						</IdeaPlace>
+					</Link>
+					<Link to="/제주/room">
+						<IdeaPlace>
+							<PlaceImage src="../../images/jeju.png" alt="jeju" />
+							<PlaceName background="#bd196d">
+								<City>제주</City>
+								<Distance>2km 거리</Distance>
+							</PlaceName>
+						</IdeaPlace>
+					</Link>
+					<Link to="/대구/room">
+						<IdeaPlace>
+							<PlaceImage src="../../images/daegu.png" alt="daegu" />
+							<PlaceName background="#cd2c4a">
+								<City>대구</City>
+								<Distance>237km 거리</Distance>
+							</PlaceName>
+						</IdeaPlace>
+					</Link>
+					<Link to="/부산/room">
+						<IdeaPlace>
+							<PlaceImage src="../../images/busan.png" alt="busan" />
+							<PlaceName background="#d93b30">
+								<City>부산</City>
+								<Distance>125km 거리</Distance>
+							</PlaceName>
+						</IdeaPlace>
+					</Link>
 				</Place>
 			</TripIdeaWrapper>
 		</IdeaWrapper>
