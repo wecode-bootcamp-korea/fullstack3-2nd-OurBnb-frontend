@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { IoBalloon } from 'react-icons/io5';
 
-const Help = () => {
+const PageNotFound = () => {
 	return (
 		<HelpContainer>
 			<HelpWrapper>
@@ -34,7 +34,7 @@ const Help = () => {
 	);
 };
 
-export default Help;
+export default PageNotFound;
 
 const HelpContainer = styled.div`
 	width: 100%;

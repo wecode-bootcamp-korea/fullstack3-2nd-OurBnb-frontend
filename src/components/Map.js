@@ -2,7 +2,8 @@ import React, { useEffect, useState, useRef } from 'react';
 import { Wrapper } from '@googlemaps/react-wrapper';
 import styled from 'styled-components';
 
-const Google = ({ center, zoom, children }) => {
+const Google = props => {
+	const { center, zoom, children } = props;
 	return (
 		<Wrapper apiKey={process.env.REACT_APP_GOOGLE_API_KEY}>
 			<MyMapComponent center={center} zoom={zoom}>
@@ -31,17 +32,6 @@ const MyMapComponent = ({ center, zoom, children }) => {
 		};
 		getMap();
 	}, [mapRef, map, center, zoom]);
-
-	// useEffect(() => {
-	// 	if (mapRef.current && !map) {
-	// 		setMap(
-	// 			new window.google.maps.Map(mapRef.current, {
-	// 				center: center,
-	// 				zoom: zoom,
-	// 			}),
-	// 		);
-	// 	}
-	// }, [mapRef, map, center['lat'], center['lng'], zoom]);
 
 	return (
 		<>
