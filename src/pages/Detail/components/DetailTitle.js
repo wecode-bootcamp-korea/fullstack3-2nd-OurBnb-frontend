@@ -1,11 +1,18 @@
 import styled from 'styled-components';
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { FiShare } from 'react-icons/fi';
 import { TiStar } from 'react-icons/ti';
-import { AiOutlineHeart } from 'react-icons/ai';
+import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
 
 export default function DetailTitle({ mainInfoData, reviewAvgData, reviewCountData }) {
 	const { roomName, address } = mainInfoData;
 	const rate = Number(reviewAvgData).toFixed(1);
+	const [likeClick, setLikeClick] = useState(false);
+
+	const heartButton = () => {
+		setLikeClick(!likeClick);
+	};
 	return (
 		<TitleWrapper>
 			<TitleTop>
@@ -13,7 +20,7 @@ export default function DetailTitle({ mainInfoData, reviewAvgData, reviewCountDa
 			</TitleTop>
 			<TitleBottom>
 				<ContentsUl>
-					<TiStar />
+					{heartButton ? <TiStar /> : <AiFillHeart />}
 					<ContentsLi>{rate}</ContentsLi>
 					<ContentsLi> ∙ </ContentsLi>
 					<ContentsLi>후기{reviewCountData}개</ContentsLi>

@@ -6,6 +6,8 @@ import KakaoLogin from './components/Login/Login';
 import Help from './pages/Oops/Oops';
 import Review from './pages/Detail/components/Review';
 import RoomOptionModal from './pages/Detail/components/RoomOptionModal';
+import PicModal from './pages/Detail/components/PicModal';
+import DetailPic from './pages/Detail/components/DetailPic';
 
 const Router = () => {
 	return (
@@ -20,6 +22,7 @@ const Router = () => {
 					{/* <Route path="/trips" element={<Trips />} /> */}
 					<Route path="*" element={<Help />} />
 					<Route path="rm" element={<RoomOptionModal />} />
+					<Route path="mm" element={<DetailPic />} />
 				</Routes>
 			</BrowserRouter>
 		</div>

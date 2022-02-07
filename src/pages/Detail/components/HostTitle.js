@@ -14,7 +14,7 @@ export default function HostTitle({ mainInfoData }) {
 						{hostName}님이 호스팅하는 {roomType}
 					</TitleTop>
 					<TitleBottom>
-						최대 인원 {guestCapacity}명 · 침실 {bedroomCount}개 · 침대 {bedCount}개 · 단독 사용 욕실{' '}
+						최대 인원 {guestCapacity}명 · 침실 {bedroomCount}개 · 침대 {bedCount}개 · 단독 사용 욕실
 						{bathroomCount}개
 					</TitleBottom>
 				</TitleWrapper>
