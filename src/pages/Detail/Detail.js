@@ -48,7 +48,7 @@ export default function Detail() {
 			setReviewData(data.reviewInfo);
 		};
 		getReviewData();
-	}, []);
+	}, [roomid]);
 
 	return (
 		<Wrapper>

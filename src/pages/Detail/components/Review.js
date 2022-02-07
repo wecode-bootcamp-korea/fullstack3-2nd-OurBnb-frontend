@@ -9,7 +9,7 @@ export default function Review({ reviewData }) {
 	const rate = Number(roomAvgRate).toFixed(1);
 
 	return (
-		<Wrapper>
+		<Wrapper id="review">
 			<ReviewWrapper>
 				<ReviewCount>
 					<Count>
@@ -32,13 +32,14 @@ export default function Review({ reviewData }) {
 
 const Wrapper = styled.section`
 	width: 100%;
+	border-top: 1px solid rgb(221, 221, 221);
 	border-bottom: 1px solid rgb(221, 221, 221);
-	margin-top: 30px;
 `;
 
 const ReviewWrapper = styled.div`
 	display: flex;
 	margin-bottom: 30px;
+	margin-top: 30px;
 	flex-direction: column;
 `;
 

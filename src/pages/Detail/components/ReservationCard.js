@@ -76,32 +76,33 @@ export default function ReservationCard({
 		);
 	}, [priceData, dateInterval]);
 
-	// useEffect(() => {
-	// 	const postReservation = async () => {
-	// 		console.log('reservation Info', roomId, guestCapacity, checkInDate, checkOutDate);
-	// 		const response = await fetch(
-	// 			`${POST_RESERVATION_API}?roomId=${roomId}&guestCount=${guestCapacity}&checkIn=${checkInDate}&checkOut=${checkOutDate}`,
-	// 			{
-	// 				method: 'POST',
-	// 				headers: { 'Content-Type': 'application/json', Authorization: idValue },
-	// 			},
-	// 		);
-	// 		const data = await response.json();
-	// 		console.log('data', data);
-	// 	};
-	// 	postReservation();
-	// }, [isBtnClicked]);
+	useEffect(() => {
+		const postReservation = async () => {
+			console.log('reservation Info', roomId, guestCapacity, checkInDate, checkOutDate);
+			const response = await fetch(
+				`${POST_RESERVATION_API}?roomId=${roomId}&guestCount=${guestCapacity}&checkIn=${checkInDate}&checkOut=${checkOutDate}`,
+				{
+					method: 'POST',
+					headers: { 'Content-Type': 'application/json', Authorization: idValue },
+				},
+			);
+			const data = await response.json();
+			console.log('data', data);
+		};
+		postReservation();
+	}, [isBtnClicked]);
 
 	// const { roomId, guestCount, checkIn, checkOut } = req.query;
 
-	//   useEffect(() => {
-	// 		const getReviewData = async () => {
-	// 			const response = await fetch(`${GET_REVIEW_API}?roomId=${roomId}`);
-	// 			const data = await response.json();
-	// 			setReviewData(data.reviewInfo);
-	// 		};
-	// 		getReviewData();
-	// 	}, []);
+	// useEffect(() => {
+	// 	const getReviewData = async () => {
+	// 		const response = await fetch(`${GET_REVIEW_API}?roomId=${roomId}`);
+	// 		const data = await response.json();
+	// 		setReviewData(data.reviewInfo);
+	// 	};
+	// 	getReviewData();
+	// }, []);
+
 	return (
 		<Wrapper>
 			<Frame>

@@ -26,7 +26,6 @@ export default function RoomOption({ optionData }) {
 }
 
 const Wrapper = styled.div`
-	border-bottom: 1px solid rgb(221, 221, 221);
 	margin-top: 30px;
 `;
 

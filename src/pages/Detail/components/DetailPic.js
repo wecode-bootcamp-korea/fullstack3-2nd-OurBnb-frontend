@@ -1,9 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
+import PicModal from './PicModal';
 
 export default function DetailPic({ mainInfoData }) {
 	const imagesString = '' + mainInfoData.imgUrl;
 	const allImgs = imagesString.split(',');
+	// console.log(allImgs);
+
+	const [showModal, setShowModal] = useState(false);
+
+	const openModal = () => {
+		setShowModal(prev => !prev);
+	};
 
 	//isMain 데이터가 누락됫을경우 --- 에러처리 ()
 	return (
@@ -29,7 +37,8 @@ export default function DetailPic({ mainInfoData }) {
 				</SubImgWrapper>
 			</SubImg>
 
-			<ImgModal>::: 사진 모두보기</ImgModal>
+			<ImgModal onClick={openModal}>::: 사진 모두보기</ImgModal>
+			<PicModal showModal={showModal} setShowModal={setShowModal} picData={allImgs} />
 		</PicWrapper>
 	);
 }
