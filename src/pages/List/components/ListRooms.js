@@ -32,10 +32,10 @@ const RoomsList = ({ giveOffset, rooms, limit, totalRows }) => {
 						</div>
 					</>
 				) : (
-					<div>
-						{area}에 위치한 숙소가 없습니다. 더 많은 지역을 제공해드리도록 노력하는 ourbnb가
-						되겠습니다!
-					</div>
+					<>
+						<div>{area}에 위치한 숙소가 없습니다.</div>
+						<div>더 많은 지역을 제공해드리도록 노력하는 ourbnb가 되겠습니다!</div>
+					</>
 				)}
 			</StyledListSummary>
 			<StyledList>
@@ -62,6 +62,7 @@ const RoomsListWrapper = styled.section`
 	flex-direction: column;
 	justify-content: flex-start;
 `;
+
 const StyledList = styled.ul`
 	display: flex;
 	flex-direction: column;
@@ -85,7 +86,7 @@ const StyledListSummary = styled.div`
 	width: 100%;
 	height: min-content;
 	margin: 24px 0;
-	padding: 24px 24px;
+	padding: 0 24px;
 	font-size: 0.8rem;
 
 	> div + div {

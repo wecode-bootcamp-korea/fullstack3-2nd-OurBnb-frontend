@@ -55,7 +55,12 @@ const Pagination = props => {
 					총 {totalRows}개의 숙소 중 {limit}개
 				</PageInfo>
 			)}
-			{!isDivisibleByTen && (
+			{!isDivisibleByTen && totalRows < 10 && (
+				<PageInfo>
+					총 {totalRows}개의 숙소 중 {limit}개
+				</PageInfo>
+			)}
+			{!isDivisibleByTen && totalRows > 10 && (
 				<PageInfo>
 					총 {Math.floor(totalRows / 10) * 10}개 이상의 숙소 중 {limit}개
 				</PageInfo>

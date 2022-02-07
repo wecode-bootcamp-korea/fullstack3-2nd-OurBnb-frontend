@@ -231,7 +231,7 @@ const Header = ({ isMain }) => {
 				</SearchingGuest>
 				<Finder>
 					<Link to={searchLinkAddress}>
-						<BiSearch />
+						<BiSearch style={{ color: '#ffffff' }} />
 					</Link>
 				</Finder>
 			</Search>

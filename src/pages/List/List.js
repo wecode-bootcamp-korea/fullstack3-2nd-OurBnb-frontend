@@ -11,23 +11,41 @@ import { GET_LIST_API } from '../../config';
 const List = () => {
 	const { location } = useParams();
 	const [rooms, setRooms] = useState({});
-	const [lat, setLat] = useState(0);
-	const [lng, setLng] = useState(0);
-	const [totalRows, setTotalRows] = useState();
-	const [offset, setOffset] = useState(0);
+
+	//페이지네이션
 	const [isLoading, setIsLoading] = useState(true);
-	const center = { lat, lng };
+	const [totalRows, setTotalRows] = useState(0);
+	const [offset, setOffset] = useState(0);
 	const limit = 5;
 
-	const [isActive, setIsActive] = useState(false);
+	//지도
+	const [lat, setLat] = useState(0);
+	const [lng, setLng] = useState(0);
+	const center = { lat, lng };
+
+	const [roomTypes, setRoomTypes] = useState([]);
+	const roomType = roomTypes.map(checked => `&roomTypeId=${checked}`).join('');
+
+	const handleRoomTypes = (e, isChecked) => {
+		e.preventDefault();
+		setRoomTypes([...isChecked]);
+	};
+
 	const [options, setOptions] = useState([]);
 	const optionsURL = options.map(optionID => `&option=${optionID}`).join('');
 
+	const handleFilter = e => {
+		if (options.includes(e.target.value)) {
+			setOptions(options.filter(option => option !== e.target.value));
+		} else {
+			setOptions([...options, e.target.value].sort((a, b) => a - b));
+		}
+	};
+
 	const requestAPI =
-		isActive && optionsURL
+		optionsURL || roomType
 			? `${GET_LIST_API}?location=${location}${optionsURL}&limit=${limit}&offset=${offset}`
 			: `${GET_LIST_API}?location=${location}&limit=${limit}&offset=${offset}`;
-	console.log(requestAPI);
 
 	useEffect(() => {
 		fetch(requestAPI, {
@@ -42,22 +60,15 @@ const List = () => {
 				setIsLoading(true);
 				window.scrollTo(0, 0);
 				setRooms(data);
-				setIsLoading(false);
 				setLat(data.lat);
 				setLng(data.lng);
 				setTotalRows(data.totalRows);
-				console.log(data);
+				setIsLoading(false);
+				console.log(requestAPI);
 			});
-	}, [offset, location, requestAPI]);
+	}, [location, requestAPI]);
 
-	const handleFilter = e => {
-		setIsActive(true);
-		if (options.includes(e.target.value)) {
-			setOptions(options.filter(option => option !== e.target.value));
-		} else {
-			setOptions([...options, e.target.value]);
-		}
-	};
+	console.log(requestAPI);
 
 	const giveOffset = pageNumber => {
 		setOffset(pageNumber);
@@ -67,7 +78,7 @@ const List = () => {
 		<>
 			<HeaderWrapper>
 				<Header />
-				<FilterNav handleFilter={handleFilter} />
+				<FilterNav handleRoomTypes={handleRoomTypes} handleFilter={handleFilter} />
 			</HeaderWrapper>
 
 			<ListContainer>
@@ -92,7 +103,7 @@ const HeaderWrapper = styled.div`
 	position: sticky;
 	margin: -25px 0 0 0;
 	top: -10px;
-	z-index: 9999;
+	z-index: 999;
 	border-bottom: 1px solid ${props => props.theme.border};
 	padding-bottom: 10px;
 	background-color: white;

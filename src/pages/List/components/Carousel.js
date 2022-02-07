@@ -30,7 +30,7 @@ const Carousel = ({ imageString, isSuperHost }) => {
 	return (
 		<CarouselWrapper>
 			<Frame>
-				{isSuperHost ? <SuperHostTag /> : null}
+				<SuperHostTag isSuperHost={isSuperHost} />
 				<ImageList currentImage={currentImage} onTransitionEnd={slideMoved}>
 					{imagesArray.map((url, index) => (
 						<li key={index}>
@@ -61,6 +61,7 @@ const Carousel = ({ imageString, isSuperHost }) => {
 };
 
 export default Carousel;
+
 const DotFrame = styled.div`
 	position: relative;
 	position: absolute;
@@ -72,14 +73,16 @@ const DotFrame = styled.div`
 	flex-direction: row;
 	justify-content: center;
 `;
+
 const DotWrapper = styled.div`
 	width: 25%;
 	height: 100%;
 	display: flex;
 	overflow: hidden;
-	z-index: 999;
+	z-index: 99;
 	justify-content: space-evenly;
 `;
+
 const Dot = styled.div`
 	background-color: white;
 	opacity: 0.7;
@@ -92,7 +95,7 @@ const CarouselWrapper = styled.div`
 	width: 100%;
 	@media (min-width: 744px) {
 		width: 300px;
-		z-index: 999;
+		z-index: 99;
 	}
 `;
 
@@ -107,6 +110,7 @@ const Frame = styled.div`
 		border-radius: 10px;
 		overflow: hidden;
 	}
+
 	@media (min-width: 744px) {
 		width: 300px;
 		height: 200px;
@@ -145,8 +149,8 @@ export const StyledImage = styled.img`
 	}
 `;
 
-const SuperHostTag = () => {
-	return <StyledTag>슈퍼호스트</StyledTag>;
+const SuperHostTag = ({ isSuperHost }) => {
+	return isSuperHost ? <StyledTag>슈퍼호스트</StyledTag> : null;
 };
 
 const StyledTag = styled.span`
@@ -161,7 +165,7 @@ const StyledTag = styled.span`
 	color: ${({ theme }) => theme.foreground};
 	font-size: 0.8rem;
 	font-weight: 500;
-	z-index: 999;
+	z-index: 99;
 
 	@media (min-width: 744px) {
 		top: 4%;
@@ -187,6 +191,7 @@ const Arrow = styled.div`
 	&:hover {
 		opacity: 1;
 	}
+
 	> .arrowIcons {
 		position: absolute;
 		top: 50%;
