@@ -5,7 +5,8 @@ import { FiShare } from 'react-icons/fi';
 import { AiOutlineHeart } from 'react-icons/ai';
 
 export default function PicModal({ showModal, setShowModal, picData }) {
-	// console.log(picData);
+	// const [showModal, setShowModal] = useState(false);
+
 	return (
 		<div>
 			{showModal ? (

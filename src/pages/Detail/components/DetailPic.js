@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import PicModal from './PicModal';
+import Portal from '../../../components/Header/Portal';
 
 export default function DetailPic({ mainInfoData }) {
 	const imagesString = '' + mainInfoData.imgUrl;
@@ -38,7 +39,6 @@ export default function DetailPic({ mainInfoData }) {
 			</SubImg>
 
 			<ImgModal onClick={openModal}>::: 사진 모두보기</ImgModal>
-			<PicModal showModal={showModal} setShowModal={setShowModal} picData={allImgs} />
 		</PicWrapper>
 	);
 }
