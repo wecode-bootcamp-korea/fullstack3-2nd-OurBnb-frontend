@@ -41,7 +41,17 @@ Member
 
 Task
 ---
+front-end
 
+- 장종현
+  - 디테일 페이지 전체구현
+    - React-datePicker 라이브러리를 사용하여 캘린더 구현
+    - 선택된 예약날짜를 데이터베이스로 보내 db에 저장
+    - 숙박 장소 modal창 구현
+    - styled-component를 사용하여 페이지 구성
+
+- 최은비
+- 민하늘
 
 Modeling
 ---
