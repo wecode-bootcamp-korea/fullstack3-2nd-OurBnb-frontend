@@ -1,70 +1,50 @@
-# Getting Started with Create React App
+Our bnb
+---
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Introduction
+---
 
-## Available Scripts
 
-In the project directory, you can run:
+- 기간 : 22.01.14 ~ 22.02.11(연휴제외)
+- 구성 : Front-end 3명, Back-end 2명
 
-### `npm start`
+Repository
+---
+- [Frontend]
+- [Backend]
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Member
+---
+- Frontend
+  - 최은비
+  - 장종현
+  - 민하늘
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- Backend
+  - 박효상
+  - 구민기
 
-### `npm test`
+Task
+---
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
+Modeling
+---
+![스크린샷 2022-02-08 오전 1 13 34](https://user-images.githubusercontent.com/70682567/152827078-4d136f7d-5e38-48b1-90b4-95824b682d28.png)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Convention
+------
+Branch
+- Feature/<기능 or 페이지> : 새로 만들 때 사용
+- Fix/<고치는 것> : 수정, 개선할 때 사용
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Commit
+- Add : 기능 추가할 때
+- Fix : 기능 수정, 개선할 때
+- Del : 기능 삭제할 때
+- Merge : 파일 머지할 때
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+File
+- 페이지 폴더 및 파일명 : Pascal Case
+- 컴포넌트 파일명 : Pascal Case
+- 클래스명 : camel Case 
