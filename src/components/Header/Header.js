@@ -10,7 +10,7 @@ import LoginModal from './LoginModal';
 import SearchModal from './SearchModal';
 import LoginButton from '../Login/Button';
 
-const Header = ({ isMain }) => {
+const Header = ({ isMain, isTrips }) => {
 	const [loginButton, setLoginButton] = useState('로그인');
 	const navigate = useNavigate();
 	const tokenValue = sessionStorage.getItem('access_token');
@@ -96,7 +96,7 @@ const Header = ({ isMain }) => {
 					<LogoName>ourbnb</LogoName>
 				</Logo>
 			</Link>
-			<HeaderButtons>
+			<HeaderButtons isTrips={isTrips}>
 				<SelectedHeaderButton>
 					<HeaderLabel>
 						<HeaderInput>숙소</HeaderInput>
@@ -170,7 +170,7 @@ const Header = ({ isMain }) => {
 					</ModalListBottom>
 				</ProfileModal>
 			)}
-			<Search>
+			<Search isTrips={isTrips}>
 				<SearchingLocation onClick={openSearchModal}>
 					<SearchButton>
 						<Location>
@@ -268,7 +268,7 @@ const LogoName = styled.h2`
 `;
 
 const HeaderButtons = styled.div`
-	display: flex;
+	display: ${props => (props.isTrips ? 'none' : 'flex')};
 	justify-content: space-around;
 	width: 17%;
 	margin: -30px 0 0 41.5%;
@@ -411,7 +411,7 @@ const ModalLine = styled.hr`
 
 const Search = styled.div`
 	position: relative;
-	display: flex;
+	display: ${props => (props.isTrips ? 'none' : 'flex')};
 	justify-content: space-around;
 	width: 59%;
 	width: min-content;
