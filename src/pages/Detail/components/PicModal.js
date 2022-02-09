@@ -1,109 +1,84 @@
-import React from 'react';
+import { useEffect } from 'react';
 import styled from 'styled-components';
 import { IoIosArrowBack } from 'react-icons/io';
 import { FiShare } from 'react-icons/fi';
 import { AiOutlineHeart } from 'react-icons/ai';
 
-export default function PicModal({ showModal, setShowModal, picData }) {
-	// console.log(picData);
+export default function PicModal({ showModal, handleClose, picData }) {
+	const imagesString = '' + picData.imgUrl;
+	const allImgs = imagesString.split(',');
+
+	// useEffect(() => {
+	// 	document.body.style.cssText = `position: fixed; top: -${window.scrollY}px`;
+	// 	return () => {
+	// 		const scrollY = document.body.style.top;
+	// 		document.body.style.cssText = `position: ""; top: "";`;
+	// 		window.scrollTo(0, parseInt(scrollY || '0') * -1);
+	// 	};
+	// }, []);
+
 	return (
-		<div>
-			{showModal ? (
-				<Wrapper>
-					<Header>
-						<Back>
-							<IoIosArrowBack className="arrow" />
-						</Back>
-						<ShareSave>
-							<Share>
-								<ShareButton>
-									<ShareButtonInner>
-										<ShareIcon>
-											<FiShare />
-										</ShareIcon>
-										<ShareSpan>공유하기</ShareSpan>
-									</ShareButtonInner>
-								</ShareButton>
-							</Share>
-							<Save>
-								<SaveButton>
-									<SaveButtonInner>
-										<SaveIcon>
-											<AiOutlineHeart />
-										</SaveIcon>
-										<SaveSpan>저장</SaveSpan>
-									</SaveButtonInner>
-								</SaveButton>
-							</Save>
-						</ShareSave>
-					</Header>
+		<ModalWrapper showModal={showModal}>
+			<Header>
+				<Back>
+					<IoIosArrowBack onClick={handleClose} />
+				</Back>
+				<ShareSave>
+					<Share>
+						<ShareButton>
+							<ShareButtonInner>
+								<ShareIcon>
+									<FiShare />
+								</ShareIcon>
+								<ShareSpan>공유하기</ShareSpan>
+							</ShareButtonInner>
+						</ShareButton>
+					</Share>
+					<Save>
+						<SaveButton>
+							<SaveButtonInner>
+								<SaveIcon>
+									<AiOutlineHeart />
+								</SaveIcon>
+								<SaveSpan>저장</SaveSpan>
+							</SaveButtonInner>
+						</SaveButton>
+					</Save>
+				</ShareSave>
+			</Header>
 
-					<PicContainer>
-						<PicBox>
-							<FirstSection>
-								<img src={picData[0]} alt="img" />
-							</FirstSection>
-
-							<SecondSection>
-								<SecondLeft>
-									<img src={picData[1]} alt="img" />
-								</SecondLeft>
-								<SecondRight>
-									<img src={picData[2]} alt="img" />
-								</SecondRight>
-							</SecondSection>
-
-							<ThirdSection>
-								<ThirdLeft>
-									<img src={picData[3]} alt="img" />
-								</ThirdLeft>
-								<ThirdRight>
-									<ThirdRightTop>
-										<img src={picData[4]} alt="img" />
-									</ThirdRightTop>
-									<ThirdRightBottom>
-										<img src={picData[5]} alt="img" />
-									</ThirdRightBottom>
-								</ThirdRight>
-							</ThirdSection>
-
-							<FourthSection>
-								<FourthLeft>
-									<FourthLefttop>
-										<img src={picData[6]} alt="img" />
-									</FourthLefttop>
-									<FourthLeftBottom>
-										<img src={picData[7]} alt="img" />
-									</FourthLeftBottom>
-								</FourthLeft>
-								<FourthRight>
-									<img src={picData[8]} alt="img" />
-								</FourthRight>
-							</FourthSection>
-
-							<FifthSection>
-								<img src={picData[9]} alt="img" />
-							</FifthSection>
-						</PicBox>
-					</PicContainer>
-				</Wrapper>
-			) : null}
-		</div>
+			<PicContainer>
+				<PicBox>
+					{allImgs.map(img => {
+						return <img key={img} src={img} alt="room pictures" />;
+					})}
+				</PicBox>
+			</PicContainer>
+		</ModalWrapper>
 	);
 }
 
-const Wrapper = styled.section`
+const ModalWrapper = styled.section`
+	display: ${props => (props.showModal ? 'block' : 'none')};
+	position: relative;
+	position: fixed;
 	display: flex;
+	flex-direction: column;
 	width: 100%;
 	height: 100vh;
-	flex-direction: column;
-	z-index: 9999;
+	background-color: #fff;
+	z-index: ${props => (props.showModal ? '999999999999' : '-9999')};
+	overflow-y: scroll;
 `;
 
 const Header = styled.div`
+	display: ${props => (props.showModal ? 'block' : 'none')};
+	display: none;
 	width: 100%;
 	display: flex;
-	position: fixed;
+	position: absolute;
+	top: 0;
+	left: 0;
 	background-color: white;
 	justify-content: space-between;
 `;
@@ -177,7 +152,7 @@ const SaveButtonInner = styled.div`
 //사진섹션
 const PicContainer = styled.section`
 	width: 100%;
-	// z-index: 99999;
+	z-index: ${props => (props.showModal ? '999999' : '-9999')};
 `;
 
 //사진전체
@@ -188,145 +163,6 @@ const PicBox = styled.section`
 	margin: 0 auto;
 	margin-top: 50px;
 	flex-direction: column;
-`;
-
-const FirstSection = styled.section`
-	height: 400px;
-	margin-bottom: 30px;
-	cursor: pointer;
-	:hover {
-		background-color: black;
-		opacity: 0.3;
-	}
-	img {
-		object-fit: cover;
-	}
-`;
-
-const SecondSection = styled.section`
-	display: flex;
-	justify-content: space-between;
-	margin-bottom: 30px;
-`;
-
-const SecondLeft = styled.div`
-	width: 49%;
-	height: 300px;
-	cursor: pointer;
-	:hover {
-		background-color: black;
-		opacity: 0.3;
-	}
-	img {
-		object-fit: cover;
-	}
-`;
-
-const SecondRight = styled.div`
-	width: 49%;
-	cursor: pointer;
-	:hover {
-		background-color: black;
-		opacity: 0.3;
-	}
-	img {
-		object-fit: cover;
-	}
-`;
-
-const ThirdSection = styled.section`
-	display: flex;
-	margin-bottom: 30px;
-`;
-
-const ThirdLeft = styled.div`
-	width: 50%;
-	height: 510px;
-	margin-right: 20px;
-	cursor: pointer;
-	:hover {
-		background-color: black;
-		opacity: 0.3;
-	}
-`;
-
-const ThirdRight = styled.div`
-	width: 50%;
-	display: flex;
-	flex-direction: column;
-`;
-
-const ThirdRightTop = styled.div`
-	width: 100%;
-	height: 250px;
-	margin-bottom: 10px;
-	cursor: pointer;
-	:hover {
-		background-color: black;
-		opacity: 0.3;
-	}
-`;
-
-const ThirdRightBottom = styled.div`
-	width: 100%;
-	height: 250px;
-	cursor: pointer;
-	:hover {
-		background-color: black;
-		opacity: 0.3;
-	}
-`;
-
-const FourthSection = styled.section`
-	display: flex;
-	margin-bottom: 30px;
-`;
-
-const FourthLeft = styled.div`
-	width: 50%;
-	height: 510px;
-	margin-right: 20px;
-`;
-
-const FourthLefttop = styled.div`
-	width: 100%;
-	height: 250px;
-	margin-bottom: 10px;
-	cursor: pointer;
-	:hover {
-		background-color: black;
-		opacity: 0.3;
-	}
-`;
-
-const FourthLeftBottom = styled.div`
-	width: 100%;
-	height: 250px;
-	cursor: pointer;
-	:hover {
-		background-color: black;
-		opacity: 0.3;
-	}
-`;
-
-const FourthRight = styled.div`
-	width: 50%;
-	display: flex;
-	flex-direction: column;
-	cursor: pointer;
-	:hover {
-		background-color: black;
-		opacity: 0.3;
-	}
-`;
-
-const FifthSection = styled.section`
-	height: 400px;
-	margin-bottom: 30px;
-	cursor: pointer;
-	:hover {
-		background-color: black;
-		opacity: 0.3;
-	}
-	background-color: red;
+	z-index: ${props => (props.showModal ? '9999' : '-9999')};
+	overflow-y: scroll;
 `;

@@ -1,16 +1,17 @@
-import React from 'react';
 import { useEffect } from 'react';
+import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-export default function RoomOptionModal({ className, onClose, maskClosable, visible, children }) {
-	const onMaskClick = e => {
-		if (e.target === e.currentTarget) {
-			onClose(e);
-		}
-	};
+import RoomOptionC from './RoomOptionC';
 
-	//모달창 연상태에서 스크롤 안되게
+export default function RoomOptionModal({
+	className,
+	visible,
+	closeModal,
+	modalParent,
+	optionData,
+}) {
 	useEffect(() => {
 		document.body.style.cssText = `position: fixed; top: -${window.scrollY}px`;
 		return () => {
@@ -20,20 +21,24 @@ export default function RoomOptionModal({ className, onClose, maskClosable, visi
 		};
 	}, []);
 
-	return (
+	return ReactDOM.createPortal(
 		<>
-			<LoginModalOverlay visible={visible} />
-			<LoginModalWrapper
-				className={className}
-				onClick={maskClosable ? onMaskClick : null}
-				tabIndex="-1"
-				visible={visible}
-			>
-				<LoginModalInner tabIndex="0" className="modal-inner">
-					{children}
-				</LoginModalInner>
-			</LoginModalWrapper>
-		</>
+			<OptionModalOverlay visible={visible} onClick={closeModal} />
+			<OptionModalContainer className={className} tabIndex="-1" visible={visible}>
+				<OptionModalInner tabIndex="0" className="modal-inner">
+					{optionData.map(option => {
+						return (
+							<RoomOptionC
+								key={option.optionLogoUrl}
+								optionName={option.optionName}
+								optionLogoUrl={option.optionLogoUrl}
+							/>
+						);
+					})}
+				</OptionModalInner>
+			</OptionModalContainer>
+		</>,
+		modalParent.current,
 	);
 }
 
@@ -47,20 +52,7 @@ RoomOptionModal.propTypes = {
 	visible: PropTypes.bool,
 };
 
-const LoginModalWrapper = styled.div`
-	box-sizing: border-box;
-	display: ${props => (props.visible ? 'block' : 'none')};
-	position: absolute;
-	top: 0;
-	right: 0;
-	bottom: 0;
-	left: 0;
-	z-index: 5000;
-	overflow: auto;
-	outline: 0;
-`;
-
-const LoginModalOverlay = styled.div`
+const OptionModalOverlay = styled.div`
 	box-sizing: border-box;
 	display: ${props => (props.visible ? 'block' : 'none')};
 	position: fixed;
@@ -69,18 +61,38 @@ const LoginModalOverlay = styled.div`
 	bottom: 0;
 	right: 0;
 	background-color: rgba(0, 0, 0, 0.6);
-	z-index: 3999;
+	z-index: 4999;
 `;
 
-const LoginModalInner = styled.div`
+const OptionModalContainer = styled.div`
 	box-sizing: border-box;
-	position: fixed;
-	margin: 250px 0 0 -550px;
+	display: ${props => (props.visible ? 'block' : 'none')};
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	margin: 0 auto;
+	width: 480px;
+	height: 500px;
+	overflow: hidden;
+	transform: translateX(-50%);
+	background-color: pink;
+
+	z-index: 5000;
+`;
+
+const OptionModalInner = styled.div`
+	box-sizing: border-box;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	max-width: 480px;
+	border-radius: 10px;
 	box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.5);
 	background-color: #fff;
-	border-radius: 10px;
-	width: 360px;
-	max-width: 480px;
-	transform: translateY(-50%);
+	/* transform: translateY(-50%); */
 	padding: 40px 20px;
+	background-color: blue;
+
+	overflow-y: scroll;
 `;

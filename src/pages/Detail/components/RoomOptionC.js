@@ -4,22 +4,16 @@ import styled from 'styled-components';
 export default function RoomOptionC({ optionName, optionLogoUrl }) {
 	return (
 		<OptionWrapper key={Math.random()}>
-			<Content>
-				<OptionIcon>
-					<img src={optionLogoUrl} alt="logoUrl" />
-				</OptionIcon>
-				<OptionName>{optionName}</OptionName>
-			</Content>
+			<OptionIcon>
+				<img src={optionLogoUrl} alt="logoUrl" />
+			</OptionIcon>
+			<OptionName>{optionName}</OptionName>
 		</OptionWrapper>
 	);
 }
 
 const OptionWrapper = styled.div`
-	/* display: grid; */
 	margin-top: 20px;
-`;
-
-const Content = styled.div`
 	display: flex;
 	align-items: center;
 `;

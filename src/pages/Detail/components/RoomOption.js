@@ -1,9 +1,26 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
+import RoomOptionModal from './RoomOptionModal';
 import RoomOptionC from './RoomOptionC';
 
-export default function RoomOption({ optionData }) {
+export default function RoomOption({
+	modalParent,
+	optionData,
+	className,
+	onClose,
+	maskClosable,
+	visible,
+	children,
+}) {
 	const filteredOptions = optionData.filter(e => e.isMainOption);
+
+	const [OptionModalVisible, setOptionModalVisible] = useState(false);
+	const openOptionModal = () => {
+		setOptionModalVisible(true);
+	};
+	const closeOptionModal = () => {
+		setOptionModalVisible(false);
+	};
 
 	return (
 		<Wrapper>
@@ -20,7 +37,17 @@ export default function RoomOption({ optionData }) {
 						);
 					})}
 			</OptionContainer>
-			<AllOption>편의시설 모두 보기</AllOption>
+			<AllOption onClick={openOptionModal}>편의시설 모두 보기</AllOption>
+
+			{OptionModalVisible && (
+				<RoomOptionModal
+					modalParent={modalParent}
+					visible={OptionModalVisible}
+					closeModal={closeOptionModal}
+					closable={true}
+					optionData={optionData}
+				/>
+			)}
 		</Wrapper>
 	);
 }
