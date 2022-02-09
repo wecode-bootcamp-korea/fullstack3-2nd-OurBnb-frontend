@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import styled from 'styled-components';
@@ -21,7 +21,6 @@ import Review from './components/Review';
 import RoomMap from './components/RoomMap';
 
 export default function Detail() {
-	const DetailDOM = useRef();
 	const { roomid } = useParams();
 	const [mainInfoData, setMainInfoData] = useState({});
 	const [reviewData, setReviewData] = useState({});
@@ -29,7 +28,17 @@ export default function Detail() {
 	const [benefitData, setBenefitData] = useState([]);
 	const [ruleData, setRuleData] = useState([]);
 	const [safetyData, setSafetyData] = useState([]);
+
 	const [showModal, setShowModal] = useState(false);
+
+	const openModal = () => {
+		setShowModal(prev => !prev);
+	};
+
+	const handleClose = () => {
+		console.log('close clicked');
+		setShowModal(false);
+	};
 
 	useEffect(() => {
 		const getRoomData = async () => {
@@ -52,11 +61,9 @@ export default function Detail() {
 		};
 		getReviewData();
 	}, [roomid]);
-
 	return (
 		<div>
-			<PicModal showModal={showModal} setShowModal={setShowModal} picData={mainInfoData} />
-			<ModalParent modalParent={DetailDOM} className="Imawrapper" />
+			<PicModal showModal={showModal} picData={mainInfoData} handleClose={handleClose} />
 			<Wrapper>
 				<Header />
 				<InnerWrapper>
@@ -65,13 +72,13 @@ export default function Detail() {
 						reviewAvgData={reviewData.roomAvgRate}
 						reviewCountData={reviewData.roomReviewCount}
 					/>
-					<DetailPic mainInfoData={mainInfoData} />
+					<DetailPic mainInfoData={mainInfoData} openModal={openModal} />
 					<DetailInfo>
 						<RoomInfo>
 							<HostTitle mainInfoData={mainInfoData} />
 							<RoomPoint benefitData={benefitData} />
 							<RoomDesc mainInfoData={mainInfoData} />
-							<RoomOption modalParent={DetailDOM} optionData={optionData} />
+							<RoomOption optionData={optionData} />
 						</RoomInfo>
 						<Reservation>
 							<ReservationCard
@@ -95,21 +102,9 @@ export default function Detail() {
 	);
 }
 
-const ModalParent = styled.div`
-	position: fixed;
-	/* top: 0;
-	left: 0;
-	bottom: 0;
-	right: 0;
-	background-color: skyblue;
-	opacity: 0.5;
-	z-index: 999999;
-	width: 100%;
-	height: 100%; */
-`;
-
 const Wrapper = styled.div`
 	width: 100%;
+	background-color: #fff;
 `;
 
 const InnerWrapper = styled.div`
