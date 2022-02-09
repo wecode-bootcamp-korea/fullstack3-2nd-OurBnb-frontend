@@ -160,6 +160,11 @@ const Header = ({ isMain, isTrips }) => {
 					)}
 					<ModalLine />
 					<ModalList>
+						<Link to="/trips">
+							<Login>여행</Login>
+						</Link>
+					</ModalList>
+					<ModalList>
 						<Login>숙소 호스트 되기</Login>
 					</ModalList>
 					<ModalList>

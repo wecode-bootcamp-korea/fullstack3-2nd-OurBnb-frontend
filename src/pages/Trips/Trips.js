@@ -76,7 +76,9 @@ const Trips = () => {
 						</Booked>
 					</BookedWrapper>
 					<PastWrapper>
-						<PastSubTitle>이전 여행지</PastSubTitle>
+						<PastSubTitle booked={reservation.past ? reservation.past.length : true}>
+							이전 여행지
+						</PastSubTitle>
 						<Past>
 							{reservation.past
 								? reservation.past.map((el, index) => {
@@ -120,6 +122,7 @@ const BookedSubTitle = styled.div`
 `;
 
 const PastSubTitle = styled.div`
+	display: ${props => (props.past ? 'block' : 'none')};
 	font-size: 25px;
 `;
 
