@@ -4,11 +4,11 @@ const GET_LIST_API = `${BASE_URL}/rooms`;
 const GET_OPTION_API = `${BASE_URL}/rooms/options`;
 const GET_DETAIL_API = `${BASE_URL}/rooms/detail`;
 const GET_LOGIN_API = `${BASE_URL}/users/kakaologin`;
-const GET_RESERVATION_API = `${BASE_URL}/rooms/reservation`;
+const GET_RESERVATION_API = `${BASE_URL}/reservation`;
 const GET_WISHLIST_API = `${BASE_URL}/users/wishlist`;
 const GET_REVIEW_API = `${BASE_URL}/rooms/reviews`;
 
-const POST_RESERVATION_API = `${BASE_URL}/rooms/reservation`;
+const POST_RESERVATION_API = `${BASE_URL}/reservation`;
 const PUT_WISHLIST_API = `${BASE_URL}/rooms`;
 const DELETE_WISHLIST_API = `${BASE_URL}/rooms`;
 
