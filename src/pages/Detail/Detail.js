@@ -36,7 +36,6 @@ export default function Detail() {
 	};
 
 	const handleClose = () => {
-		console.log('close clicked');
 		setShowModal(false);
 	};
 
