@@ -6,6 +6,7 @@ import { Marker } from '../../../components/Map';
 export default function RoomMap({ mainInfoData }) {
 	const { roomId, address, latitude, longitude } = mainInfoData;
 	const center = { lat: latitude, lng: longitude };
+
 	return (
 		<Wrapper>
 			<Label>

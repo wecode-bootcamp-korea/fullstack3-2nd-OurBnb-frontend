@@ -3,6 +3,7 @@ import Google from '../../../components/Map';
 import { Marker } from '../../../components/Map';
 
 const ListMap = ({ center, rooms }) => {
+	console.log(center);
 	return (
 		<MapWrapper>
 			<Google center={center} zoom={10}>
