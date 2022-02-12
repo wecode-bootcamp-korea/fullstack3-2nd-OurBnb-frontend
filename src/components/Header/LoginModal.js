@@ -73,6 +73,7 @@ const LoginModalOverlay = styled.div`
 const LoginModalInner = styled.div`
 	box-sizing: border-box;
 	position: fixed;
+	padding: 40px 20px;
 	margin: 250px 0 0 -550px;
 	box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.5);
 	background-color: #fff;
@@ -80,7 +81,6 @@ const LoginModalInner = styled.div`
 	width: 360px;
 	max-width: 480px;
 	transform: translateY(-50%);
-	padding: 40px 20px;
 `;
 
 export default LoginModal;
