@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import Portal from './Portal';
 
 function LoginModal({ className, onClose, maskClosable, visible, children }) {
 	const onMaskClick = e => {
