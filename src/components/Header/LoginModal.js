@@ -10,7 +10,7 @@ function LoginModal({ className, onClose, maskClosable, visible, children }) {
 	};
 
 	useEffect(() => {
-		document.body.style.cssText = `position: fixed; top: -${window.scrollY}px`;
+		document.body.style.cssText = `position: fixed; top: -${window.scrollY}px; right: 0; bottom: 0; left: 0;`;
 		return () => {
 			const scrollY = document.body.style.top;
 			document.body.style.cssText = `position: ""; top: "";`;
@@ -53,7 +53,7 @@ const LoginModalWrapper = styled.div`
 	right: 0;
 	bottom: 0;
 	left: 0;
-	z-index: 5000;
+	z-index: 99999999;
 	overflow: auto;
 	outline: 0;
 `;

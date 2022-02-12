@@ -34,7 +34,6 @@ const FilterNav = ({ handleRoomTypes, handleFilter }) => {
 	};
 
 	const [typeModalIsOpen, setTypeModalIsOpen] = useState(false);
-
 	const checkedCount = useRef(null);
 	const handleTypeFilter = () => {
 		setTypeModalIsOpen(prev => !prev);
@@ -55,7 +54,8 @@ const FilterNav = ({ handleRoomTypes, handleFilter }) => {
 				</li>
 				<li>
 					<StyledFilterButton onClick={handleTypeFilter} selected={typeModalIsOpen}>
-						숙소 유형 {checkedCount.current && `+${checkedCount.current}`}
+						숙소 유형
+						{checkedCount.current && `+${checkedCount.current}`}
 						{typeModalIsOpen ? <GoChevronUp /> : <GoChevronDown />}
 					</StyledFilterButton>
 					<TypeModal
@@ -74,11 +74,17 @@ const FilterNav = ({ handleRoomTypes, handleFilter }) => {
 export default FilterNav;
 
 const StyledNav = styled.nav`
+	display: flex;
+	flex-wrap: wrap;
+	position: sticky;
+	top: 171px;
+	padding: 10px 0;
 	width: 100%;
 	height: auto;
 	margin: 5px 0 0 24px;
-	display: flex;
-	flex-wrap: wrap;
+	background-color: #ffffff;
+	border-bottom: 1px solid ${props => props.theme.border};
+	z-index: 9999;
 
 	> ul {
 		display: flex;
@@ -106,8 +112,8 @@ const StyledFilterButton = styled.button`
 	width: max-content;
 	padding: 10px 16px;
 	background-color: ${props => (props.selected ? '#f0f0f0' : '#ffffff')};
-	/* border: ${props => (props.selected ? '2px solid #222222' : '1px solid #e0e0e0')}; */
-	box-shadow: ${props => (props.selected ? '0px 0px 0px 2px #222222' : '0px 0px 0px 1px #e0e0e0')};
+	border: ${props => (props.selected ? '1px solid #222222' : '1px solid #e0e0e0')};
+	box-shadow: ${props => (props.selected ? '0px 0px 0px 2px #222222' : 'none')};
 	border-radius: 30px;
 	opacity: 1;
 

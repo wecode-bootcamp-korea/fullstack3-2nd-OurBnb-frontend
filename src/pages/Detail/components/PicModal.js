@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import styled from 'styled-components';
 import { IoIosArrowBack } from 'react-icons/io';
 import { FiShare } from 'react-icons/fi';
@@ -12,7 +11,7 @@ export default function PicModal({ showModal, handleClose, picData }) {
 		<ModalWrapper showModal={showModal}>
 			<Header>
 				<Back>
-					<IoIosArrowBack onClick={handleClose} />
+					<CloseButton onClick={handleClose} />
 				</Back>
 				<ShareSave>
 					<Share>
@@ -77,6 +76,10 @@ const Header = styled.div`
 const Back = styled.div`
 	font-size: 1.5rem;
 	padding: 10px 10px;
+`;
+
+const CloseButton = styled(IoIosArrowBack)`
+	cursor: pointer;
 `;
 
 const ShareSave = styled.div`

@@ -15,16 +15,10 @@ const List = () => {
 	const { location } = useParams();
 	const [rooms, setRooms] = useState({});
 
-	//페이지네이션
 	const [isLoading, setIsLoading] = useState(true);
 	const [totalRows, setTotalRows] = useState(0);
 	const [offset, setOffset] = useState(0);
 	const limit = 5;
-
-	//지도
-	const [lat, setLat] = useState(0);
-	const [lng, setLng] = useState(0);
-	const center = { lat, lng };
 
 	const [roomTypes, setRoomTypes] = useState([]);
 	const roomType = roomTypes.map(checked => `&roomTypeId=${checked}`).join('');
@@ -63,8 +57,6 @@ const List = () => {
 				setIsLoading(true);
 				window.scrollTo(0, 0);
 				setRooms(data);
-				setLat(data.lat);
-				setLng(data.lng);
 				setTotalRows(data.totalRows);
 				setIsLoading(false);
 			});
@@ -76,10 +68,8 @@ const List = () => {
 
 	return (
 		<>
-			<HeaderWrapper>
-				<Header />
-				<FilterNav handleRoomTypes={handleRoomTypes} handleFilter={handleFilter} />
-			</HeaderWrapper>
+			<Header isSticky={true} />
+			<FilterNav handleRoomTypes={handleRoomTypes} handleFilter={handleFilter} />
 
 			<ListContainer>
 				<RoomsList
@@ -89,7 +79,7 @@ const List = () => {
 					giveOffset={giveOffset}
 					isLoading={isLoading}
 				/>
-				<ListMap center={center} rooms={rooms} />
+				<ListMap rooms={rooms} />
 			</ListContainer>
 
 			<Footer />
@@ -98,16 +88,6 @@ const List = () => {
 };
 
 export default List;
-
-const HeaderWrapper = styled.div`
-	position: sticky;
-	margin: -25px 0 0 0;
-	top: -10px;
-	z-index: 999;
-	border-bottom: 1px solid ${props => props.theme.border};
-	padding-bottom: 10px;
-	background-color: white;
-`;
 
 const ListContainer = styled.main`
 	display: grid;

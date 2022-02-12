@@ -2,8 +2,10 @@ import styled from 'styled-components';
 import Google from '../../../components/Map';
 import { Marker } from '../../../components/Map';
 
-const ListMap = ({ center, rooms }) => {
-	console.log(center);
+const ListMap = ({ rooms }) => {
+	const { lat, lng } = rooms;
+	let center = { lat, lng };
+
 	return (
 		<MapWrapper>
 			<Google center={center} zoom={10}>

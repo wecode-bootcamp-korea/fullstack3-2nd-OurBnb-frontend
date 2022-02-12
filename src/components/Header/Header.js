@@ -10,7 +10,7 @@ import LoginModal from './LoginModal';
 import SearchModal from './SearchModal';
 import LoginButton from '../Login/Button';
 
-const Header = ({ isMain, isTrips }) => {
+const Header = ({ isMain, isTrips, isSticky }) => {
 	const [loginButton, setLoginButton] = useState('로그인');
 	const navigate = useNavigate();
 	const tokenValue = sessionStorage.getItem('access_token');
@@ -78,193 +78,203 @@ const Header = ({ isMain, isTrips }) => {
 			: `/${searchLocation}/room`;
 
 	const [isOpen, setIsOpen] = useState(false);
-
 	const handleClick = e => {
 		e.preventDefault();
 		setIsOpen(!isOpen);
 	};
-
 	const closeCalendar = () => {
 		setIsOpen(false);
 	};
 
 	return (
-		<HeaderWrapper>
-			<Link to="/">
-				<Logo>
-					{isMain ? (
-						<LogoImage src="../../images/logo1.png" />
-					) : (
-						<LogoImage src="../../images/logo2.png" />
-					)}
+		<HeaderContainer isSticky={isSticky}>
+			<HeaderWrapper>
+				<Link to="/">
+					<Logo>
+						{isMain ? (
+							<LogoImage src="../../images/logo1.png" />
+						) : (
+							<LogoImage src="../../images/logo2.png" />
+						)}
 
-					<LogoName>ourbnb</LogoName>
-				</Logo>
-			</Link>
-			<HeaderButtons isTrips={isTrips}>
-				<SelectedHeaderButton>
-					<HeaderLabel>
-						<HeaderInput>숙소</HeaderInput>
-					</HeaderLabel>
-				</SelectedHeaderButton>
-				<HeaderButton>
-					<HeaderLabel>
-						<HeaderInput>체험</HeaderInput>
-					</HeaderLabel>
-				</HeaderButton>
-				<HeaderButton>
-					<HeaderLabel>
-						<HeaderInput>온라인 체험</HeaderInput>
-					</HeaderLabel>
-				</HeaderButton>
-			</HeaderButtons>
-			<HeaderOption>
-				<HeaderChoice>호스트 되기</HeaderChoice>
-				<HeaderChoice>
-					<FiGlobe />
-				</HeaderChoice>
-			</HeaderOption>
-			<Profile onClick={openProfileModal}>
-				<Lines>
-					<Line />
-					<Line />
-					<Line />
-				</Lines>
-				<User>
-					<IoPersonCircle />
-				</User>
-			</Profile>
-			{profileModalVisible && (
-				<ProfileModal
-					visible={profileModalVisible}
-					closable={true}
-					maskClosable={true}
-					onClose={closeProfileModal}
-				>
-					<ModalListTop>
-						<Signup>회원가입</Signup>
-					</ModalListTop>
-					<ModalList onClick={openLoginModal}>
-						<Login>{loginButton}</Login>
-					</ModalList>
-					{loginModalVisible && (
-						<LoginModal
-							visible={loginModalVisible}
-							closable={true}
-							maskClosable={true}
-							onClose={closeLoginModal}
-						>
-							<LoginLogoImage src="../../images/logo2.png" />
-							<LoginLogo>아워비앤비 회원가입 및 로그인</LoginLogo>
-							<ModalLine />
-							<LoginComment>아워비앤비에 오신 것을 환영합니다.</LoginComment>
-							<KakaoLoginButton>
-								<LoginButton />
-							</KakaoLoginButton>
-						</LoginModal>
-					)}
-					<ModalLine />
-					<ModalList>
-						<Link to="/trips">
-							<Login>여행</Login>
-						</Link>
-					</ModalList>
-					<ModalList>
-						<Login>숙소 호스트 되기</Login>
-					</ModalList>
-					<ModalList>
-						<Login>체험 호스팅하기</Login>
-					</ModalList>
-					<ModalListBottom>
-						<Login>도움말</Login>
-					</ModalListBottom>
-				</ProfileModal>
-			)}
-			<Search isTrips={isTrips}>
-				<SearchingLocation onClick={openSearchModal}>
-					<SearchButton>
-						<Location>
-							<SearchTitle>위치</SearchTitle>
-							<SearchLocationOption placeholder="어디로 여행가세요?" onChange={handleInput} />
-						</Location>
-					</SearchButton>
-				</SearchingLocation>
-				{searchModalVisible && (
-					<SearchModal
-						visible={searchModalVisible}
+						<LogoName>ourbnb</LogoName>
+					</Logo>
+				</Link>
+				<HeaderButtons isTrips={isTrips}>
+					<SelectedHeaderButton>
+						<HeaderLabel>
+							<HeaderInput>숙소</HeaderInput>
+						</HeaderLabel>
+					</SelectedHeaderButton>
+					<HeaderButton>
+						<HeaderLabel>
+							<HeaderInput>체험</HeaderInput>
+						</HeaderLabel>
+					</HeaderButton>
+					<HeaderButton>
+						<HeaderLabel>
+							<HeaderInput>온라인 체험</HeaderInput>
+						</HeaderLabel>
+					</HeaderButton>
+				</HeaderButtons>
+				<HeaderOption>
+					<HeaderChoice>호스트 되기</HeaderChoice>
+					<HeaderChoice>
+						<FiGlobe />
+					</HeaderChoice>
+				</HeaderOption>
+				<Profile onClick={openProfileModal}>
+					<Lines>
+						<Line />
+						<Line />
+						<Line />
+					</Lines>
+					<User>
+						<IoPersonCircle />
+					</User>
+				</Profile>
+				{profileModalVisible && (
+					<ProfileModal
+						visible={profileModalVisible}
 						closable={true}
 						maskClosable={true}
-						onClose={closeSearchModal}
+						onClose={closeProfileModal}
 					>
-						<LocationMent>언제 어디로든 떠나는 여행</LocationMent>
-						<Link to="/제주/room">
-							<LocationFlexible>
-								<LocationSearch>유연한 검색</LocationSearch>
-								<Right>&rang;</Right>
-							</LocationFlexible>
-						</Link>
-					</SearchModal>
+						<ModalListTop>
+							<Signup>회원가입</Signup>
+						</ModalListTop>
+						<ModalList onClick={openLoginModal}>
+							<Login>{loginButton}</Login>
+						</ModalList>
+						{loginModalVisible && (
+							<LoginModal
+								visible={loginModalVisible}
+								closable={true}
+								maskClosable={true}
+								onClose={closeLoginModal}
+							>
+								<LoginLogoImage src="../../images/logo2.png" />
+								<LoginLogo>아워비앤비 회원가입 및 로그인</LoginLogo>
+								<ModalLine />
+								<LoginComment>아워비앤비에 오신 것을 환영합니다.</LoginComment>
+								<KakaoLoginButton>
+									<LoginButton />
+								</KakaoLoginButton>
+							</LoginModal>
+						)}
+						<ModalLine />
+						<ModalList>
+							<Link to="/trips">
+								<Login>여행</Login>
+							</Link>
+						</ModalList>
+						<ModalList>
+							<Login>숙소 호스트 되기</Login>
+						</ModalList>
+						<ModalList>
+							<Login>체험 호스팅하기</Login>
+						</ModalList>
+						<ModalListBottom>
+							<Login>도움말</Login>
+						</ModalListBottom>
+					</ProfileModal>
 				)}
-				<Contour />
-				<SearchingDate>
-					<SearchButton>
-						<CheckIn onClick={handleClick}>
-							<SearchTitle>체크인</SearchTitle>
-							<SearchDateOption>
-								{startDate
-									? `${startDate.getMonth() + 1}월 ${startDate.getDate()}일 `
-									: '날짜 입력'}
-							</SearchDateOption>
-						</CheckIn>
-					</SearchButton>
-				</SearchingDate>
-				<CalendarWrapper>
-					<Calendar
-						startDate={startDate}
-						endDate={endDate}
-						onChange={onChange}
-						isOpen={isOpen}
-						closeCalendar={closeCalendar}
-					/>
-				</CalendarWrapper>
-				<Contour />
-				<SearchingDate>
-					<SearchButton>
-						<CheckOut onClick={handleClick}>
-							<SearchTitle>체크아웃</SearchTitle>
-							<SearchDateOption>
-								{endDate ? `${endDate.getMonth() + 1}월 ${endDate.getDate()}일 ` : '날짜 입력'}
-							</SearchDateOption>
-						</CheckOut>
-					</SearchButton>
-				</SearchingDate>
-				<Contour />
-				<SearchingGuest>
-					<SearchButton>
-						<Guest>
-							<SearchTitle>인원</SearchTitle>
-							<SearchGuestOption>게스트 추가</SearchGuestOption>
-						</Guest>
-					</SearchButton>
-				</SearchingGuest>
-				<Finder>
-					<Link to={searchLinkAddress}>
-						<BiSearch style={{ color: '#ffffff' }} />
-					</Link>
-				</Finder>
-			</Search>
-		</HeaderWrapper>
+				<Search isTrips={isTrips}>
+					<SearchingLocation onClick={openSearchModal}>
+						<SearchButton>
+							<Location>
+								<SearchTitle>위치</SearchTitle>
+								<SearchLocationOption placeholder="어디로 여행가세요?" onChange={handleInput} />
+							</Location>
+						</SearchButton>
+					</SearchingLocation>
+					{searchModalVisible && (
+						<SearchModal
+							visible={searchModalVisible}
+							closable={true}
+							maskClosable={true}
+							onClose={closeSearchModal}
+						>
+							<LocationMent>언제 어디로든 떠나는 여행</LocationMent>
+							<Link to="/제주/room">
+								<LocationFlexible>
+									<LocationSearch>유연한 검색</LocationSearch>
+									<Right>&rang;</Right>
+								</LocationFlexible>
+							</Link>
+						</SearchModal>
+					)}
+					<Contour />
+					<SearchingDate>
+						<SearchButton>
+							<CheckIn onClick={handleClick}>
+								<SearchTitle>체크인</SearchTitle>
+								<SearchDateOption>
+									{startDate
+										? `${startDate.getMonth() + 1}월 ${startDate.getDate()}일 `
+										: '날짜 입력'}
+								</SearchDateOption>
+							</CheckIn>
+						</SearchButton>
+					</SearchingDate>
+					<CalendarWrapper>
+						<Calendar
+							startDate={startDate}
+							endDate={endDate}
+							onChange={onChange}
+							isOpen={isOpen}
+							closeCalendar={closeCalendar}
+						/>
+					</CalendarWrapper>
+					<Contour />
+					<SearchingDate>
+						<SearchButton>
+							<CheckOut onClick={handleClick}>
+								<SearchTitle>체크아웃</SearchTitle>
+								<SearchDateOption>
+									{endDate ? `${endDate.getMonth() + 1}월 ${endDate.getDate()}일 ` : '날짜 입력'}
+								</SearchDateOption>
+							</CheckOut>
+						</SearchButton>
+					</SearchingDate>
+					<Contour />
+					<SearchingGuest>
+						<SearchButton>
+							<Guest>
+								<SearchTitle>인원</SearchTitle>
+								<SearchGuestOption>게스트 추가</SearchGuestOption>
+							</Guest>
+						</SearchButton>
+					</SearchingGuest>
+					<Finder>
+						<Link to={searchLinkAddress}>
+							<BiSearch style={{ color: '#ffffff' }} />
+						</Link>
+					</Finder>
+				</Search>
+			</HeaderWrapper>
+		</HeaderContainer>
 	);
 };
 
 export default Header;
 
 // styled-components
+
+const HeaderContainer = styled.div`
+	position: ${props => (props.isSticky ? 'sticky' : '')};
+	top: 0;
+	width: 100%;
+	height: min-content;
+	background-color: ${props => props.theme.background};
+	z-index: 99999;
+`;
+
 const HeaderWrapper = styled.div`
 	width: 100%;
 	max-width: 1600px;
-	margin: 15px auto;
-	background-color: ${props => props.theme.background};
+	margin: 0 auto;
+	padding: 0 0 15px;
 `;
 
 const Logo = styled.div`
