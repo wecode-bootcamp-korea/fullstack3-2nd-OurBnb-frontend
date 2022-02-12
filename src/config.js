@@ -6,7 +6,7 @@ const GET_DETAIL_API = `${BASE_URL}/rooms/detail`;
 const GET_LOGIN_API = `${BASE_URL}/users/kakaologin`;
 const GET_RESERVATION_API = `${BASE_URL}/reservation`;
 const GET_WISHLIST_API = `${BASE_URL}/users/wishlist`;
-const GET_REVIEW_API = `${BASE_URL}/rooms/reviews`;
+const GET_REVIEW_API = `${BASE_URL}/reviews`;
 
 const POST_RESERVATION_API = `${BASE_URL}/reservation`;
 const PUT_WISHLIST_API = `${BASE_URL}/rooms`;

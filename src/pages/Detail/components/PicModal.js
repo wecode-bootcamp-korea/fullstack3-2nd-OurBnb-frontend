@@ -76,7 +76,7 @@ const Header = styled.div`
 	display: none;
 	width: 100%;
 	display: flex;
-	position: absolute;
+	position: fixed;
 	top: 0;
 	left: 0;
 	background-color: white;
