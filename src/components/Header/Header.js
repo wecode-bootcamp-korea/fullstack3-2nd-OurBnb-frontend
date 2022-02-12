@@ -83,6 +83,10 @@ const Header = ({ isMain, isTrips }) => {
 		setIsOpen(!isOpen);
 	};
 
+	const closeCalendar = () => {
+		setIsOpen(false);
+	};
+
 	return (
 		<HeaderWrapper>
 			<Link to="/">
@@ -214,7 +218,13 @@ const Header = ({ isMain, isTrips }) => {
 					</SearchButton>
 				</SearchingDate>
 				<CalendarWrapper>
-					<Calendar startDate={startDate} endDate={endDate} onChange={onChange} isOpen={isOpen} />
+					<Calendar
+						startDate={startDate}
+						endDate={endDate}
+						onChange={onChange}
+						isOpen={isOpen}
+						closeCalendar={closeCalendar}
+					/>
 				</CalendarWrapper>
 				<Contour />
 				<SearchingDate>

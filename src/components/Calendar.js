@@ -10,27 +10,38 @@ import ko from 'date-fns/locale/ko';
 import styled from 'styled-components';
 
 const Calendar = props => {
-	const { startDate, endDate, onChange, isOpen } = props;
+	const { startDate, endDate, onChange, isOpen, closeCalendar } = props;
 
 	return (
-		<CalendarWrapper>
+		<>
+			{isOpen && <Background onClick={closeCalendar} />}
 			{isOpen && (
-				<DatePicker
-					selected={startDate}
-					onChange={onChange}
-					selectsRange
-					startDate={startDate}
-					endDate={endDate}
-					locale={ko}
-					shouldCloseOnSelect={false}
-					monthsShown={2}
-					inline
-				/>
+				<CalendarWrapper>
+					<DatePicker
+						selected={startDate}
+						onChange={onChange}
+						selectsRange
+						startDate={startDate}
+						endDate={endDate}
+						locale={ko}
+						shouldCloseOnSelect={false}
+						monthsShown={2}
+						inline
+					/>
+				</CalendarWrapper>
 			)}
-		</CalendarWrapper>
+		</>
 	);
 };
 export default Calendar;
+
+const Background = styled.div`
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+`;
 
 const CalendarWrapper = styled.section`
 	position: absolute;
