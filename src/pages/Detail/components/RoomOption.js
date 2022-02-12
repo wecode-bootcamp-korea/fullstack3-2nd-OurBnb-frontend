@@ -38,7 +38,6 @@ export default function RoomOption({
 					})}
 			</OptionContainer>
 			<AllOption onClick={openOptionModal}>편의시설 모두 보기</AllOption>
-
 			{OptionModalVisible && (
 				<RoomOptionModal
 					modalParent={modalParent}
