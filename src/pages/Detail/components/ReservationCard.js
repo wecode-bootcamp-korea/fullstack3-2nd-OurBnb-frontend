@@ -121,12 +121,6 @@ export default function ReservationCard({
 					</Price>
 					<ChoiceDate>
 						<DateTop>
-							<Calendar
-								startDate={startDate}
-								endDate={endDate}
-								onChange={onChange}
-								isOpen={isOpen}
-							/>
 							<CheckIn onClick={handleClick}>
 								<CheckInLabel>체크인</CheckInLabel>
 								<TextField>
@@ -142,6 +136,14 @@ export default function ReservationCard({
 								</TextField>
 							</CheckOut>
 						</DateTop>
+						<div>
+							<Calendar
+								startDate={startDate}
+								endDate={endDate}
+								onChange={onChange}
+								isOpen={isOpen}
+							/>
+						</div>
 						<People>
 							<PeopleLeft>
 								<PeopleLabel>인원</PeopleLabel>

@@ -20,7 +20,7 @@ export default function DetailTitle({ mainInfoData, reviewAvgData, reviewCountDa
 			</TitleTop>
 			<TitleBottom>
 				<ContentsUl>
-					{heartButton ? <TiStar /> : <AiFillHeart />}
+					<TiStar />
 					<ContentsLi>{rate}</ContentsLi>
 					<ContentsLi> ∙ </ContentsLi>
 					<ContentsLi>후기{reviewCountData}개</ContentsLi>
@@ -41,9 +41,7 @@ export default function DetailTitle({ mainInfoData, reviewAvgData, reviewCountDa
 					<Save>
 						<SaveButton>
 							<SaveButtonInner>
-								<SaveIcon>
-									<AiOutlineHeart />
-								</SaveIcon>
+								<SaveIcon>{heartButton ? <AiOutlineHeart /> : <AiFillHeart />}</SaveIcon>
 								<SaveSpan>저장</SaveSpan>
 							</SaveButtonInner>
 						</SaveButton>

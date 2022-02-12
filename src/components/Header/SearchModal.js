@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
@@ -8,6 +8,15 @@ function SearchModal({ className, onClose, maskClosable, visible, children }) {
 			onClose(e);
 		}
 	};
+
+	useEffect(() => {
+		document.body.style.cssText = `position: fixed; top: -${window.scrollY}px`;
+		return () => {
+			const scrollY = document.body.style.top;
+			document.body.style.cssText = `position: ""; top: "";`;
+			window.scrollTo(0, parseInt(scrollY || '0') * -1);
+		};
+	}, []);
 
 	return (
 		<>
@@ -25,6 +34,12 @@ function SearchModal({ className, onClose, maskClosable, visible, children }) {
 		</>
 	);
 }
+
+SearchModal.defaultProps = {
+	visible: false,
+	closable: true,
+	maskClosable: true,
+};
 
 SearchModal.propTypes = {
 	visible: PropTypes.bool,

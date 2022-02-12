@@ -203,7 +203,6 @@ const Header = ({ isMain, isTrips }) => {
 				<Contour />
 				<SearchingDate>
 					<SearchButton>
-						<Calendar startDate={startDate} endDate={endDate} onChange={onChange} isOpen={isOpen} />
 						<CheckIn onClick={handleClick}>
 							<SearchTitle>체크인</SearchTitle>
 							<SearchDateOption>
@@ -214,6 +213,9 @@ const Header = ({ isMain, isTrips }) => {
 						</CheckIn>
 					</SearchButton>
 				</SearchingDate>
+				<CalendarWrapper>
+					<Calendar startDate={startDate} endDate={endDate} onChange={onChange} isOpen={isOpen} />
+				</CalendarWrapper>
 				<Contour />
 				<SearchingDate>
 					<SearchButton>
@@ -531,6 +533,10 @@ const SearchButton = styled.div`
 	padding: 0 10px;
 	margin: 15px 0 0 50px;
 	border-radius: 50px;
+`;
+
+const CalendarWrapper = styled.div`
+	margin-top: 84px;
 `;
 
 const Contour = styled.hr`
