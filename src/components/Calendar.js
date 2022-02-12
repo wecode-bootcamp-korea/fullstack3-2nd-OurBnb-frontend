@@ -34,7 +34,7 @@ export default Calendar;
 
 const CalendarWrapper = styled.section`
 	position: absolute;
-	top: 84px;
+	/* top: 84px; */
 	left: 50%;
 	transform: translateX(-50%);
 	color: red;
