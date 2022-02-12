@@ -32,7 +32,7 @@ export default function Detail() {
 	const [showModal, setShowModal] = useState(false);
 
 	const openModal = () => {
-		setShowModal(prev => !prev);
+		setShowModal(true);
 	};
 
 	const handleClose = () => {

@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { FiShare } from 'react-icons/fi';
 import { TiStar } from 'react-icons/ti';
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
