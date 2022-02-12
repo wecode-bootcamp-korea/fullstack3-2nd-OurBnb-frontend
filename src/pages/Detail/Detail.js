@@ -32,11 +32,22 @@ export default function Detail() {
 	const [showModal, setShowModal] = useState(false);
 
 	const openModal = () => {
-		setShowModal(prev => !prev);
+		setShowModal(true);
+		document.body.style.cssText = `position: fixed; top: -${window.scrollY}px`;
 	};
+
+	// useEffect(() => {
+	// 	document.body.style.cssText = `position: fixed; top: -${window.scrollY}px`;
+	// 	return () => {
+	// 		const scrollY = document.body.style.top;
+	// 		document.body.style.cssText = `position: ""; top: "";`;
+	// 		window.scrollTo(0, parseInt(scrollY || '0') * -1);
+	// 	};
+	// }, []);
 
 	const handleClose = () => {
 		setShowModal(false);
+		document.body.style.cssText = `position: ""; top: "";`;
 	};
 
 	useEffect(() => {

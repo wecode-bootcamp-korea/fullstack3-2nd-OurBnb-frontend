@@ -27,6 +27,7 @@ const Header = ({ isMain, isTrips }) => {
 	};
 	const closeProfileModal = () => {
 		setProfileModalVisible(false);
+		setLoginModalVisible(false);
 	};
 
 	const [loginModalVisible, setLoginModalVisible] = useState(false);
