@@ -2,10 +2,13 @@ import styled from 'styled-components';
 
 const ReservationInfo = ({ el }) => {
 	const { imgUrl, address, hostName, checkIn, checkOut } = el;
+	const imagesString = '' + imgUrl;
+	const allImgs = imagesString.split(',');
+
 	return (
 		<>
 			<ReservationWrapper>
-				<ReservationImg src={imgUrl} width={'80px'} height={'80px'} />
+				<ReservationImg src={allImgs[0]} width={'80px'} height={'80px'} />
 				<ReservationDesc>
 					<Address>{address}</Address>
 					<Host>호스트 : {hostName}님</Host>

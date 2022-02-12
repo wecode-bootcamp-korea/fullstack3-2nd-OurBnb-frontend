@@ -21,7 +21,7 @@ const MyMapComponent = ({ center, zoom, children }) => {
 
 	useEffect(() => {
 		const getMap = async () => {
-			if (mapRef.current && !map) {
+			if (mapRef.current) {
 				setMap(
 					new window.google.maps.Map(mapRef.current, {
 						center: center,
@@ -31,7 +31,7 @@ const MyMapComponent = ({ center, zoom, children }) => {
 			}
 		};
 		getMap();
-	}, [mapRef, map, center, zoom]);
+	}, [mapRef, center, zoom]);
 
 	return (
 		<>

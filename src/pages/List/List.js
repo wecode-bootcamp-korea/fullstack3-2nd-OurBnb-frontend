@@ -1,12 +1,15 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+
 import styled from 'styled-components';
+
+import { GET_LIST_API } from '../../config';
+
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer';
 import RoomsList from './components/ListRooms';
 import FilterNav from './components/ListFilterNav';
 import ListMap from './components/ListMap';
-import { GET_LIST_API } from '../../config';
 
 const List = () => {
 	const { location } = useParams();
@@ -64,11 +67,8 @@ const List = () => {
 				setLng(data.lng);
 				setTotalRows(data.totalRows);
 				setIsLoading(false);
-				console.log(requestAPI);
 			});
 	}, [location, requestAPI]);
-
-	console.log(requestAPI);
 
 	const giveOffset = pageNumber => {
 		setOffset(pageNumber);

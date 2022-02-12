@@ -76,7 +76,7 @@ const Trips = () => {
 						</Booked>
 					</BookedWrapper>
 					<PastWrapper>
-						<PastSubTitle booked={reservation.past ? reservation.past.length : true}>
+						<PastSubTitle past={reservation.past ? reservation.past.length : true}>
 							이전 여행지
 						</PastSubTitle>
 						<Past>

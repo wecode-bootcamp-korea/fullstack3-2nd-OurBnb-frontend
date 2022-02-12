@@ -68,7 +68,7 @@ const ListCard = ({ room }) => {
 	return (
 		<StyledListCard key={roomId}>
 			<CardWrapper>
-				<Carousel imageString={room.imgUrl} isSuperHost={room.is_super_host} />
+				<Carousel imageString={room.imgUrl} isSuperHost={room.isSuperHost} />
 				<WishHeart onClick={handleWishBtn}>
 					{isWishClick ? (
 						<TiHeartFullOutline className="heartOn heart" />
