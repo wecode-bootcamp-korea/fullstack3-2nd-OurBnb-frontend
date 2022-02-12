@@ -2,9 +2,9 @@ import styled from 'styled-components';
 
 const ReservationInfo = ({ el }) => {
 	const { imgUrl, address, hostName, checkIn, checkOut } = el;
-	console.log('imgUrl', imgUrl);
 	const imagesString = '' + imgUrl;
 	const allImgs = imagesString.split(',');
+
 	return (
 		<>
 			<ReservationWrapper>
