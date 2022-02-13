@@ -118,7 +118,7 @@ const ModalBox = styled.form`
 	left: 110px;
 	width: 360px;
 	height: min-content;
-	z-index: 99999;
+	z-index: 1000;
 	background-color: white;
 	border-radius: 15px;
 	border: 2px solid ${props => props.theme.border};

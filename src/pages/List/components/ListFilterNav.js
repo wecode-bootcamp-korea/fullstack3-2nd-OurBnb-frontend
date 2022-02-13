@@ -77,14 +77,13 @@ const StyledNav = styled.nav`
 	display: flex;
 	flex-wrap: wrap;
 	position: sticky;
-	top: 171px;
-	padding: 10px 0;
+	top: 150px;
+	padding: 10px 0px 10px 24px;
 	width: 100%;
 	height: auto;
-	margin: 5px 0 0 24px;
 	background-color: #ffffff;
 	border-bottom: 1px solid ${props => props.theme.border};
-	z-index: 9999;
+	z-index: 10;
 
 	> ul {
 		display: flex;

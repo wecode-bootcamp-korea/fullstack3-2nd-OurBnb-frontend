@@ -72,7 +72,7 @@ const Background = styled.div`
 	right: 0;
 	width: 100vw;
 	height: 100vh;
-	z-index: 9999;
+	z-index: 999;
 `;
 
 const Flex = styled.div`
@@ -88,7 +88,7 @@ const ModalBox = styled(Flex)`
 	left: 24px;
 	width: 440px;
 	height: min-content;
-	z-index: 99999;
+	z-index: 1000;
 	background-color: white;
 	border-radius: 15px;
 	border: 2px solid ${props => props.theme.border};

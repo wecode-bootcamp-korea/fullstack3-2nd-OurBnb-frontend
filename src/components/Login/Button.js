@@ -7,7 +7,7 @@ const LoginButton = () => {
 	return (
 		<a href={kakaoAuthUrl}>
 			<LoginButtonKakao>
-				<KakaoImage src="./images/kakao.png" />
+				<KakaoImage src="/images/kakao.png" />
 				<Kakao>카카오로 로그인하기</Kakao>
 			</LoginButtonKakao>
 		</a>

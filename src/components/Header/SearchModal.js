@@ -10,7 +10,7 @@ function SearchModal({ className, onClose, maskClosable, visible, children }) {
 
 	return (
 		<>
-			<SearchModalOverlay visible={visible} />
+			<SearchModalOverlay visible={visible} onClick={onClose} />
 			<SearchModalWrapper
 				className={className}
 				onClick={maskClosable ? onMaskClick : null}
@@ -35,20 +35,6 @@ SearchModal.propTypes = {
 	visible: PropTypes.bool,
 };
 
-const SearchModalWrapper = styled.div`
-	box-sizing: border-box;
-	display: ${props => (props.visible ? 'block' : 'none')};
-	position: absolute;
-	top: 0;
-	right: 0;
-	bottom: 0;
-	left: 0;
-	z-index: 19999;
-	overflow: auto;
-	outline: 0;
-	overflow: visible;
-`;
-
 const SearchModalOverlay = styled.div`
 	box-sizing: border-box;
 	display: ${props => (props.visible ? 'block' : 'none')};
@@ -57,7 +43,21 @@ const SearchModalOverlay = styled.div`
 	left: 0;
 	bottom: 0;
 	right: 0;
-	z-index: 2500;
+	z-index: 999;
+`;
+
+const SearchModalWrapper = styled.div`
+	box-sizing: border-box;
+	display: ${props => (props.visible ? 'block' : 'none')};
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	z-index: 999;
+	margin-top: 20px;
+	outline: 0;
+	overflow: visible;
 `;
 
 const SearchModalInner = styled.div`
@@ -71,6 +71,7 @@ const SearchModalInner = styled.div`
 	width: 360px;
 	max-width: 480px;
 	transform: translateY(-50%);
+	z-index: 999;
 `;
 
 export default SearchModal;

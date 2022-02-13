@@ -35,10 +35,10 @@ export default function ReservationCard({
 		setStartDate(start);
 		setEndDate(end);
 		setDateInterval(getDateInterval(start, end));
-		if (startDate) {
+		if (start) {
 			setCheckInDate(`${start.getFullYear()}-${start.getMonth() + 1}-${start.getDate()}`);
 		}
-		if (endDate) {
+		if (end) {
 			setCheckOutDate(`${end.getFullYear()}-${end.getMonth() + 1}-${end.getDate()}`);
 		}
 	};
@@ -63,6 +63,8 @@ export default function ReservationCard({
 	};
 
 	const reservationClick = e => {
+		console.log(checkInDate);
+		console.log(checkOutDate);
 		e.preventDefault();
 		if (!idValue) {
 			return alert('로그인 먼저 해주세요~');

@@ -79,7 +79,7 @@ const DotWrapper = styled.div`
 	height: 100%;
 	display: flex;
 	overflow: hidden;
-	z-index: 99;
+	z-index: 9;
 	justify-content: space-evenly;
 `;
 
@@ -95,7 +95,7 @@ const CarouselWrapper = styled.div`
 	width: 100%;
 	@media (min-width: 744px) {
 		width: 300px;
-		z-index: 99;
+		z-index: 9;
 	}
 `;
 
@@ -165,7 +165,7 @@ const StyledTag = styled.span`
 	color: ${({ theme }) => theme.foreground};
 	font-size: 0.8rem;
 	font-weight: 500;
-	z-index: 99;
+	z-index: 9;
 
 	@media (min-width: 744px) {
 		top: 4%;

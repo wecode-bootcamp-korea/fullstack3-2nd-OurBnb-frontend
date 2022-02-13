@@ -1,10 +1,9 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { FiGlobe } from 'react-icons/fi';
 import { IoPersonCircle } from 'react-icons/io5';
 import { BiSearch } from 'react-icons/bi';
-import { GiHamburgerMenu } from 'react-icons/gi';
 import Calendar from '../Calendar';
 import ProfileModal from './ProfileModal';
 import LoginModal from './LoginModal';
@@ -22,7 +21,6 @@ const Header = ({ isMain, isTrips, isSticky }) => {
 		}
 	}, [tokenValue]);
 
-	//프로필모달
 	const [profileModalVisible, setProfileModalVisible] = useState(false);
 	const openProfileModal = () => {
 		setProfileModalVisible(true);
@@ -32,12 +30,10 @@ const Header = ({ isMain, isTrips, isSticky }) => {
 		setLoginModalVisible(false);
 	};
 
-	//로그인모달
 	const [loginModalVisible, setLoginModalVisible] = useState(false);
 	const openLoginModal = () => {
 		if (loginButton === '로그인') {
 			setLoginModalVisible(true);
-			setProfileModalVisible(false);
 		} else {
 			sessionStorage.removeItem('access_token');
 			navigate('/');
@@ -48,7 +44,6 @@ const Header = ({ isMain, isTrips, isSticky }) => {
 		setLoginModalVisible(false);
 	};
 
-	//검색바 모달들
 	const [searchModalVisible, setSearchModalVisible] = useState(false);
 	const openSearchModal = () => {
 		setSearchModalVisible(true);
@@ -96,136 +91,77 @@ const Header = ({ isMain, isTrips, isSticky }) => {
 			<HeaderWrapper>
 				<Link to="/">
 					<Logo>
-						<h1>ourbnb</h1>
 						{isMain ? (
-							<img src="../../images/logo1.png" alt="ourbnb logo" />
+							<LogoImage src="../../images/logo1.png" />
 						) : (
-							<img src="../../images/logo2.png" alt="ourbnb logo" />
+							<LogoImage src="../../images/logo2.png" />
 						)}
+
+						<LogoName>ourbnb</LogoName>
 					</Logo>
 				</Link>
-
-				<SearchWrapper>
-					<SearchNav isTrips={isTrips}>
-						<SelectedNavButton>
-							<MenuLabel>숙소</MenuLabel>
-							<TripNavBar>
-								<SearchBar isTrips={isTrips}>
-									<SearchingLocation onClick={openSearchModal}>
-										<SearchButton>
-											<Location>
-												<SearchTitle>위치</SearchTitle>
-												<SearchLocationOption
-													placeholder="어디로 여행가세요?"
-													onChange={handleInput}
-												/>
-											</Location>
-										</SearchButton>
-									</SearchingLocation>
-									{searchModalVisible && (
-										<SearchModal
-											visible={searchModalVisible}
-											closable={true}
-											maskClosable={true}
-											onClose={closeSearchModal}
-										>
-											<LocationMent>언제 어디로든 떠나는 여행</LocationMent>
-											<Link to="/제주/room">
-												<LocationFlexible>
-													<LocationSearch>유연한 검색</LocationSearch>
-													<Right>&rang;</Right>
-												</LocationFlexible>
-											</Link>
-										</SearchModal>
-									)}
-									<Contour />
-									<SearchingDate>
-										<SearchButton>
-											<CheckIn onClick={handleClick}>
-												<SearchTitle>체크인</SearchTitle>
-												<SearchDateOption>
-													{startDate
-														? `${startDate.getMonth() + 1}월 ${startDate.getDate()}일 `
-														: '날짜 입력'}
-												</SearchDateOption>
-											</CheckIn>
-										</SearchButton>
-									</SearchingDate>
-									<CalendarWrapper>
-										<Calendar
-											startDate={startDate}
-											endDate={endDate}
-											onChange={onChange}
-											isOpen={isOpen}
-											closeCalendar={closeCalendar}
-										/>
-									</CalendarWrapper>
-									<Contour />
-									<SearchingDate>
-										<SearchButton>
-											<CheckOut onClick={handleClick}>
-												<SearchTitle>체크아웃</SearchTitle>
-												<SearchDateOption>
-													{endDate
-														? `${endDate.getMonth() + 1}월 ${endDate.getDate()}일 `
-														: '날짜 입력'}
-												</SearchDateOption>
-											</CheckOut>
-										</SearchButton>
-									</SearchingDate>
-									<Contour />
-									<SearchingGuest>
-										<SearchButton>
-											<Guest>
-												<SearchTitle>인원</SearchTitle>
-												<SearchGuestOption>게스트 추가</SearchGuestOption>
-											</Guest>
-										</SearchButton>
-									</SearchingGuest>
-									<Finder>
-										<Link to={searchLinkAddress}>
-											<BiSearch style={{ color: '#ffffff' }} />
-										</Link>
-									</Finder>
-								</SearchBar>
-							</TripNavBar>
-						</SelectedNavButton>
-						<SearchNavButton>
-							<MenuLabel>체험</MenuLabel>
-						</SearchNavButton>
-						<SearchNavButton>
-							<MenuLabel>온라인 체험</MenuLabel>
-						</SearchNavButton>
-					</SearchNav>
-				</SearchWrapper>
-
-				<ProfileNav>
+				<HeaderButtons isTrips={isTrips}>
+					<SelectedHeaderButton>
+						<HeaderLabel>
+							<HeaderInput>숙소</HeaderInput>
+						</HeaderLabel>
+					</SelectedHeaderButton>
+					<HeaderButton>
+						<HeaderLabel>
+							<HeaderInput>체험</HeaderInput>
+						</HeaderLabel>
+					</HeaderButton>
+					<HeaderButton>
+						<HeaderLabel>
+							<HeaderInput>온라인 체험</HeaderInput>
+						</HeaderLabel>
+					</HeaderButton>
+				</HeaderButtons>
+				<HeaderOption>
 					<HeaderChoice>호스트 되기</HeaderChoice>
 					<HeaderChoice>
 						<FiGlobe />
 					</HeaderChoice>
-					<Profile onClick={openProfileModal}>
-						<BurgerMenuButton />
-						<UserProfileButton />
-					</Profile>
-				</ProfileNav>
-			</HeaderWrapper>
-
-			{profileModalVisible && (
-				<ProfileModal
-					visible={profileModalVisible}
-					closable={true}
-					maskClosable={true}
-					onClose={closeProfileModal}
-					isMain={isMain}
-				>
-					<ProfileModalContent>
+				</HeaderOption>
+				<Profile onClick={openProfileModal}>
+					<Lines>
+						<Line />
+						<Line />
+						<Line />
+					</Lines>
+					<User>
+						<IoPersonCircle />
+					</User>
+				</Profile>
+				{profileModalVisible && (
+					<ProfileModal
+						visible={profileModalVisible}
+						closable={true}
+						maskClosable={true}
+						onClose={closeProfileModal}
+					>
 						<ModalListTop>
 							<Signup>회원가입</Signup>
 						</ModalListTop>
 						<ModalList onClick={openLoginModal}>
 							<Login>{loginButton}</Login>
 						</ModalList>
+						{loginModalVisible && (
+							<LoginModal
+								visible={loginModalVisible}
+								closable={true}
+								maskClosable={true}
+								onClose={closeLoginModal}
+							>
+								<LoginLogoImage src="../../images/logo2.png" />
+								<LoginLogo>아워비앤비 회원가입 및 로그인</LoginLogo>
+								<ModalLine />
+								<LoginComment>아워비앤비에 오신 것을 환영합니다.</LoginComment>
+								<KakaoLoginButton>
+									<LoginButton />
+								</KakaoLoginButton>
+							</LoginModal>
+						)}
 						<ModalLine />
 						<ModalList>
 							<Link to="/trips">
@@ -241,124 +177,151 @@ const Header = ({ isMain, isTrips, isSticky }) => {
 						<ModalListBottom>
 							<Login>도움말</Login>
 						</ModalListBottom>
-					</ProfileModalContent>
-				</ProfileModal>
-			)}
-			{loginModalVisible && (
-				<LoginModal
-					visible={loginModalVisible}
-					closable={true}
-					maskClosable={true}
-					onClose={closeLoginModal}
-				>
-					<LoginLogoImage src="../../images/logo2.png" />
-					<LoginLogo>아워비앤비 회원가입 및 로그인</LoginLogo>
-					<ModalLine />
-					<LoginComment>아워비앤비에 오신 것을 환영합니다.</LoginComment>
-					<KakaoLoginButton>
-						<LoginButton />
-					</KakaoLoginButton>
-				</LoginModal>
-			)}
+					</ProfileModal>
+				)}
+				<Search isTrips={isTrips}>
+					<SearchingLocation onClick={openSearchModal}>
+						<SearchButton>
+							<Location>
+								<SearchTitle>위치</SearchTitle>
+								<SearchLocationOption placeholder="어디로 여행가세요?" onChange={handleInput} />
+							</Location>
+						</SearchButton>
+					</SearchingLocation>
+					{searchModalVisible && (
+						<SearchModal
+							visible={searchModalVisible}
+							closable={true}
+							maskClosable={true}
+							onClose={closeSearchModal}
+						>
+							<LocationMent>언제 어디로든 떠나는 여행</LocationMent>
+							<Link to="/제주/room">
+								<LocationFlexible>
+									<LocationSearch>유연한 검색</LocationSearch>
+									<Right>&rang;</Right>
+								</LocationFlexible>
+							</Link>
+						</SearchModal>
+					)}
+					<Contour />
+					<SearchingDate>
+						<SearchButton>
+							<CheckIn onClick={handleClick}>
+								<SearchTitle>체크인</SearchTitle>
+								<SearchDateOption>
+									{startDate
+										? `${startDate.getMonth() + 1}월 ${startDate.getDate()}일 `
+										: '날짜 입력'}
+								</SearchDateOption>
+							</CheckIn>
+						</SearchButton>
+					</SearchingDate>
+					<CalendarWrapper>
+						<Calendar
+							startDate={startDate}
+							endDate={endDate}
+							onChange={onChange}
+							isOpen={isOpen}
+							closeCalendar={closeCalendar}
+						/>
+					</CalendarWrapper>
+					<Contour />
+					<SearchingDate>
+						<SearchButton>
+							<CheckOut onClick={handleClick}>
+								<SearchTitle>체크아웃</SearchTitle>
+								<SearchDateOption>
+									{endDate ? `${endDate.getMonth() + 1}월 ${endDate.getDate()}일 ` : '날짜 입력'}
+								</SearchDateOption>
+							</CheckOut>
+						</SearchButton>
+					</SearchingDate>
+					<Contour />
+					<SearchingGuest>
+						<SearchButton>
+							<Guest>
+								<SearchTitle>인원</SearchTitle>
+								<SearchGuestOption>게스트 추가</SearchGuestOption>
+							</Guest>
+						</SearchButton>
+					</SearchingGuest>
+					<Finder>
+						<Link to={searchLinkAddress}>
+							<BiSearch style={{ color: '#ffffff' }} />
+						</Link>
+					</Finder>
+				</Search>
+			</HeaderWrapper>
 		</HeaderContainer>
 	);
 };
 
 export default Header;
 
-const FlexDiv = styled.div`
-	display: flex;
-`;
+// styled-components
 
-const HeaderContainer = styled.header`
+const HeaderContainer = styled.div`
 	position: ${props => (props.isSticky ? 'sticky' : '')};
 	top: 0;
 	width: 100%;
 	height: min-content;
-	height: ${props => (props.isTrips ? '85px' : '')};
 	background-color: ${props => props.theme.background};
-	z-index: 99;
+	z-index: 99999;
 `;
 
-const HeaderWrapper = styled(FlexDiv)`
-	box-sizing: border-box;
-	position: relative;
-	justify-content: space-between;
-	align-items: flex-start;
+const HeaderWrapper = styled.div`
 	width: 100%;
-	max-width: 1440px;
-	min-height: 150px;
-
+	max-width: 1600px;
 	margin: 0 auto;
-	padding: 25px 25px 0 25px;
-	background-color: transparent;
-
-	a {
-		z-index: 101;
-	}
+	padding: 0 0 15px;
 `;
 
-//왼쪽 로고
-const Logo = styled(FlexDiv)`
-	align-items: center;
-	gap: 10px;
-	padding: 5px;
-	cursor: pointer;
-	h1 {
-		color: ${props => props.theme.brandRed || props.theme.foreground};
-	}
-	img {
-		order: -1;
-		width: 40px;
-		height: 40px;
-	}
-	z-index: 101;
-`;
-
-//중간 검색바 메뉴
-const SearchWrapper = styled.section`
-	position: absolute;
-	left: 50%;
-	box-sizing: border-box;
+const Logo = styled.div`
 	display: flex;
-	flex-direction: column;
-	align-items: center;
-	gap: 2rem 1rem;
-	position: absolute;
-	width: 100%;
-	padding-top: 10px;
-	transform: translateX(-50%);
-	z-index: 99;
+	margin: -5px 0 0 2%;
 `;
 
-const SearchNav = styled.nav`
+const LogoImage = styled.img`
+	margin: 30px 0 0 50px;
+	width: 40px;
+	height: 40px;
+	cursor: pointer;
+`;
+
+const LogoName = styled.h2`
+	margin: 2.8% 0 0 5px;
+	color: ${props => props.theme.brandRed || props.theme.foreground};
+	cursor: pointer;
+`;
+
+const HeaderButtons = styled.div`
 	display: ${props => (props.isTrips ? 'none' : 'flex')};
 	justify-content: space-around;
-	gap: 20px;
-	z-index: 101;
+	width: 17%;
+	margin: -30px 0 0 41.5%;
 `;
 
-const SearchNavButton = styled.div`
+const HeaderButton = styled.div`
+	position: relative;
 	background-color: transparent;
 	border: none;
 	font-size: 15px;
 	cursor: pointer;
-	color: ${props => props.theme.foreground};
-	border-bottom: #ffffff;
-	z-index: 101;
 
 	::before {
-		position: absolute;
-		left: 50%;
-		bottom: -5px;
-		content: '';
-		width: 15px;
-		height: 2px;
 		background-color: ${props => props.theme.foreground};
+		border-radius: 1px;
+		bottom: 0px;
+		content: '';
+		height: 2px;
+		bottom: -10px;
+		left: 20%;
+		position: absolute;
 		transition: 0.2s -ms-transform cubic-bezier(0, 0, 0.1, 1),
 			0.2s -webkit-transform cubic-bezier(0, 0, 0.1, 1), 0.2s transform cubic-bezier(0, 0, 0.1, 1);
+		width: 18px;
 		transform: scaleX(1);
-
 		display: none;
 	}
 	&:hover {
@@ -368,47 +331,24 @@ const SearchNavButton = styled.div`
 	}
 `;
 
-const SelectedNavButton = styled(SearchNavButton)`
+const SelectedHeaderButton = styled(HeaderButton)`
 	::before {
 		display: block;
 	}
 `;
 
-const TripNavBar = styled.div`
-	position: absolute;
-	left: 0;
-	width: 100%;
+const HeaderLabel = styled.div`
+	border-bottom: #ffffff;
 `;
 
-const SearchBar = styled.div`
-	display: ${props => (props.isTrips ? 'none' : 'flex')};
-	justify-content: space-around;
-	position: absolute;
-	left: 50%;
-	width: 59%;
-	width: min-content;
-	margin: 10px auto;
-	height: 68px;
-	border: 1px solid ${props => props.theme.border};
-	border-radius: 50px;
-	box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 3px 0px;
-	background-color: white;
-	transform: translateX(-50%);
+const HeaderInput = styled.span`
+	color: ${props => props.theme.foreground};
 `;
 
-const MenuLabel = styled.h2`
-	padding: 5px;
-	font-size: 15px;
-	font-weight: normal;
-`;
-
-//오른쪽 프로필 메뉴
-const ProfileNav = styled.nav`
+const HeaderOption = styled.ul`
+	width: 10%;
+	margin: -30px 0 0 79%;
 	display: flex;
-	align-items: center;
-	gap: 5px;
-	width: max-content;
-	padding: 5px;
 `;
 
 const HeaderChoice = styled.button`
@@ -423,31 +363,28 @@ const HeaderChoice = styled.button`
 
 const Profile = styled.button`
 	display: flex;
-	gap: 10px;
-	justify-content: space-around;
-	padding: 5px;
+	margin: -45px 0 0 89%;
+	padding: 0 2px;
 	border: 1px solid #e3e3e3;
 	border-radius: 1.7rem;
 	background-color: white;
 	cursor: pointer;
-	z-index: 101;
 `;
 
-const BurgerMenuButton = styled(GiHamburgerMenu)`
-	margin: 0 5px;
-	font-size: 20px;
-	transform: translate(20%, 30%);
+const Lines = styled.div`
+	width: 15px;
+	margin: 13px 7px 0 13px;
 `;
 
-const UserProfileButton = styled(IoPersonCircle)`
+const Line = styled.hr`
+	margin: 2px 0;
+	border: 1px solid black;
+`;
+
+const User = styled.span`
+	margin: 3px 5px 0 0;
 	font-size: 32px;
 	color: gray;
-	cursor: pointer;
-`;
-
-const ProfileModalContent = styled.div`
-	background-color: #ffffff;
-	border-radius: 10px;
 `;
 
 const ModalListTop = styled.div`
@@ -500,6 +437,20 @@ const ModalLine = styled.hr`
 	background-color: #e0e0e0;
 `;
 
+const Search = styled.div`
+	position: relative;
+	display: ${props => (props.isTrips ? 'none' : 'flex')};
+	justify-content: space-around;
+	width: 59%;
+	width: min-content;
+	height: 68px;
+	margin: 1% 0 0 20%;
+	border-radius: 50px;
+	border: 1px solid ${props => props.theme.border};
+	box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 3px 0px;
+	background-color: white;
+`;
+
 const LoginLogoImage = styled.img`
 	width: 25px;
 	margin: -20px 0 5px 60px;
@@ -539,10 +490,9 @@ const SearchingLocation = styled.button`
 `;
 
 const LocationMent = styled.div`
-	/* margin: -20px 0 0 5px; */
+	margin: -20px 0 0 5px;
 	font-size: 12px;
 	font-weight: 700;
-	color: #222222;
 `;
 
 const LocationFlexible = styled.button`
@@ -558,7 +508,7 @@ const LocationFlexible = styled.button`
 `;
 
 const LocationSearch = styled.div`
-	/* margin: 3px 0 0 -180px; */
+	margin: 3px 0 0 -180px;
 	font-size: 16px;
 	font-weight: 600;
 	background: linear-gradient(90deg, #6f019c 0%, #c6017e 135.12%);
