@@ -6,7 +6,7 @@ import { ImFacebook, ImTwitter, ImInstagram } from 'react-icons/im';
 
 const Footer = () => {
 	return (
-		<>
+		<Container>
 			<FooterWrapper>
 				<FooterTop>
 					<TopSection>
@@ -51,11 +51,11 @@ const Footer = () => {
 						</TopUl>
 					</TopSection>
 				</FooterTop>
-				<Underline></Underline>
+				<Underline />
 				<FooterBottom>
 					<BottomSection>
 						<LeftDiv>
-							<Copyright>© 2022 Airbnb, Inc.</Copyright>
+							<Copyright>© 2022 Ourbnb, Inc.</Copyright>
 							<Explanation>
 								<Dot>·</Dot>
 								<Explain href="#">개인정보 처리방침</Explain>
@@ -107,15 +107,22 @@ const Footer = () => {
 					</BottomSection>
 				</FooterBottom>
 			</FooterWrapper>
-		</>
+		</Container>
 	);
 };
 
 export default Footer;
 
 // styled-components
-const FooterWrapper = styled.div`
+const Container = styled.div`
+	width: 100%;
 	background-color: #f7f7f7;
+`;
+
+const FooterWrapper = styled.div`
+	width: 100%;
+	max-width: 1800px;
+	margin: 0 auto;
 	font-size: 14px;
 	padding-bottom: 3px;
 `;

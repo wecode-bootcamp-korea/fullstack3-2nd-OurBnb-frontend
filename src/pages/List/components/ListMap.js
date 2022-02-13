@@ -1,13 +1,20 @@
 import styled from 'styled-components';
-import Map from '../../components/Map';
-import { Wrapper } from '@googlemaps/react-wrapper';
+import Google from '../../../components/Map';
+import { Marker } from '../../../components/Map';
 
-const ListMap = ({ center }) => {
+const ListMap = ({ rooms }) => {
+	const { lat, lng } = rooms;
+	let center = { lat, lng };
+
 	return (
 		<MapWrapper>
-			<Wrapper apiKey={process.env.REACT_APP_GOOGLE_API_KEY}>
-				<Map center={center} />
-			</Wrapper>
+			<Google center={center} zoom={10}>
+				{rooms?.roomList &&
+					rooms.roomList.map(room => {
+						let position = { lat: room.latitude, lng: room.longitude };
+						return <Marker key={room.latitude} position={position} />;
+					})}
+			</Google>
 		</MapWrapper>
 	);
 };
@@ -20,11 +27,10 @@ const MapWrapper = styled.div`
 	top: 150px;
 	right: 0;
 	width: 100%;
-	height: 100vh;
+	height: calc(100vh - 211.92px);
 	padding: 0;
 
 	@media (max-width: 1127px) {
 		display: none;
 	}
-	background-color: darkblue;
 `;

@@ -1,46 +1,88 @@
 import { useEffect, useState } from 'react';
-import styled from 'styled-components';
-import RoomsList from './components/ListAllCards';
-import FilterNav from './ListFilterNav';
-import ListMap from './ListMap';
+import { useParams } from 'react-router-dom';
 
-import { MockHeader, MockFooter } from '../../components/Delete';
+import styled from 'styled-components';
+
+import { GET_LIST_API } from '../../config';
+
+import Header from '../../components/Header/Header';
+import Footer from '../../components/Footer';
+import RoomsList from './components/ListRooms';
+import FilterNav from './components/ListFilterNav';
+import ListMap from './components/ListMap';
 
 const List = () => {
+	const { location } = useParams();
 	const [rooms, setRooms] = useState({});
-	const [lat, setLat] = useState(0);
-	const [lng, setLng] = useState(0);
-	const center = { lat: lat, lng: lng };
+
+	const [isLoading, setIsLoading] = useState(true);
+	const [totalRows, setTotalRows] = useState(0);
+	const [offset, setOffset] = useState(0);
+	const limit = 5;
+
+	const [roomTypes, setRoomTypes] = useState([]);
+	const roomType = roomTypes.map(checked => `&roomTypeId=${checked}`).join('');
+
+	const handleRoomTypes = (e, isChecked) => {
+		e.preventDefault();
+		setRoomTypes([...isChecked]);
+	};
+
+	const [options, setOptions] = useState([]);
+	const optionsURL = options.map(optionID => `&option=${optionID}`).join('');
+
+	const handleFilter = e => {
+		if (options.includes(e.target.value)) {
+			setOptions(options.filter(option => option !== e.target.value));
+		} else {
+			setOptions([...options, e.target.value].sort((a, b) => a - b));
+		}
+	};
+
+	const requestAPI =
+		optionsURL || roomType
+			? `${GET_LIST_API}?location=${location}${optionsURL}&limit=${limit}&offset=${offset}`
+			: `${GET_LIST_API}?location=${location}&limit=${limit}&offset=${offset}`;
 
 	useEffect(() => {
-		const getRoomData = async () => {
-			// const response = await fetch(`${process.env.REACT_APP_BASE_URL}`)
-			// const response = await fetch('./data/seoulListData.json');
-			const response = await fetch('./data/jejuListData.json');
-			const data = await response.json();
-			setRooms(data);
-			setLat(data.lat);
-			setLng(data.lng);
-		};
+		fetch(requestAPI, {
+			method: 'GET',
+			headers: {
+				Authorization: sessionStorage.getItem('access_token'),
+				mode: 'cors',
+			},
+		})
+			.then(res => res.json())
+			.then(data => {
+				setIsLoading(true);
+				window.scrollTo(0, 0);
+				setRooms(data);
+				setTotalRows(data.totalRows);
+				setIsLoading(false);
+			});
+	}, [location, requestAPI]);
 
-		getRoomData();
-	}, []);
+	const giveOffset = pageNumber => {
+		setOffset(pageNumber);
+	};
 
 	return (
 		<>
-			<MockHeader>
-				<h1>Mock Header</h1>
-				<FilterNav />
-			</MockHeader>
+			<Header isSticky={true} />
+			<FilterNav handleRoomTypes={handleRoomTypes} handleFilter={handleFilter} />
 
 			<ListContainer>
-				<RoomsList rooms={rooms} />
-				<ListMap center={center} />
+				<RoomsList
+					rooms={rooms}
+					totalRows={totalRows}
+					limit={limit}
+					giveOffset={giveOffset}
+					isLoading={isLoading}
+				/>
+				<ListMap rooms={rooms} />
 			</ListContainer>
 
-			<MockFooter>
-				<h1>Mock Footer</h1>
-			</MockFooter>
+			<Footer />
 		</>
 	);
 };
@@ -50,16 +92,11 @@ export default List;
 const ListContainer = styled.main`
 	display: grid;
 	grid-template-columns: 1fr 2fr;
-	grid-template-areas:
-		'result map'
-		'list map';
+	grid-template-rows: auto;
+	grid-template-areas: 'list map';
 	position: relative;
 	width: 100%;
-
-	/* > ul,
-	> div {
-		padding: 0 24px;
-	} */
+	height: 100%;
 
 	@media (min-width: 1128px) and (max-width: 1439px) {
 		grid-template-columns: minmax(1fr, 840px) 2fr;

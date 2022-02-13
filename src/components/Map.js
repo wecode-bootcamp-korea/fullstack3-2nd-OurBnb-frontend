@@ -1,25 +1,73 @@
 import React, { useEffect, useState, useRef } from 'react';
+import { Wrapper } from '@googlemaps/react-wrapper';
 import styled from 'styled-components';
 
-const Map = ({ center }) => {
+const Google = props => {
+	const { center, zoom, children } = props;
+	return (
+		<Wrapper apiKey={process.env.REACT_APP_GOOGLE_API_KEY}>
+			<MyMapComponent center={center} zoom={zoom}>
+				{children}
+			</MyMapComponent>
+		</Wrapper>
+	);
+};
+
+export default Google;
+
+const MyMapComponent = ({ center, zoom, children }) => {
 	const mapRef = useRef(null);
 	const [map, setMap] = useState();
 
 	useEffect(() => {
-		if (mapRef.current && !map) {
-			setMap(
-				new window.google.maps.Map(mapRef.current, {
-					center: center,
-					zoom: 11,
-				}),
-			);
-		}
-	}, [mapRef, map, center]);
+		const getMap = async () => {
+			if (mapRef.current) {
+				setMap(
+					new window.google.maps.Map(mapRef.current, {
+						center: center,
+						zoom: zoom,
+					}),
+				);
+			}
+		};
+		getMap();
+	}, [mapRef, center, zoom]);
 
-	return <MapDiv className="map" ref={mapRef} />;
+	return (
+		<>
+			<MapDiv ref={mapRef} />
+			{React.Children.map(children, child => {
+				if (React.isValidElement(child)) {
+					return React.cloneElement(child, { map });
+				}
+			})}
+		</>
+	);
 };
 
-export default Map;
+export const Marker = options => {
+	const [marker, setMarker] = React.useState();
+
+	React.useEffect(() => {
+		if (!marker) {
+			setMarker(new window.google.maps.Marker());
+		}
+
+		return () => {
+			if (marker) {
+				marker.setMap(null);
+			}
+		};
+	}, [marker]);
+
+	React.useEffect(() => {
+		if (marker) {
+			marker.setOptions(options);
+		}
+	}, [marker, options]);
+
+	return null;
+};
 
 const MapDiv = styled.div`
 	width: 100%;
@@ -30,28 +78,3 @@ const MapDiv = styled.div`
 		max-width: none;
 	}
 `;
-
-const Marker = options => {
-	const [marker, setMarker] = useState();
-
-	useEffect(() => {
-		if (!marker) {
-			setMarker(new window.google.maps.Marker());
-		}
-
-		// remove marker from map on unmount
-		return () => {
-			if (marker) {
-				marker.setMap(null);
-			}
-		};
-	}, [marker]);
-
-	useEffect(() => {
-		if (marker) {
-			marker.setOptions(options);
-		}
-	}, [marker, options]);
-
-	return null;
-};

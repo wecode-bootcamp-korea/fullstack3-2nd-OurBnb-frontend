@@ -3,13 +3,14 @@
 	"version": "0.1.0",
 	"private": true,
 	"dependencies": {
-		"@googlemaps/markerclusterer": "^1.0.21",
 		"@googlemaps/react-wrapper": "^1.1.20",
 		"@testing-library/jest-dom": "^5.16.1",
 		"@testing-library/react": "^12.1.2",
 		"@testing-library/user-event": "^13.5.0",
+		"date-fns": "^2.28.0",
+		"query-string": "^7.1.0",
 		"react": "^17.0.2",
-		"react-day-picker": "^7.4.10",
+		"react-datepicker": "^4.6.0",
 		"react-dom": "^17.0.2",
 		"react-icons": "^4.3.1",
 		"react-router-dom": "^6.2.1",
@@ -21,7 +22,8 @@
 		"start": "react-scripts start",
 		"build": "react-scripts build",
 		"test": "react-scripts test",
-		"eject": "react-scripts eject"
+		"eject": "react-scripts eject",
+		"distribute": "npm i && npm run build && pm2 serve build 3000 --name ourbnb-front --spa"
 	},
 	"eslintConfig": {
 		"extends": [
@@ -44,6 +46,8 @@
 	"devDependencies": {
 		"eslint-config-prettier": "^8.3.0",
 		"eslint-plugin-prettier": "^4.0.0",
+		"mini-css-extract-plugin": "2.4.5",
+		"pm2": "^5.1.2",
 		"prettier": "^2.5.1"
 	}
 }

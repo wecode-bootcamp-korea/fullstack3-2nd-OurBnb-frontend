@@ -1,18 +1,31 @@
-import React from 'react';
 import styled from 'styled-components';
+import { useState } from 'react';
 import { FiShare } from 'react-icons/fi';
-import { AiOutlineHeart } from 'react-icons/ai';
+import { TiStar } from 'react-icons/ti';
+import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
 
-export default function DetailTitle({ roomName, roomAdress }) {
+export default function DetailTitle({ mainInfoData, reviewAvgData, reviewCountData }) {
+	const { roomName, address } = mainInfoData;
+	const rate = Number(reviewAvgData).toFixed(1);
+	const [likeClick, setLikeClick] = useState(false);
+
+	const heartButton = () => {
+		setLikeClick(!likeClick);
+	};
 	return (
 		<TitleWrapper>
 			<TitleTop>
-				<Title>{roomName}짱쫑님이 호스팅하는 중세 성 전체</Title>
+				<Title>{roomName}</Title>
 			</TitleTop>
 			<TitleBottom>
-				<Location>
-					<Location>{roomAdress}부산시,부산진구,당감동</Location>
-				</Location>
+				<ContentsUl>
+					<TiStar />
+					<ContentsLi>{rate}</ContentsLi>
+					<ContentsLi> ∙ </ContentsLi>
+					<ContentsLi>후기{reviewCountData}개</ContentsLi>
+					<ContentsLi> ∙ </ContentsLi>
+					<ContentsLi>{address}</ContentsLi>
+				</ContentsUl>
 				<ShareSave>
 					<Share>
 						<ShareButton>
@@ -27,9 +40,7 @@ export default function DetailTitle({ roomName, roomAdress }) {
 					<Save>
 						<SaveButton>
 							<SaveButtonInner>
-								<SaveIcon>
-									<AiOutlineHeart />
-								</SaveIcon>
+								<SaveIcon>{heartButton ? <AiOutlineHeart /> : <AiFillHeart />}</SaveIcon>
 								<SaveSpan>저장</SaveSpan>
 							</SaveButtonInner>
 						</SaveButton>
@@ -54,7 +65,7 @@ const TitleTop = styled.div`
 `;
 
 const Title = styled.span`
-	font-size: 30px;
+	font-size: 2rem;
 	font-weight: 500;
 	padding-top: 10px;
 	padding-bottom: 10px;
@@ -65,9 +76,27 @@ const TitleBottom = styled.div`
 	justify-content: space-between;
 `;
 
-const Location = styled.span`
+const ContentsUl = styled.ul`
+	display: flex;
+	:nth-child(1) {
+		color: red;
+		font-size: 1rem;
+	}
+`;
+
+const ContentsLi = styled.li`
+	font-size: 0.9rem;
+	margin-right: 10px;
 	color: #a9a9a9;
-	text-decoration: underline;
+	:nth-child(2) {
+		color: black;
+	}
+	:nth-child(4),
+	:nth-child(6) {
+		color: black;
+		cursor: pointer;
+		text-decoration: underline;
+	}
 `;
 
 const ShareSave = styled.div`
@@ -83,7 +112,6 @@ const Share = styled.div`
 
 const ShareIcon = styled.div`
 	width: 30px;
-	/* height: 30px; */
 	font-size: 16px;
 `;
 

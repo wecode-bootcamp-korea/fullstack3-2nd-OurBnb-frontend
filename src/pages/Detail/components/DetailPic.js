@@ -1,31 +1,35 @@
 import React from 'react';
+
 import styled from 'styled-components';
 
-export default function DetailPic({ img_url }) {
+export default function DetailPic({ mainInfoData, openModal }) {
+	const imagesString = '' + mainInfoData.imgUrl;
+	const allImgs = imagesString.split(',');
+
 	return (
 		<PicWrapper>
-			{/* <PicInnerWrapper> */}
 			<MainImg>
 				<Mimg>
-					<img src="./images/1.jpg" alt="img" />
+					<img src={allImgs[0]} alt="img" />
 				</Mimg>
 			</MainImg>
+
 			<SubImg>
 				<SubImgWrapper>
-					<img src="./images/2.jpg" alt="img" />
+					<img src={allImgs[1]} alt="img" />
 				</SubImgWrapper>
 				<SubImgWrapper>
-					<img src="./images/3.jpg" alt="img" />
+					<img src={allImgs[2]} alt="img" />
 				</SubImgWrapper>
 				<SubImgWrapper>
-					<img src="./images/4.jpg" alt="img" />
+					<img src={allImgs[3]} alt="img" />
 				</SubImgWrapper>
 				<SubImgWrapper>
-					<img src="./images/5.jpg" alt="img" />
+					<img src={allImgs[4]} alt="img" />
 				</SubImgWrapper>
-				<ImgModal>::: 사진 모두보기</ImgModal>
 			</SubImg>
-			{/* </PicInnerWrapper> */}
+
+			<ImgModal onClick={openModal}>::: 사진 모두보기</ImgModal>
 		</PicWrapper>
 	);
 }
@@ -34,6 +38,7 @@ const PicWrapper = styled.div`
 	width: 100%;
 	height: 400px;
 	display: flex;
+	position: relative;
 	margin-bottom: 20px;
 `;
 
@@ -44,11 +49,11 @@ const MainImg = styled.div`
 
 const Mimg = styled.div`
 	width: 100%;
-	height: 420px;
+	height: 400px;
 	cursor: pointer;
 	img {
 		width: 100%;
-		height: 100%;
+		height: 410px;
 		object-fit: cover;
 		border-top-left-radius: 15px;
 		border-bottom-left-radius: 15px;
@@ -61,18 +66,19 @@ const Mimg = styled.div`
 
 const SubImg = styled.div`
 	width: 100%;
-	height: 300px;
+	height: 400px;
 	display: grid;
 	grid-template-columns: repeat(2, 1fr);
 `;
 
 const SubImgWrapper = styled.div`
 	width: auto;
+	height: 200px;
 	margin-left: 10px;
 	cursor: pointer;
 	img {
 		width: 100%;
-		height: 100%;
+		height: 200px;
 		object-fit: cover;
 	}
 	&:hover {
@@ -100,8 +106,8 @@ const SubImgWrapper = styled.div`
 `;
 
 const ImgModal = styled.button`
-	top: 60%;
-	left: 80%;
+	bottom: 10px;
+	right: 10px;
 	width: 150px;
 	height: 40px;
 	font-size: 20px;

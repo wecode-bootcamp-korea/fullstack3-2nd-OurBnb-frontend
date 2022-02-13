@@ -1,9 +1,10 @@
-import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Main from './pages/Main/Main';
-import Detail from './pages/Detail/Detail';
-import ReservationCard from './pages/Detail/components/ReservationCard';
 import List from './pages/List/List';
+import Detail from './pages/Detail/Detail';
+import KakaoLogin from './components/Login/Login';
+import PageNotFound from './pages/PageNotFound/PageNotFound';
+import Trips from './pages/Trips/Trips';
 
 const Router = () => {
 	return (
@@ -11,9 +12,11 @@ const Router = () => {
 			<BrowserRouter>
 				<Routes>
 					<Route path="/" element={<Main />} />
-					<Route path="/list" element={<List />} />
-					<Route path="/detail" element={<Detail />} />
-					<Route path="/card" element={<ReservationCard />} />
+					<Route path="/:location/room" element={<List />} />
+					<Route path="/room/:roomid" element={<Detail />} />
+					<Route path="/kakaologin" element={<KakaoLogin />} />
+					<Route path="page-not-found" element={<PageNotFound />} />
+					<Route path="/trips" element={<Trips />} />
 				</Routes>
 			</BrowserRouter>
 		</div>

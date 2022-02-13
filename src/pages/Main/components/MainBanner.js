@@ -1,9 +1,10 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const MainBanner = () => {
 	return (
-		<>
+		<BannerWrapper>
 			<MainImage>
 				<BannerImage src="../../images/banner.png" alt="banner" />
 				<MainMent>
@@ -11,28 +12,36 @@ const MainBanner = () => {
 					<Recommend>여행지를 찾아드릴게요!</Recommend>
 					<MainButton>
 						<FlexOption>
-							<FlexSearch>유연한 검색</FlexSearch>
+							<Link to="/제주/room">
+								<FlexSearch>유연한 검색</FlexSearch>
+							</Link>
 						</FlexOption>
 					</MainButton>
 				</MainMent>
 			</MainImage>
-		</>
+		</BannerWrapper>
 	);
 };
 
 export default MainBanner;
 
+const BannerWrapper = styled.div`
+	width: 100%;
+	max-width: 1600px;
+	margin: 0 auto;
+`;
+
 // styled-components
 const MainImage = styled.div`
 	margin: -770px 0 0 7%;
-	z-index: 1000;
+	z-index: 99;
 `;
 
 const BannerImage = styled.img`
 	width: 93%;
 	height: 650px;
 	border-radius: 20px;
-	z-index: 1000;
+	z-index: 99;
 `;
 
 const MainMent = styled.div`
@@ -45,7 +54,7 @@ const Recommend = styled.h1`
 	text-align: center;
 	color: #ffffff;
 	font-size: 45px;
-	z-index: 2000;
+	z-index: 100;
 `;
 
 const MainButton = styled.span`
@@ -63,6 +72,7 @@ const FlexOption = styled.button`
 
 const FlexSearch = styled.span`
 	background: linear-gradient(90deg, #6f019c 0%, #c6017e 135.12%);
+	background-clip: text;
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
 `;
