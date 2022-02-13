@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import styled from 'styled-components';
 import { IoIosArrowBack } from 'react-icons/io';
 import { FiShare } from 'react-icons/fi';
@@ -12,7 +11,7 @@ export default function PicModal({ showModal, handleClose, picData }) {
 		<ModalWrapper showModal={showModal}>
 			<Header>
 				<Back>
-					<IoIosArrowBack onClick={handleClose} />
+					<CloseButton onClick={handleClose} />
 				</Back>
 				<ShareSave>
 					<Share>
@@ -53,12 +52,17 @@ const ModalWrapper = styled.section`
 	display: ${props => (props.showModal ? 'block' : 'none')};
 	position: relative;
 	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	padding-bottom: 80px;
 	display: flex;
 	flex-direction: column;
 	width: 100%;
 	height: 100vh;
 	background-color: #fff;
-	z-index: ${props => (props.showModal ? '999999999999' : '-9999')};
+	z-index: ${props => (props.showModal ? '999' : '-999')};
 	overflow-y: scroll;
 `;
 
@@ -77,6 +81,10 @@ const Header = styled.div`
 const Back = styled.div`
 	font-size: 1.5rem;
 	padding: 10px 10px;
+`;
+
+const CloseButton = styled(IoIosArrowBack)`
+	cursor: pointer;
 `;
 
 const ShareSave = styled.div`
@@ -143,7 +151,7 @@ const SaveButtonInner = styled.div`
 //사진섹션
 const PicContainer = styled.section`
 	width: 100%;
-	z-index: ${props => (props.showModal ? '999999' : '-9999')};
+	z-index: ${props => (props.showModal ? '999' : '-999')};
 `;
 
 //사진전체
@@ -154,6 +162,6 @@ const PicBox = styled.section`
 	margin: 0 auto;
 	margin-top: 50px;
 	flex-direction: column;
-	z-index: ${props => (props.showModal ? '9999' : '-9999')};
+	z-index: ${props => (props.showModal ? '999' : '-999')};
 	overflow-y: scroll;
 `;

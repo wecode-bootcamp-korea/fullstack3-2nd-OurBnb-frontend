@@ -161,7 +161,7 @@ const WishHeart = styled.div`
 	height: 45px;
 	border-radius: 50%;
 	background: transparent;
-	z-index: 99;
+	z-index: 9;
 
 	.heart {
 		font-size: 25px;

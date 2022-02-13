@@ -1,11 +1,11 @@
-import ReactDOM from 'react-dom';
+import { createPortal } from 'react-dom';
 import styled from 'styled-components';
 import TypeForm from './TypeForm';
 
 const TypeModal = ({ typeModalIsOpen, handleClose, ref }) => {
 	if (!typeModalIsOpen) return null;
 
-	return ReactDOM.createPortal(
+	return createPortal(
 		<>
 			<Background onClick={handleClose} />
 			<TypeForm ref={ref} />
@@ -22,5 +22,5 @@ const Background = styled.div`
 	left: 0;
 	right: 0;
 	bottom: 0;
-	z-index: 9999;
+	z-index: 999;
 `;

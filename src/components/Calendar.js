@@ -47,13 +47,13 @@ const CalendarWrapper = styled.section`
 	position: absolute;
 	left: 50%;
 	transform: translateX(-50%);
-	color: red;
-	z-index: 9999;
+	z-index: 1000;
 
 	.react-datepicker {
 		display: flex;
 		border-radius: 50px;
 		box-sizing: border-box;
+		z-index: 199000;
 	}
 
 	.react-datepicker__header {

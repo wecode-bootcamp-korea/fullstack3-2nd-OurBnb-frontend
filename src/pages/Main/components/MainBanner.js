@@ -34,14 +34,14 @@ const BannerWrapper = styled.div`
 // styled-components
 const MainImage = styled.div`
 	margin: -770px 0 0 7%;
-	z-index: 1000;
+	z-index: 99;
 `;
 
 const BannerImage = styled.img`
 	width: 93%;
 	height: 650px;
 	border-radius: 20px;
-	z-index: 1000;
+	z-index: 99;
 `;
 
 const MainMent = styled.div`
@@ -54,7 +54,7 @@ const Recommend = styled.h1`
 	text-align: center;
 	color: #ffffff;
 	font-size: 45px;
-	z-index: 2000;
+	z-index: 100;
 `;
 
 const MainButton = styled.span`

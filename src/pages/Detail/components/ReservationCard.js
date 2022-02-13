@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { AiFillFlag, AiOutlineDown } from 'react-icons/ai';
 import { TiStar } from 'react-icons/ti';
-import Calendar from '../../../components/Calendar';
+
 import { POST_RESERVATION_API } from '../../../config';
+import Calendar from '../../../components/Calendar';
 
 export default function ReservationCard({
 	mainInfoData,
@@ -16,7 +17,9 @@ export default function ReservationCard({
 	const price = Number(priceData).toLocaleString();
 	const rate = Number(reviewAvgData).toFixed(1);
 
-	//데이트선택
+	const idValue = sessionStorage.getItem('access_token');
+
+	//예약에 필요한 항목 값 관리
 	const [startDate, setStartDate] = useState();
 	const [endDate, setEndDate] = useState(null);
 	const [checkInDate, setCheckInDate] = useState();
@@ -25,21 +28,21 @@ export default function ReservationCard({
 	const [serviceFee, setServiceFee] = useState(0);
 	const [taxFee, setTaxFee] = useState(0);
 	const [totalFee, setTotalFee] = useState(0);
-	const [dayPrice, setDayPrice] = useState();
-	const [isBtnClicked, setIsBtnClicked] = useState(false);
+	const [dayPrice, setDayPrice] = useState(0);
 
-	const idValue = sessionStorage.getItem('access_token');
-
-	const onChange = dates => {
+	const setTravelDates = dates => {
 		const [start, end] = dates;
 		setStartDate(start);
 		setEndDate(end);
 		setDateInterval(getDateInterval(start, end));
-		setCheckInDate(`${start.getFullYear()}-${start.getMonth() + 1}-${start.getDate()}`);
-		setCheckOutDate(`${end.getFullYear()}-${end.getMonth() + 1}-${end.getDate()}`);
+		if (start) {
+			setCheckInDate(`${start.getFullYear()}-${start.getMonth() + 1}-${start.getDate()}`);
+		}
+		if (end) {
+			setCheckOutDate(`${end.getFullYear()}-${end.getMonth() + 1}-${end.getDate()}`);
+		}
 	};
 
-	//일 수 계산
 	const getDateInterval = (startDate, timeEnd) => {
 		const newStartDate = new Date(startDate);
 		const newEndDate = new Date(timeEnd);
@@ -48,60 +51,58 @@ export default function ReservationCard({
 		return result;
 	};
 
-	const [isOpen, setIsOpen] = useState(false);
+	const [isCalOpen, setCalOpen] = useState(false);
 
 	const handleClick = e => {
 		e.preventDefault();
-		setIsOpen(!isOpen);
+		setCalOpen(!isCalOpen);
+	};
+
+	const closeCalendar = () => {
+		setCalOpen(false);
 	};
 
 	const reservationClick = e => {
+		console.log(checkInDate);
+		console.log(checkOutDate);
 		e.preventDefault();
-		if (!isBtnClicked) {
-			setIsBtnClicked(!isBtnClicked);
+		if (!idValue) {
+			return alert('로그인 먼저 해주세요~');
+		} else if (idValue && (!checkInDate || !checkOutDate)) {
+			return alert('예약 하실 날짜를 입력해주세요!');
+		} else if (idValue && checkInDate && checkOutDate) {
+			alert('예약하시겠습니까?');
+			postReservation();
 		}
-		alert('예약하시겠습니까?');
 	};
 
 	useEffect(() => {
-		setDayPrice(Number(priceData * dateInterval).toLocaleString());
-		setServiceFee(Number(priceData * dateInterval * 0.15).toLocaleString());
-		setTaxFee(Number(priceData * dateInterval * 0.015).toLocaleString());
+		const calculatedFee = Number(priceData * dateInterval.toLocaleString());
+
+		setDayPrice(calculatedFee);
+		setServiceFee(calculatedFee * 0.15);
+		setTaxFee(calculatedFee * 0.15);
 		setTotalFee(
-			Number(
-				priceData * dateInterval +
-					priceData * dateInterval * 0.15 +
-					priceData * dateInterval * 0.015,
-			).toLocaleString(),
+			Number(calculatedFee + calculatedFee * 0.15 + calculatedFee * 0.015).toLocaleString(),
 		);
 	}, [priceData, dateInterval]);
 
-	useEffect(() => {
-		const postReservation = async () => {
-			console.log('reservation Info', roomId, guestCapacity, checkInDate, checkOutDate);
-			const response = await fetch(
-				`${POST_RESERVATION_API}?roomId=${roomId}&guestCount=${guestCapacity}&checkIn=${checkInDate}&checkOut=${checkOutDate}`,
-				{
-					method: 'POST',
-					headers: { 'Content-Type': 'application/json', Authorization: idValue },
-				},
-			);
-			const data = await response.json();
-			console.log('data', data);
-		};
-		postReservation();
-	}, [isBtnClicked]);
-
-	// const { roomId, guestCount, checkIn, checkOut } = req.query;
-
-	// useEffect(() => {
-	// 	const getReviewData = async () => {
-	// 		const response = await fetch(`${GET_REVIEW_API}?roomId=${roomId}`);
-	// 		const data = await response.json();
-	// 		setReviewData(data.reviewInfo);
-	// 	};
-	// 	getReviewData();
-	// }, []);
+	const postReservation = async () => {
+		const response = await fetch(
+			`${POST_RESERVATION_API}?roomId=${roomId}&guestCount=${guestCapacity}&checkIn=${checkInDate}&checkOut=${checkOutDate}`,
+			{
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json', Authorization: idValue },
+			},
+		);
+		if (response.status === 200) {
+			alert('예약이 완료되었습니다.');
+		} else if (response.status === 400) {
+			alert('이방 하태하태~ 벌써 예약되써엉');
+		} else {
+			alert('예약에 완료되지 않았습니다. 다시 시도해주세요.');
+		}
+	};
 
 	return (
 		<Wrapper>
@@ -140,8 +141,9 @@ export default function ReservationCard({
 							<Calendar
 								startDate={startDate}
 								endDate={endDate}
-								onChange={onChange}
-								isOpen={isOpen}
+								onChange={setTravelDates}
+								isOpen={isCalOpen}
+								closeCalendar={closeCalendar}
 							/>
 						</div>
 						<People>
@@ -200,27 +202,25 @@ const Wrapper = styled.section`
 	float: right;
 `;
 
-const Frame = styled.div`
-	/* width: 80; */
+const FlexDiv = styled.div`
 	display: flex;
+`;
+
+const Frame = styled(FlexDiv)`
 	flex-direction: column;
 	box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 3px 0px;
 	border: 1px solid rgb(221, 221, 221);
 	border-radius: 15px 15px 15px 15px;
 `;
 
-const CardContainer = styled.div`
+const CardContainer = styled(FlexDiv)`
 	width: 80%;
-	display: flex;
 	margin: 0 auto;
 	flex-direction: column;
 `;
 
-// const DayPickerInput = styled.div``;
-
-const Declare = styled.div`
+const Declare = styled(FlexDiv)`
 	width: 170px;
-	display: flex;
 	margin: 0 auto;
 	cursor: pointer;
 	margin-top: 20px;
@@ -242,14 +242,12 @@ const DeclareName = styled.span`
 	text-decoration: underline;
 `;
 
-const Price = styled.div`
-	display: flex;
+const Price = styled(FlexDiv)`
 	justify-content: space-between;
 	margin-top: 20px;
 `;
 
-const PriceWrapper = styled.div`
-	display: flex;
+const PriceWrapper = styled(FlexDiv)`
 	align-items: center;
 `;
 
@@ -284,15 +282,12 @@ const Sub = styled.li`
 	}
 `;
 
-const ChoiceDate = styled.div`
-	display: flex;
+const ChoiceDate = styled(FlexDiv)`
 	flex-direction: column;
 	margin-top: 20px;
 `;
 
-const DateTop = styled.div`
-	display: flex;
-`;
+const DateTop = styled(FlexDiv)``;
 
 const CheckIn = styled.div`
 	width: 100%;
@@ -303,13 +298,12 @@ const CheckIn = styled.div`
 	flex-direction: column;
 `;
 
-const CheckOut = styled.div`
+const CheckOut = styled(FlexDiv)`
 	width: 100%;
 	border: 1px solid black;
 	border-left: none;
 	border-top-right-radius: 10px;
 	cursor: pointer;
-	display: flex;
 	flex-direction: column;
 `;
 

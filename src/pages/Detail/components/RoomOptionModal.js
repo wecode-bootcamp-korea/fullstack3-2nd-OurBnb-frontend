@@ -61,7 +61,7 @@ const OptionModalOverlay = styled.div`
 	bottom: 0;
 	right: 0;
 	background-color: rgba(0, 0, 0, 0.6);
-	z-index: 4999;
+	z-index: 9999;
 `;
 
 const OptionModalContainer = styled.div`
@@ -75,9 +75,7 @@ const OptionModalContainer = styled.div`
 	height: 500px;
 	overflow: hidden;
 	transform: translateX(-50%);
-	background-color: pink;
-
-	z-index: 5000;
+	z-index: 10000;
 `;
 
 const OptionModalInner = styled.div`
@@ -90,9 +88,6 @@ const OptionModalInner = styled.div`
 	border-radius: 10px;
 	box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.5);
 	background-color: #fff;
-	/* transform: translateY(-50%); */
 	padding: 40px 20px;
-	background-color: blue;
-
 	overflow-y: scroll;
 `;

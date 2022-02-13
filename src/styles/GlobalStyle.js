@@ -11,6 +11,7 @@ const GlobalStyle = createGlobalStyle`
     color: ${({ theme }) => theme.foreground};
     font-family: 'Outfit', Roboto, sans-serif;
     font-size: 10px;
+    overflow-x: hidden;
   }
   a,
   a:visited{
