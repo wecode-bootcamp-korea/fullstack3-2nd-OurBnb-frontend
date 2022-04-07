@@ -5,6 +5,7 @@ import Detail from './pages/Detail/Detail';
 import KakaoLogin from './components/Login/Login';
 import PageNotFound from './pages/PageNotFound/PageNotFound';
 import Trips from './pages/Trips/Trips';
+import ImgLoader from './pages/List/ImgLoader';
 
 const Router = () => {
 	return (
@@ -17,6 +18,7 @@ const Router = () => {
 					<Route path="/kakaologin" element={<KakaoLogin />} />
 					<Route path="page-not-found" element={<PageNotFound />} />
 					<Route path="/trips" element={<Trips />} />
+					<Route path="/img" element={<ImgLoader />} />
 				</Routes>
 			</BrowserRouter>
 		</div>

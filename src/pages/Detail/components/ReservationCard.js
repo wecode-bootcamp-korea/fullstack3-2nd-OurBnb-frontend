@@ -79,9 +79,9 @@ export default function ReservationCard({
 	useEffect(() => {
 		const calculatedFee = Number(priceData * dateInterval.toLocaleString());
 
-		setDayPrice(calculatedFee);
-		setServiceFee(calculatedFee * 0.15);
-		setTaxFee(calculatedFee * 0.15);
+		setDayPrice(calculatedFee.toLocaleString());
+		setServiceFee((calculatedFee * 0.15).toLocaleString());
+		setTaxFee((calculatedFee * 0.15).toLocaleString());
 		setTotalFee(
 			Number(calculatedFee + calculatedFee * 0.15 + calculatedFee * 0.015).toLocaleString(),
 		);
